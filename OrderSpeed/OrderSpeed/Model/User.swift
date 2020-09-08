@@ -19,6 +19,7 @@ class UserBeer: NSObject, NSSecureCoding {
     var userID:String
     var avatar:String
     var phoneNumber: String
+    var address: String
     var tokenAPN:String
     
     private struct NSCoderKeys {
@@ -28,16 +29,18 @@ class UserBeer: NSObject, NSSecureCoding {
         static let userIDKey = "userID"
         static let avatarKey = "avatar"
         static let phoneNumberKey = "phoneNumber"
+        static let addressKey = "address"
         static let tokenAPNKey = "tokenAPN"
     }
     
-    init(id: String, roleid: String, email: String, fullname: String, avatar: String, phoneNumber: String, tokenAPN: String) {
+    init(id: String, roleid: String, email: String, fullname: String, avatar: String, phoneNumber: String, address: String, tokenAPN: String) {
         self.userID = id
         self.roleID = roleid
         self.email = email
         self.fullname = fullname
         self.avatar = avatar
         self.phoneNumber = phoneNumber
+        self.address = address
         self.tokenAPN = tokenAPN
     }
     
@@ -60,10 +63,13 @@ class UserBeer: NSObject, NSSecureCoding {
         guard let phoneNumberTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.phoneNumberKey) as String? else {
             return nil
         }
+        guard let addressTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.addressKey) as String? else {
+            return nil
+        }
         guard let tokenAPNTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.tokenAPNKey) as String? else {
             return nil
         }
-        self.init(id: id, roleid: roleIDTemp, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, tokenAPN: tokenAPNTemp)
+        self.init(id: id, roleid: roleIDTemp, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, address: addressTemp, tokenAPN: tokenAPNTemp)
     }
     
     func encode(with aCoder:NSCoder) -> Void {
@@ -73,6 +79,7 @@ class UserBeer: NSObject, NSSecureCoding {
         aCoder.encode(fullname as NSString, forKey: NSCoderKeys.fullNameKey)
         aCoder.encode(avatar as NSString, forKey: NSCoderKeys.avatarKey)
         aCoder.encode(phoneNumber as NSString, forKey: NSCoderKeys.phoneNumberKey)
+        aCoder.encode(address as NSString, forKey: NSCoderKeys.addressKey)
         aCoder.encode(tokenAPN as NSString, forKey: NSCoderKeys.tokenAPNKey)
     }
     

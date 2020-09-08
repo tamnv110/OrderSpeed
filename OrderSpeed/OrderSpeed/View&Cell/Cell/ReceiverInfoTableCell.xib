@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="397" id="KGk-i7-Jjw" customClass="ReceiverInfoTableCell" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="397"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="397"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NGƯỜI NHẬN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-y4-gBk">
+                        <rect key="frame" x="16" y="16" width="95" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="akN-B7-1YG">
+                        <rect key="frame" x="16" y="42" width="288" height="252"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Họ tên người nhận" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B0C-Sw-bwW" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LUh-xZ-b8N"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại người nhận" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GhI-hq-HjP" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="52" width="288" height="44"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugj-rY-djR" customClass="UIControl">
+                                <rect key="frame" x="0.0" y="104" width="288" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn tỉnh/thành phố" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TqV-fk-7Su" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_cell" translatesAutoresizingMaskIntoConstraints="NO" id="lBz-8Z-MHU">
+                                        <rect key="frame" x="275" y="15" width="13" height="14"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="TqV-fk-7Su" firstAttribute="leading" secondItem="ugj-rY-djR" secondAttribute="leading" id="2AP-cm-MV6"/>
+                                    <constraint firstItem="lBz-8Z-MHU" firstAttribute="centerY" secondItem="ugj-rY-djR" secondAttribute="centerY" id="85U-rQ-OGh"/>
+                                    <constraint firstAttribute="bottom" secondItem="TqV-fk-7Su" secondAttribute="bottom" id="Aor-r2-n8F"/>
+                                    <constraint firstItem="TqV-fk-7Su" firstAttribute="top" secondItem="ugj-rY-djR" secondAttribute="top" id="ErK-h0-wG0"/>
+                                    <constraint firstAttribute="trailing" secondItem="lBz-8Z-MHU" secondAttribute="trailing" id="Mme-JA-ITB"/>
+                                    <constraint firstAttribute="trailing" secondItem="TqV-fk-7Su" secondAttribute="trailing" id="cBw-85-kGa"/>
+                                </constraints>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYI-Gw-Di3" customClass="UIControl">
+                                <rect key="frame" x="0.0" y="156" width="288" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn quận/huyện" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5gD-ja-9Kb" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_accessory_cell" translatesAutoresizingMaskIntoConstraints="NO" id="PfF-ot-d8T">
+                                        <rect key="frame" x="275" y="15" width="13" height="14"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="5gD-ja-9Kb" firstAttribute="leading" secondItem="nYI-Gw-Di3" secondAttribute="leading" id="2Ja-wz-qbR"/>
+                                    <constraint firstAttribute="trailing" secondItem="PfF-ot-d8T" secondAttribute="trailing" id="dKZ-1p-JrI"/>
+                                    <constraint firstItem="5gD-ja-9Kb" firstAttribute="top" secondItem="nYI-Gw-Di3" secondAttribute="top" id="iG7-S2-hxT"/>
+                                    <constraint firstAttribute="bottom" secondItem="5gD-ja-9Kb" secondAttribute="bottom" id="ocj-hR-IgH"/>
+                                    <constraint firstAttribute="trailing" secondItem="5gD-ja-9Kb" secondAttribute="trailing" id="pVn-ns-ODJ"/>
+                                    <constraint firstItem="PfF-ot-d8T" firstAttribute="centerY" secondItem="nYI-Gw-Di3" secondAttribute="centerY" id="v8m-s5-Bxr"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Địa chỉ nhận hàng" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRM-7W-mVu" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="208" width="288" height="44"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                    </stackView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UOs-62-Xf4" customClass="CustomTextViewPlaceHolder" customModule="OrderSpeed" customModuleProvider="target">
+                        <rect key="frame" x="16" y="302" width="288" height="80"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="8tE-VA-HyS"/>
+                        </constraints>
+                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Ghi chú"/>
+                        </userDefinedRuntimeAttributes>
+                    </textView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QgY-zP-X02">
+                        <rect key="frame" x="16" y="382" width="288" height="1"/>
+                        <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="RGI-lT-zvN"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Xhr-y4-gBk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1D4-Nl-h8W"/>
+                    <constraint firstItem="QgY-zP-X02" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1yA-bn-P3h"/>
+                    <constraint firstItem="UOs-62-Xf4" firstAttribute="top" secondItem="akN-B7-1YG" secondAttribute="bottom" constant="8" id="2f3-0k-Lz9"/>
+                    <constraint firstItem="UOs-62-Xf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6YV-wd-G8V"/>
+                    <constraint firstAttribute="trailing" secondItem="akN-B7-1YG" secondAttribute="trailing" constant="16" id="7VR-CI-RUd"/>
+                    <constraint firstItem="akN-B7-1YG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GfS-Mf-TAG"/>
+                    <constraint firstItem="QgY-zP-X02" firstAttribute="top" secondItem="UOs-62-Xf4" secondAttribute="bottom" id="Psj-Na-z4u"/>
+                    <constraint firstAttribute="trailing" secondItem="QgY-zP-X02" secondAttribute="trailing" constant="16" id="Xde-lZ-f3e"/>
+                    <constraint firstItem="Xhr-y4-gBk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="YhX-24-QNv"/>
+                    <constraint firstItem="akN-B7-1YG" firstAttribute="top" secondItem="Xhr-y4-gBk" secondAttribute="bottom" constant="8" id="hDo-U8-wUm"/>
+                    <constraint firstAttribute="trailing" secondItem="UOs-62-Xf4" secondAttribute="trailing" constant="16" id="sKQ-PF-ZCh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="-517.39130434782612" y="48.549107142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_accessory_cell" width="13" height="14"/>
+    </resources>
+</document>

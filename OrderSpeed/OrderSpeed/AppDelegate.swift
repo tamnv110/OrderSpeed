@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var user:UserBeer?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
-        self.window?.rootViewController = vc
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
+//        self.window?.rootViewController = vc
         
         FirebaseApp.configure()
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance()?.delegate = self
-        self.window?.makeKeyAndVisible()
+//        self.window?.makeKeyAndVisible()
         return true
     }
 

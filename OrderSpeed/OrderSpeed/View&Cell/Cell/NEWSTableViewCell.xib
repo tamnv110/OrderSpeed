@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="247" id="KGk-i7-Jjw" customClass="NEWSTableViewCell" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ake-fA-rGF">
+                        <rect key="frame" x="18" y="2" width="284" height="227"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouL-UV-ARu">
+                        <rect key="frame" x="16" y="0.0" width="288" height="231"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50q-9U-Low">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="119.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIN TỨC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbM-QM-hft">
+                                        <rect key="frame" x="16" y="8" width="264" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cơ hội mua sắm giảm 50% tại Taobao" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFG-fW-OWh">
+                                        <rect key="frame" x="16" y="44" width="264" height="57.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nbM-QM-hft" secondAttribute="trailing" constant="8" id="A60-7M-maw"/>
+                                    <constraint firstAttribute="bottom" secondItem="eFG-fW-OWh" secondAttribute="bottom" constant="18" id="Rxb-mA-yr5"/>
+                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="U07-Na-3fG"/>
+                                    <constraint firstItem="nbM-QM-hft" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="top" constant="8" id="dHA-6M-LAA"/>
+                                    <constraint firstItem="nbM-QM-hft" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="oyr-1z-xdG"/>
+                                    <constraint firstAttribute="trailing" secondItem="eFG-fW-OWh" secondAttribute="trailing" constant="8" id="psG-Ns-xm2"/>
+                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="top" secondItem="nbM-QM-hft" secondAttribute="bottom" constant="18" id="wiA-3N-0wM"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ney-VV-5Wa">
+                                <rect key="frame" x="16" y="139.5" width="264" height="71.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ney-VV-5Wa" secondAttribute="bottom" constant="20" id="6DP-IK-zs5"/>
+                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="leading" secondItem="ouL-UV-ARu" secondAttribute="leading" constant="16" id="AEx-E2-fdN"/>
+                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="bottom" constant="20" id="AHV-nH-b4R"/>
+                            <constraint firstAttribute="trailing" secondItem="50q-9U-Low" secondAttribute="trailing" id="F5l-tn-v2v"/>
+                            <constraint firstAttribute="trailing" secondItem="Ney-VV-5Wa" secondAttribute="trailing" constant="8" id="HL7-HV-Jjg"/>
+                            <constraint firstItem="50q-9U-Low" firstAttribute="top" secondItem="ouL-UV-ARu" secondAttribute="top" id="OrF-Ov-W5n"/>
+                            <constraint firstItem="50q-9U-Low" firstAttribute="leading" secondItem="ouL-UV-ARu" secondAttribute="leading" id="cXg-Pw-f2u"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ouL-UV-ARu" secondAttribute="trailing" constant="16" id="5Ih-8O-ome"/>
+                    <constraint firstAttribute="bottom" secondItem="ouL-UV-ARu" secondAttribute="bottom" constant="16" id="Klq-MB-BkU"/>
+                    <constraint firstItem="Ake-fA-rGF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="PI6-TK-Ujc"/>
+                    <constraint firstAttribute="trailing" secondItem="Ake-fA-rGF" secondAttribute="trailing" constant="18" id="SD7-dJ-tKs"/>
+                    <constraint firstAttribute="bottom" secondItem="Ake-fA-rGF" secondAttribute="bottom" constant="18" id="beR-a4-O8Y"/>
+                    <constraint firstItem="Ake-fA-rGF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="sqL-Zp-NYu"/>
+                    <constraint firstItem="ouL-UV-ARu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vfJ-Dy-0rr"/>
+                    <constraint firstItem="ouL-UV-ARu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vrm-yN-E5F"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblContent" destination="Ney-VV-5Wa" id="gdm-gt-ocv"/>
+                <outlet property="lblTitle" destination="eFG-fW-OWh" id="K6F-y6-juA"/>
+                <outlet property="lblType" destination="nbM-QM-hft" id="SR6-u5-mI4"/>
+                <outlet property="viewMain" destination="Ake-fA-rGF" id="i3U-C9-bfg"/>
+                <outlet property="viewTitle" destination="50q-9U-Low" id="qnS-ua-3yS"/>
+            </connections>
+            <point key="canvasLocation" x="-52.173913043478265" y="-21.763392857142858"/>
+        </tableViewCell>
+    </objects>
+</document>

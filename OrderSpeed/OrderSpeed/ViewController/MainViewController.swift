@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func showAlertView(_ sThongBao:String) {
+    func showErrorAlertView(_ sThongBao:String) {
         let alert = UIAlertController(title: "Lỗi", message: sThongBao, preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: "Đóng", style: .cancel, handler: nil)
         alert.addAction(actionCancel)

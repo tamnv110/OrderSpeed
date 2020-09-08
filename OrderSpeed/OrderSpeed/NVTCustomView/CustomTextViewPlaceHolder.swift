@@ -69,10 +69,11 @@ import UIKit
         bottomLine.backgroundColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1)
         bottomLine.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(bottomLine)
+
         bottomLine.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         bottomLine.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         bottomLine.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        bottomLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        bottomLine.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
 }
 

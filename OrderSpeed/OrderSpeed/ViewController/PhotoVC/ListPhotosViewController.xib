@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListPhotosViewController" customModule="TasteOfHome" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="Cr7-B8-jhk" id="4AH-lh-T9Q"/>
+                <outlet property="tblAlbum" destination="NdB-mb-Qbk" id="KLI-DE-gmD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewAlbumOption" destination="xj7-eF-Vsy" id="YvP-pT-BTa"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Cr7-B8-jhk">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="2fS-3M-yuI">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="8" minY="5" maxX="8" maxY="5"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="GXz-pj-gYG"/>
+                        <outlet property="delegate" destination="-1" id="LDJ-pZ-QZu"/>
+                    </connections>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-eF-Vsy">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NdB-mb-Qbk">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="596.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="Des-DR-phM"/>
+                                <outlet property="delegate" destination="-1" id="cQt-B8-Z6a"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="NdB-mb-Qbk" secondAttribute="trailing" id="8fU-Jv-j4k"/>
+                        <constraint firstItem="NdB-mb-Qbk" firstAttribute="leading" secondItem="xj7-eF-Vsy" secondAttribute="leading" id="Dm0-Gk-U6o"/>
+                        <constraint firstItem="NdB-mb-Qbk" firstAttribute="height" secondItem="xj7-eF-Vsy" secondAttribute="height" multiplier="0.7" id="Wrc-c7-Lqk"/>
+                        <constraint firstItem="NdB-mb-Qbk" firstAttribute="top" secondItem="xj7-eF-Vsy" secondAttribute="top" id="z6s-6J-3Bn"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Cr7-B8-jhk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2Hh-yT-VrF"/>
+                <constraint firstAttribute="bottom" secondItem="xj7-eF-Vsy" secondAttribute="bottom" id="6fZ-fE-wUX"/>
+                <constraint firstItem="Cr7-B8-jhk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="HMl-SR-JYF"/>
+                <constraint firstItem="xj7-eF-Vsy" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="MEp-dg-jco"/>
+                <constraint firstItem="xj7-eF-Vsy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PGR-9n-BZi"/>
+                <constraint firstItem="Cr7-B8-jhk" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="UMf-iY-IBa"/>
+                <constraint firstItem="xj7-eF-Vsy" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="YAJ-w1-d7H"/>
+                <constraint firstAttribute="bottom" secondItem="Cr7-B8-jhk" secondAttribute="bottom" id="oIe-Dc-nvo"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="-110.14492753623189" y="137.94642857142856"/>
+        </view>
+    </objects>
+</document>

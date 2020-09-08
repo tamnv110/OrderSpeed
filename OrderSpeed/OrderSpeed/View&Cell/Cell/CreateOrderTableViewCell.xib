@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="537" id="KGk-i7-Jjw" customClass="CreateOrderTableViewCell" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="537"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="537"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Gx0-uD-YYH">
+                        <rect key="frame" x="16" y="0.0" width="288" height="262"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Link sản phẩm" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJq-LS-o0G" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5FI-zw-GF1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tên sản phẩm" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTD-eu-FcJ" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="53" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Lh5-w2-Dxz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Màu sắc, kích thước" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qZj-d2-3R2" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="106" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LE4-4Z-y1L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số lượng" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qM7-8h-fuR" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="159" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="jfU-35-JzY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Giá tiền" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1I7-4M-r6e" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="212" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="70n-pJ-MOd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
+                            </textField>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ảnh chụp sản phẩm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g25-9v-gpR">
+                        <rect key="frame" x="16" y="278" width="136" height="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YE2-ZK-OKR">
+                        <rect key="frame" x="16" y="305" width="288" height="128"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="128" id="ADf-hu-xqZ"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="R1p-ds-h8a">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W13-YQ-yeM" customClass="CustomTextViewPlaceHolder" customModule="OrderSpeed" customModuleProvider="target">
+                        <rect key="frame" x="16" y="445" width="288" height="80"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="Eyy-ow-s8c"/>
+                        </constraints>
+                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Ghi chú"/>
+                        </userDefinedRuntimeAttributes>
+                    </textView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eww-HW-YiQ">
+                        <rect key="frame" x="16" y="525" width="288" height="1"/>
+                        <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="G9x-To-KWx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="W13-YQ-yeM" firstAttribute="top" secondItem="YE2-ZK-OKR" secondAttribute="bottom" constant="12" id="15m-kS-h7g"/>
+                    <constraint firstItem="Gx0-uD-YYH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3Kx-Ae-jj0"/>
+                    <constraint firstAttribute="trailing" secondItem="Gx0-uD-YYH" secondAttribute="trailing" constant="16" id="Ao5-Fy-jMU"/>
+                    <constraint firstItem="YE2-ZK-OKR" firstAttribute="top" secondItem="g25-9v-gpR" secondAttribute="bottom" constant="8" id="Br3-WU-Rce"/>
+                    <constraint firstItem="YE2-ZK-OKR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="CgX-ZV-gur"/>
+                    <constraint firstAttribute="bottom" secondItem="W13-YQ-yeM" secondAttribute="bottom" constant="12" id="Dde-fi-3va"/>
+                    <constraint firstAttribute="trailing" secondItem="YE2-ZK-OKR" secondAttribute="trailing" constant="16" id="KhY-tS-cRt"/>
+                    <constraint firstAttribute="trailing" secondItem="eww-HW-YiQ" secondAttribute="trailing" constant="16" id="Kzo-1d-pDF"/>
+                    <constraint firstItem="W13-YQ-yeM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YKN-PC-S6h"/>
+                    <constraint firstItem="Gx0-uD-YYH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ZUk-IP-PO1"/>
+                    <constraint firstItem="g25-9v-gpR" firstAttribute="top" secondItem="Gx0-uD-YYH" secondAttribute="bottom" constant="16" id="dwJ-hl-25O"/>
+                    <constraint firstAttribute="trailing" secondItem="W13-YQ-yeM" secondAttribute="trailing" constant="16" id="exr-5r-NKY"/>
+                    <constraint firstItem="g25-9v-gpR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fNT-82-9Rh"/>
+                    <constraint firstItem="eww-HW-YiQ" firstAttribute="top" secondItem="W13-YQ-yeM" secondAttribute="bottom" id="jxf-In-v9P"/>
+                    <constraint firstItem="eww-HW-YiQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pDk-gg-yYX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collectionImage" destination="YE2-ZK-OKR" id="9as-W9-BeE"/>
+                <outlet property="tfLink" destination="VJq-LS-o0G" id="guJ-eG-cXJ"/>
+                <outlet property="tfName" destination="BTD-eu-FcJ" id="CrL-83-HDi"/>
+                <outlet property="tfNote" destination="W13-YQ-yeM" id="wrb-CK-vF1"/>
+                <outlet property="tfNumber" destination="qM7-8h-fuR" id="2q5-nJ-rrw"/>
+                <outlet property="tfPrice" destination="1I7-4M-r6e" id="V0N-LE-7W3"/>
+                <outlet property="tfSize" destination="qZj-d2-3R2" id="ttq-Cj-NKf"/>
+            </connections>
+            <point key="canvasLocation" x="-336.23188405797106" y="38.504464285714285"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="172" id="KGk-i7-Jjw" customClass="BankInfoTableViewCell" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="370" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="370" height="172"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ngân hàng TMCP kỹ thương Việt Nam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-kZ-cDY">
+                        <rect key="frame" x="16" y="16" width="338" height="21.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tcb_image" translatesAutoresizingMaskIntoConstraints="NO" id="uEJ-DH-FXq">
+                        <rect key="frame" x="16" y="53.5" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="uEJ-DH-FXq" secondAttribute="height" id="n5c-Ub-qUT"/>
+                            <constraint firstAttribute="width" constant="80" id="sTA-ng-Nnq"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cwd-Tl-B60">
+                        <rect key="frame" x="104" y="49.5" width="212" height="77.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6et-ZB-FlM">
+                                <rect key="frame" x="0.0" y="0.0" width="212" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4n-FE-euH">
+                                <rect key="frame" x="0.0" y="28.5" width="212" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfr-IO-d63">
+                                <rect key="frame" x="0.0" y="57" width="212" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHX-0n-i26">
+                        <rect key="frame" x="324" y="73.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Zde-kc-4lh"/>
+                            <constraint firstAttribute="width" secondItem="NHX-0n-i26" secondAttribute="height" id="upV-YR-IQR"/>
+                        </constraints>
+                        <state key="normal" image="icon_copy"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="NHX-0n-i26" firstAttribute="centerY" secondItem="cwd-Tl-B60" secondAttribute="centerY" id="3sv-x0-91q"/>
+                    <constraint firstItem="uEJ-DH-FXq" firstAttribute="top" secondItem="mWl-kZ-cDY" secondAttribute="bottom" constant="16" id="4yc-gY-XkW"/>
+                    <constraint firstItem="NHX-0n-i26" firstAttribute="leading" secondItem="cwd-Tl-B60" secondAttribute="trailing" constant="8" id="6cW-Ri-1cQ"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cwd-Tl-B60" secondAttribute="bottom" constant="16" id="9dJ-U3-swy"/>
+                    <constraint firstAttribute="trailing" secondItem="NHX-0n-i26" secondAttribute="trailing" constant="16" id="GCv-0E-4YN"/>
+                    <constraint firstItem="cwd-Tl-B60" firstAttribute="top" secondItem="mWl-kZ-cDY" secondAttribute="bottom" constant="12" id="JbT-as-ROi"/>
+                    <constraint firstItem="cwd-Tl-B60" firstAttribute="leading" secondItem="uEJ-DH-FXq" secondAttribute="trailing" constant="8" id="NCU-C3-jUK"/>
+                    <constraint firstItem="mWl-kZ-cDY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Yoa-Kp-AJR"/>
+                    <constraint firstItem="uEJ-DH-FXq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cvR-YI-1uV"/>
+                    <constraint firstAttribute="trailing" secondItem="mWl-kZ-cDY" secondAttribute="trailing" constant="16" id="mxH-7s-aMq"/>
+                    <constraint firstItem="mWl-kZ-cDY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="zIG-Sv-Xes"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblName" destination="mWl-kZ-cDY" id="U9u-XR-Drc"/>
+            </connections>
+            <point key="canvasLocation" x="-155.07246376811597" y="50.892857142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_copy" width="20" height="20"/>
+        <image name="tcb_image" width="108" height="108"/>
+    </resources>
+</document>
