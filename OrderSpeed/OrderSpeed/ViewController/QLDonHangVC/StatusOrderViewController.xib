@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusOrderViewController" customModule="OrderSpeed" customModuleProvider="target">
+            <connections>
+                <outlet property="tbStatus" destination="KFI-0S-Gvn" id="vc0-1I-7VP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HqY-qg-EDM">
+                    <rect key="frame" x="123.5" y="44" width="167" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="xEG-mi-eVz"/>
+                    </constraints>
+                    <segments>
+                        <segment title="Hành trình"/>
+                        <segment title="Hỗ trợ"/>
+                    </segments>
+                    <color key="selectedSegmentTintColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KFI-0S-Gvn">
+                    <rect key="frame" x="0.0" y="90" width="414" height="806"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="oKL-Xq-x43"/>
+                        <outlet property="delegate" destination="-1" id="OTQ-LW-Cpw"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="KFI-0S-Gvn" secondAttribute="bottom" id="30L-Pc-rtP"/>
+                <constraint firstItem="HqY-qg-EDM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="EhI-s5-jom"/>
+                <constraint firstItem="KFI-0S-Gvn" firstAttribute="top" secondItem="HqY-qg-EDM" secondAttribute="bottom" constant="12" id="Men-J4-0yt"/>
+                <constraint firstItem="HqY-qg-EDM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Vgh-7g-47l"/>
+                <constraint firstItem="KFI-0S-Gvn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ktx-eK-Aft"/>
+                <constraint firstItem="KFI-0S-Gvn" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="vNv-s7-1nQ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
+        </view>
+    </objects>
+</document>

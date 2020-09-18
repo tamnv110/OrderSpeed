@@ -75,7 +75,8 @@ class NVTProgressHUD {
         imgvHud.startAnimating()
         viewHud.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.viewHud)
-
+        view.bringSubviewToFront(self.viewHud)
+        
         self.viewHud.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.viewHud.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.viewHud.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

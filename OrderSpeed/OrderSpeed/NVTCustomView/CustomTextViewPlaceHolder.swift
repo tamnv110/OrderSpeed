@@ -8,8 +8,12 @@
 
 import UIKit
 
-@IBDesignable class CustomTextViewPlaceHolder: UITextView {
+protocol CustomTextViewDelegate {
+    func customTextViewEndEditting(_ textView: UITextView)
+}
 
+@IBDesignable class CustomTextViewPlaceHolder: UITextView {
+    var customDelegate: CustomTextViewDelegate?
     @IBInspectable public var placeholder: String? {
         get {
             var placeholderText: String?
@@ -82,5 +86,9 @@ extension CustomTextViewPlaceHolder : UITextViewDelegate {
         if let placeholderLabel = self.viewWithTag(100) as? UILabel {
             placeholderLabel.isHidden = self.text.count > 0
         }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        customDelegate?.customTextViewEndEditting(textView)
     }
 }

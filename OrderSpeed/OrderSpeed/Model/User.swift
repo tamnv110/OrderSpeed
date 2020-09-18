@@ -20,6 +20,8 @@ class UserBeer: NSObject, NSSecureCoding {
     var avatar:String
     var phoneNumber: String
     var address: String
+    var cityName: String
+    var districtName: String
     var tokenAPN:String
     
     private struct NSCoderKeys {
@@ -30,10 +32,12 @@ class UserBeer: NSObject, NSSecureCoding {
         static let avatarKey = "avatar"
         static let phoneNumberKey = "phoneNumber"
         static let addressKey = "address"
+        static let cityNameKey = "cityName"
+        static let districtNameKey = "districtNameKey"
         static let tokenAPNKey = "tokenAPN"
     }
     
-    init(id: String, roleid: String, email: String, fullname: String, avatar: String, phoneNumber: String, address: String, tokenAPN: String) {
+    init(id: String, roleid: String, email: String, fullname: String, avatar: String, phoneNumber: String, address: String, cityName: String, districtName: String, tokenAPN: String) {
         self.userID = id
         self.roleID = roleid
         self.email = email
@@ -41,6 +45,8 @@ class UserBeer: NSObject, NSSecureCoding {
         self.avatar = avatar
         self.phoneNumber = phoneNumber
         self.address = address
+        self.cityName = cityName
+        self.districtName = districtName
         self.tokenAPN = tokenAPN
     }
     
@@ -66,10 +72,16 @@ class UserBeer: NSObject, NSSecureCoding {
         guard let addressTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.addressKey) as String? else {
             return nil
         }
+        guard let cityNameTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.cityNameKey) as String? else {
+            return nil
+        }
+        guard let districtNameTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.districtNameKey) as String? else {
+            return nil
+        }
         guard let tokenAPNTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.tokenAPNKey) as String? else {
             return nil
         }
-        self.init(id: id, roleid: roleIDTemp, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, address: addressTemp, tokenAPN: tokenAPNTemp)
+        self.init(id: id, roleid: roleIDTemp, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, address: addressTemp, cityName: cityNameTemp, districtName: districtNameTemp, tokenAPN: tokenAPNTemp)
     }
     
     func encode(with aCoder:NSCoder) -> Void {
@@ -80,6 +92,8 @@ class UserBeer: NSObject, NSSecureCoding {
         aCoder.encode(avatar as NSString, forKey: NSCoderKeys.avatarKey)
         aCoder.encode(phoneNumber as NSString, forKey: NSCoderKeys.phoneNumberKey)
         aCoder.encode(address as NSString, forKey: NSCoderKeys.addressKey)
+        aCoder.encode(cityName as NSString, forKey: NSCoderKeys.cityNameKey)
+        aCoder.encode(districtName as NSString, forKey: NSCoderKeys.districtNameKey)
         aCoder.encode(tokenAPN as NSString, forKey: NSCoderKeys.tokenAPNKey)
     }
     

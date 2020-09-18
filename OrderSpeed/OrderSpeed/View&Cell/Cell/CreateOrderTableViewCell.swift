@@ -11,12 +11,12 @@ import UIKit
 
 
 protocol CreateOrderCellDelegate {
-    func updateInfoOrderProduct(_ item: OrderProductModel?)
+    func updateInfoOrderProduct(_ item: ProductModel?)
     func eventChooseProductImages(_ cell: CreateOrderTableViewCell)
 }
 
 class CreateOrderTableViewCell: UITableViewCell {
-
+    private let TAG = "CreateOrderTableViewCell"
     @IBOutlet weak var tfLink: BottomLineTextField!
     @IBOutlet weak var tfName: BottomLineTextField!
     @IBOutlet weak var tfSize: BottomLineTextField!
@@ -25,23 +25,8 @@ class CreateOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionImage: UICollectionView!
     @IBOutlet weak var tfNote: CustomTextViewPlaceHolder!
     var delegate: CreateOrderCellDelegate?
-
-    var orderProduct: OrderProductModel? {
-        didSet {
-            DispatchQueue.main.async {
-                self.tfLink.text = self.orderProduct?.link
-                self.tfName.text = self.orderProduct?.name
-                self.tfSize.text = self.orderProduct?.size
-                let number = self.orderProduct?.number ?? 0
-                self.tfNumber.text = (number > 0) ? "\(number)" : nil
-                let price = self.orderProduct?.price ?? 0
-                self.tfPrice.text = (price > 0) ? String(format: "%.2f", price) : nil
-                DispatchQueue.main.async {
-                    self.collectionImage.reloadData()
-                }
-            }
-        }
-    }
+    
+    var orderProduct: ProductModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +36,12 @@ class CreateOrderTableViewCell: UITableViewCell {
         tfNumber.delegate = self
         tfPrice.delegate = self
 
+        tfLink.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        tfName.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        tfSize.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        tfNumber.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        tfPrice.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        
         let lblRightView = UILabel()
         lblRightView.text = "¥"
         lblRightView.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -61,6 +52,23 @@ class CreateOrderTableViewCell: UITableViewCell {
         collectionImage.delegate = self
         collectionImage.dataSource = self
         collectionImage.register(UINib(nibName: "ImageProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImageProductCollectionViewCell")
+    }
+    
+    func showInfo(_ orderProduct: ProductModel?) {
+        self.orderProduct = orderProduct
+        DispatchQueue.main.async {
+            self.tfLink.text = self.orderProduct?.link
+            self.tfName.text = self.orderProduct?.name
+            self.tfSize.text = self.orderProduct?.option
+            let number = self.orderProduct?.amount ?? 0
+            self.tfNumber.text = (number > 0) ? "\(number)" : nil
+            let price = self.orderProduct?.price ?? 0
+            self.tfPrice.text = (price > 0) ? String(format: "%.2f", price) : nil
+            self.tfNote.text = self.orderProduct?.note
+            DispatchQueue.main.async {
+                self.collectionImage.reloadData()
+            }
+        }
     }
     
     func checkInput() -> Bool {
@@ -77,12 +85,34 @@ class CreateOrderTableViewCell: UITableViewCell {
     
     @objc func eventChooseDeleteImage(_ sender: UIButton) {
         if let cell = sender.superview?.superview as? ImageProductCollectionViewCell, let indexPath = collectionImage.indexPath(for: cell) {
-            print("\(#function) - \(#line) - indexPath : \(indexPath.row)")
+            print("\(TAG) - \(#function) - \(#line) - indexPath : \(indexPath.row)")
             orderProduct?.arrProductImages?.remove(at: indexPath.row)
+            delegate?.updateInfoOrderProduct(orderProduct)
             DispatchQueue.main.async {
                 self.collectionImage.reloadData()
             }
         }
+    }
+    
+    @objc func editingChanged(_ tf: BottomLineTextField) {
+        print("\(TAG) - \(#function) - \(#line) - editing : \(tf.text)")
+        switch tf {
+        case tfLink:
+            orderProduct?.link = tfLink.text ?? ""
+        case tfName:
+            orderProduct?.name = tfName.text ?? ""
+        case tfSize:
+            orderProduct?.option = tfSize.text ?? ""
+        case tfNumber:
+            orderProduct?.amount = Int(tfNumber.text ?? "") ?? 0
+        case tfPrice:
+            let temp = Double(tfPrice.text ?? "") ?? 0
+            print("\(TAG) - \(#function) - \(#line) - temp : \(temp)")
+            orderProduct?.price = Double(tfPrice.text ?? "") ?? 0
+        default:
+            print("\(TAG) - \(#function) - \(#line) - default")
+        }
+        delegate?.updateInfoOrderProduct(orderProduct)
     }
 }
 
@@ -97,26 +127,6 @@ extension CreateOrderTableViewCell: UITextFieldDelegate {
             tfNumber.becomeFirstResponder()
         }
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField {
-        case tfLink:
-            orderProduct?.link = tfLink.text ?? ""
-        case tfName:
-            orderProduct?.name = tfName.text ?? ""
-        case tfSize:
-            orderProduct?.size = tfSize.text ?? ""
-        case tfNumber:
-            orderProduct?.number = Int(tfNumber.text ?? "") ?? 0
-        case tfPrice:
-            let temp = Double(tfPrice.text ?? "") ?? 0
-            print("CreateOrderTableViewCell - \(#function) - \(#line) - temp : \(temp)")
-            orderProduct?.price = Double(tfPrice.text ?? "") ?? 0
-        default:
-            print("CreateOrderTableViewCell - \(#function) - \(#line) - default")
-        }
-        delegate?.updateInfoOrderProduct(orderProduct)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

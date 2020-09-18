@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="height" constant="50" id="Lh5-w2-Dxz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Màu sắc, kích thước" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qZj-d2-3R2" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="106" width="288" height="50"/>

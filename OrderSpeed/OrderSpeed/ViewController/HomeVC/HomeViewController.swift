@@ -8,6 +8,21 @@
 
 import UIKit
 
+
+extension UITableView {
+    func updateHeightHeader() {
+        if let headerView = self.tableHeaderView {
+            var headerFrame = headerView.frame
+            let newHeight = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+            if newHeight != headerFrame.height {
+                headerFrame.size.height = newHeight
+                headerView.frame = headerFrame
+                self.tableHeaderView = headerView
+            }
+        }
+    }
+}
+
 class HomeViewController: MainViewController {
 
     @IBOutlet weak var tbHome: UITableView!
@@ -21,16 +36,21 @@ class HomeViewController: MainViewController {
         tbHome.register(UINib(nibName: "BankInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "BankInfoTableViewCell")
         tbHome.register(UINib(nibName: "NEWSTableViewCell", bundle: nil), forCellReuseIdentifier: "NEWSTableViewCell")
         tbHome.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
+        
+        if let window = self.appDelegate.window {
+            print("=====>")
+            let tempView = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+            tempView.backgroundColor = UIColor.red
+            window.addSubview(tempView)
+        }
     }
-    
-    
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.barStyle = .black
-//        navigationController?.navigationBar.backgroundColor = .clear
+
     }
     
     func setupNavigationBar() {
@@ -40,8 +60,6 @@ class HomeViewController: MainViewController {
         let btnNotification = UIBarButtonItem(image: UIImage(named: "icon_notification"), style: .done, target: self, action: #selector(eventChooseNotification(_:)))
         let btnSearch = UIBarButtonItem(image: UIImage(named: "icon_search"), style: .done, target: self, action: #selector(eventChooseSearch(_:)))
         self.navigationItem.rightBarButtonItems = [btnSearch, btnNotification]
-        
-        
     }
     
     func createTableHeader() {
@@ -64,10 +82,9 @@ class HomeViewController: MainViewController {
     }
     
     @objc func eventChooseSearch(_ sender: UIBarButtonItem) {
-        let vc = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        self.present(vc, animated: true, completion: nil)
+//        let vc = ChooseCityViewController(nibName: "ChooseCityViewController", bundle: nil)
+//        vc.modalPresentationStyle = .overFullScreen
+//        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func eventChooseNotification(_ sender: UIBarButtonItem) {

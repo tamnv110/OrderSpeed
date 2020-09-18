@@ -9,13 +9,17 @@
 import UIKit
 
 enum AlertShowType: Int {
-    case showSuccess
-    case showContent
+    case showSuccess = 1
+    case showContent = 2
 }
 
 class CustomAlertViewController: MainViewController {
     
-    var typeShow: AlertShowType = .showContent
+    var typeShow: AlertShowType = .showContent {
+        didSet {
+            updateTypeShow()
+        }
+    }
     
     @IBOutlet weak var viewContent: UIView!
     @IBOutlet weak var viewSuccess: UIView!
@@ -28,14 +32,32 @@ class CustomAlertViewController: MainViewController {
     @IBOutlet weak var lblTitleContent: UILabel!
     @IBOutlet weak var lblContentContent: UILabel!
     
+    var sOrderCode = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        viewSuccess.isHidden = true
+        viewContent.isHidden = true
+    }
+    
+    func updateTypeShow() {
+        print("\(TAG) - \(#function) - \(#line) - typeShow : \(typeShow.rawValue)")
+        if typeShow == .showContent {
+            viewContent.isHidden = false
+        } else {
+            viewSuccess.isHidden = false
+            lblContentContent.text = "Chúng tôi sẽ liên hệ và báo giá tói bạn sớm nhất."
+            lblSubTitleSuccess.text = sOrderCode
+        }
     }
     
     @IBAction func eventChooseClose(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_DISMISS_ALERT_CUSTOM"), object: nil)
+            }
+        }
     }
     
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StatusOrderHeaderView" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KRO-l3-o4Q">
+                    <rect key="frame" x="24" y="29.5" width="272" height="65"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đơn hàng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tul-AU-vML">
+                            <rect key="frame" x="0.0" y="0.0" width="97.5" height="26.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="CHỜ BÁO GIÁ" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFg-zg-eVg">
+                            <rect key="frame" x="0.0" y="38.5" width="143.5" height="26.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0CJ-PW-vWP">
+                    <rect key="frame" x="304" y="21" width="80" height="80"/>
+                    <color key="backgroundColor" red="1" green="0.87450980392156863" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="0CJ-PW-vWP" secondAttribute="height" id="k9d-Oe-n5J"/>
+                        <constraint firstAttribute="height" constant="80" id="wzI-cK-6xp"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="40"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_delivery" translatesAutoresizingMaskIntoConstraints="NO" id="bVm-wp-gEA">
+                    <rect key="frame" x="312" y="36" width="90" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bVm-wp-gEA" secondAttribute="height" id="NtY-DT-ORZ"/>
+                        <constraint firstAttribute="height" priority="999" constant="90" id="zuh-vm-FZw"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="0CJ-PW-vWP" firstAttribute="bottom" secondItem="bVm-wp-gEA" secondAttribute="centerY" constant="20" id="0QL-Kx-Lk4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bVm-wp-gEA" secondAttribute="trailing" constant="12" id="CiG-YQ-Cpz"/>
+                <constraint firstItem="KRO-l3-o4Q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-18" id="GeZ-5q-ZgI"/>
+                <constraint firstItem="KRO-l3-o4Q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="MXc-of-2px"/>
+                <constraint firstItem="0CJ-PW-vWP" firstAttribute="leading" secondItem="bVm-wp-gEA" secondAttribute="leading" constant="-8" id="Wt7-Ki-Yyv"/>
+                <constraint firstItem="bVm-wp-gEA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="36" id="aW4-3E-Gh8"/>
+                <constraint firstItem="0CJ-PW-vWP" firstAttribute="leading" secondItem="KRO-l3-o4Q" secondAttribute="trailing" constant="8" id="bXd-aF-eit"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bVm-wp-gEA" secondAttribute="bottom" priority="999" constant="22" id="jgg-Yl-vdr"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="lblStatus" destination="PFg-zg-eVg" id="kmH-d1-cRA"/>
+            </connections>
+            <point key="canvasLocation" x="100" y="-90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="image_delivery" width="88" height="85"/>
+    </resources>
+</document>

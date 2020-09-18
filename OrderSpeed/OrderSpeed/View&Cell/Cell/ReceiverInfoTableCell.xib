@@ -32,17 +32,17 @@
                                     <constraint firstAttribute="height" constant="44" id="LUh-xZ-b8N"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Số điện thoại người nhận" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GhI-hq-HjP" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="52" width="288" height="44"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugj-rY-djR" customClass="UIControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugj-rY-djR" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="104" width="288" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn tỉnh/thành phố" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TqV-fk-7Su" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn tỉnh/thành phố" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TqV-fk-7Su" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -61,10 +61,10 @@
                                     <constraint firstAttribute="trailing" secondItem="TqV-fk-7Su" secondAttribute="trailing" id="cBw-85-kGa"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYI-Gw-Di3" customClass="UIControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYI-Gw-Di3" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="156" width="288" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn quận/huyện" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5gD-ja-9Kb" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chọn quận/huyện" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5gD-ja-9Kb" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -115,10 +115,11 @@
                     <constraint firstItem="Xhr-y4-gBk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1D4-Nl-h8W"/>
                     <constraint firstItem="QgY-zP-X02" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1yA-bn-P3h"/>
                     <constraint firstItem="UOs-62-Xf4" firstAttribute="top" secondItem="akN-B7-1YG" secondAttribute="bottom" constant="8" id="2f3-0k-Lz9"/>
+                    <constraint firstAttribute="bottom" secondItem="UOs-62-Xf4" secondAttribute="bottom" constant="15" id="2we-rB-WKg"/>
                     <constraint firstItem="UOs-62-Xf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6YV-wd-G8V"/>
                     <constraint firstAttribute="trailing" secondItem="akN-B7-1YG" secondAttribute="trailing" constant="16" id="7VR-CI-RUd"/>
                     <constraint firstItem="akN-B7-1YG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GfS-Mf-TAG"/>
-                    <constraint firstItem="QgY-zP-X02" firstAttribute="top" secondItem="UOs-62-Xf4" secondAttribute="bottom" id="Psj-Na-z4u"/>
+                    <constraint firstItem="QgY-zP-X02" firstAttribute="top" secondItem="UOs-62-Xf4" secondAttribute="bottom" id="Qgi-A5-Puz"/>
                     <constraint firstAttribute="trailing" secondItem="QgY-zP-X02" secondAttribute="trailing" constant="16" id="Xde-lZ-f3e"/>
                     <constraint firstItem="Xhr-y4-gBk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="YhX-24-QNv"/>
                     <constraint firstItem="akN-B7-1YG" firstAttribute="top" secondItem="Xhr-y4-gBk" secondAttribute="bottom" constant="8" id="hDo-U8-wUm"/>
@@ -126,7 +127,17 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="-517.39130434782612" y="48.549107142857139"/>
+            <connections>
+                <outlet property="controlCity" destination="ugj-rY-djR" id="Tgz-hd-GWJ"/>
+                <outlet property="controlDistrict" destination="nYI-Gw-Di3" id="se0-Bb-qyz"/>
+                <outlet property="tfAddress" destination="SRM-7W-mVu" id="wz2-zd-Gbb"/>
+                <outlet property="tfName" destination="B0C-Sw-bwW" id="AtS-lI-Wib"/>
+                <outlet property="tfNote" destination="UOs-62-Xf4" id="Hay-fh-zWc"/>
+                <outlet property="tfPhone" destination="GhI-hq-HjP" id="JsC-WT-HYx"/>
+                <outlet property="tfQuanHuyen" destination="5gD-ja-9Kb" id="rPe-os-74a"/>
+                <outlet property="tfTinhThanh" destination="TqV-fk-7Su" id="e82-oQ-cNy"/>
+            </connections>
+            <point key="canvasLocation" x="-522" y="71"/>
         </tableViewCell>
     </objects>
     <resources>

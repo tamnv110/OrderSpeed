@@ -16,7 +16,7 @@ class LoginViewController: MainViewController {
 
     @IBOutlet weak var topLabelTitle: NSLayoutConstraint!
     @IBOutlet weak var topBtnForgot: NSLayoutConstraint!
-    @IBOutlet weak var topLogo: NSLayoutConstraint!
+//    @IBOutlet weak var topLogo: NSLayoutConstraint!
     @IBOutlet weak var sizeLogo: NSLayoutConstraint!
     @IBOutlet weak var widthStack: NSLayoutConstraint!
     @IBOutlet weak var topStack: NSLayoutConstraint!
@@ -40,8 +40,8 @@ class LoginViewController: MainViewController {
         let screenMain = UIScreen.main.bounds
         if screenMain.width <= 320.0 && screenMain.height <= 568 {
             topLabelTitle.constant = 24
-            sizeLogo.constant = 80
-            topLogo.constant = 16
+            sizeLogo.constant = 60
+//            topLogo.constant = 16
             widthStack.constant = 40
             topStack.constant = 16
             topBtnForgot.constant = 8
@@ -52,7 +52,8 @@ class LoginViewController: MainViewController {
         tfEmail.text = "nguyenvantam110@gmail.com"
         tfPassword.text = "113456"
         #endif
-        
+        tfEmail.delegate = self
+        tfPassword.delegate = self
         addLoginFacebook()
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.delegate = self
@@ -124,16 +125,11 @@ class LoginViewController: MainViewController {
                 }
             }
         }
-//        if flag {
-//            flag = Tools.isValidEmail(email: tfEmail.text!)
-//            if !flag {
-//                tfEmail.shakeAnimationTextField()
-//            }
-//        }
         return flag
     }
     
     @IBAction func eventChooseLogin(_ sender: Any) {
+        print("\(TAG) - \(#function) - \(#line) - click click")
         DispatchQueue.main.async {
             self.view.endEditing(true)
         }
@@ -170,7 +166,7 @@ class LoginViewController: MainViewController {
                         if let error = error {
                             debugPrint("\(self!.TAG) - \(#function) - line : \(#line) - error : \(error.localizedDescription)")
                             self?.hideProgressHUD()
-                            self?.showErrorAlertView(error.localizedDescription)
+                            self?.showErrorAlertView(error.localizedDescription){}
                             return
                         }
                         else {
@@ -180,7 +176,7 @@ class LoginViewController: MainViewController {
                 }
             } else {
                 self?.hideProgressHUD()
-                self?.showErrorAlertView(error.debugDescription)
+                self?.showErrorAlertView(error.debugDescription){}
             }
         }
     }
@@ -198,7 +194,7 @@ class LoginViewController: MainViewController {
             guard let _result = result, error == nil else {
                 print("\(strongSelf.TAG) - \(#function) - \(#line) - \(error.debugDescription)")
                 DispatchQueue.main.async {
-                    strongSelf.showErrorAlertView(error?.localizedDescription ?? "Có lỗi xảy ra, vui lòng thử lại sau.")
+                    strongSelf.showErrorAlertView(error?.localizedDescription ?? "Có lỗi xảy ra, vui lòng thử lại sau."){}
                 }
                 return
             }
@@ -241,14 +237,11 @@ class LoginViewController: MainViewController {
         }
         
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "")
+        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "")
         user.showInfo()
         Tools.saveUserInfo(user)
         self.appDelegate.user = user
         NotificationCenter.default.post(name: NSNotification.Name("LOGIN_FINISH"), object: nil)
-//        DispatchQueue.main.async {
-//            self.dismiss()
-//        }
     }
     
     func createFolderUser(_ authResult:AuthDataResult?) {
@@ -263,7 +256,7 @@ class LoginViewController: MainViewController {
         } else {
             queryable.append(userName.lowercased())
         }
-        let registerDic:[String : Any] = ["uid": auth.user.uid, "email":authResult?.user.email ?? "","user_name":userName, "avatar":auth.user.photoURL?.absoluteString ?? "", "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "based_in":"", "address":"", "isEnable":true]
+        let registerDic:[String : Any] = ["uid": auth.user.uid, "email":authResult?.user.email ?? "","user_name":userName, "avatar":auth.user.photoURL?.absoluteString ?? "", "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "based_in":"", "address":"", "city_name": "", "district_name": "","isEnable":true]
         let dbBatch = self.dbFireStore.batch()
         
         debugPrint("\(TAG) - \(#function) - line : \(#line) - _uid : \(auth.user.uid)")
@@ -300,13 +293,13 @@ extension LoginViewController: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             debugPrint("\(self.TAG) - \(#function) - line : \(#line) - error : \(error.localizedDescription)")
-            self.showErrorAlertView(error.localizedDescription)
+            self.showErrorAlertView(error.localizedDescription){}
             return
         }
         
         guard let authentication = user.authentication else {
             debugPrint("\(self.TAG) - \(#function) - line : \(#line) - co loi khi authentication")
-            self.showErrorAlertView("Lỗi khi Authentication đăng nhập.")
+            self.showErrorAlertView("Lỗi khi Authentication đăng nhập."){}
             return
         }
         
@@ -320,7 +313,7 @@ extension LoginViewController: GIDSignInDelegate {
             if let error = error {
                 debugPrint("\(self!.TAG) - \(#function) - line : \(#line) - error : \(error.localizedDescription)")
                 self?.hideProgressHUD()
-                self?.showErrorAlertView(error.localizedDescription)
+                self?.showErrorAlertView(error.localizedDescription){}
                 return
             }
             else {
@@ -331,3 +324,4 @@ extension LoginViewController: GIDSignInDelegate {
     
     
 }
+

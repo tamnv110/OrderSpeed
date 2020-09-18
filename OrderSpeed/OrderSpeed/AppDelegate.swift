@@ -16,11 +16,18 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var window: UIWindow?
     var user:UserBeer?
+    var isConnect = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        self.window = UIWindow(frame: UIScreen.main.bounds)
 //        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
 //        self.window?.rootViewController = vc
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium)
+        ]
+
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium)], for: UIControl.State.normal)
         
         FirebaseApp.configure()
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
@@ -28,7 +35,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //        self.window?.makeKeyAndVisible()
         return true
     }
+    
+    func connectGetCurrencyRate() {
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("CurrencyRate").getDocument { (snapshot, error) in
+            if let document = snapshot?.data() {
+                if let tiGia = document["value"] as? Double {
+                    Tools.TI_GIA_NDT = tiGia
+                }
+            }
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 60) {
+                self.isConnect = false
+            }
+        }
+    }
+    
+    func connectGetFeeSercive() {
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { [weak self](snapshot, error) in
+            if let document = snapshot?.data() {
+                if let tiGia = document["value"] as? Double {
+                    Tools.FEE_SERVICE = tiGia
+                }
+            }
+        }
+    }
 
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        if !isConnect {
+            isConnect = true
+            connectGetCurrencyRate()
+            connectGetFeeSercive()
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     @available(iOS 13.0, *)
@@ -63,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     // MARK: - Core Data stack
 
+    @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -92,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     // MARK: - Core Data Saving support
 
+    @available(iOS 10.0, *)
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderInfoViewController" customModule="OrderSpeed" customModuleProvider="target">
             <connections>
+                <outlet property="btnOrder" destination="DjQ-mt-CZh" id="qoM-Q5-yIv"/>
                 <outlet property="tbInfo" destination="uWo-Xe-dcg" id="1n9-yR-8Yd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,21 +20,38 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uWo-Xe-dcg">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="uWo-Xe-dcg">
+                    <rect key="frame" x="0.0" y="44" width="414" height="773"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="A4d-ai-X4J"/>
                         <outlet property="delegate" destination="-1" id="Op4-HJ-l2f"/>
                     </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DjQ-mt-CZh">
+                    <rect key="frame" x="16" y="822" width="382" height="48"/>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="w2G-zM-kP0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                    <state key="normal" title="ĐẶT HÀNG">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="evenntChooseOrder:" destination="-1" eventType="touchUpInside" id="BaG-mi-Rmg"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstItem="DjQ-mt-CZh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="1Dq-p9-sXm"/>
+                <constraint firstItem="DjQ-mt-CZh" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="8" id="A8j-fR-95y"/>
+                <constraint firstItem="DjQ-mt-CZh" firstAttribute="top" secondItem="uWo-Xe-dcg" secondAttribute="bottom" constant="5" id="NBe-3M-HZl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DjQ-mt-CZh" secondAttribute="trailing" constant="16" id="avw-GP-a8u"/>
                 <constraint firstItem="uWo-Xe-dcg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="jQm-gP-hOC"/>
                 <constraint firstItem="uWo-Xe-dcg" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="l1V-ur-d5I"/>
                 <constraint firstItem="uWo-Xe-dcg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pdH-Tv-eh3"/>
-                <constraint firstAttribute="bottom" secondItem="uWo-Xe-dcg" secondAttribute="bottom" id="yID-Mb-e0P"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>

@@ -67,6 +67,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnMessenger" destination="2DL-88-zU0" id="W1s-wg-0vP"/>
+                <outlet property="btnPhone" destination="SnZ-un-wzn" id="yCr-5g-MhO"/>
+                <outlet property="lblPhone" destination="gfp-X6-Me1" id="783-3g-Cqd"/>
+                <outlet property="lblTitle" destination="Fp5-VV-Xb2" id="5AB-jW-eIw"/>
+            </connections>
             <point key="canvasLocation" x="-191.30434782608697" y="127.56696428571428"/>
         </tableViewCell>
     </objects>

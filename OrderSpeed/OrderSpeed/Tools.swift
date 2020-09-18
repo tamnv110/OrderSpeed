@@ -8,6 +8,21 @@
 
 import UIKit
 
+enum OrderFolderName: String {
+    case rootOrderProduct = "OrderProduct"
+    case product = "Product"
+    case status = "Status"
+    case settings = "Settings"
+}
+
+extension UIButton {
+  func imageToRight() {
+      transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+      titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+      imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+  }
+}
+
 extension UITextField {
     func shakeAnimationTextField() {
         let midX = self.center.x
@@ -58,6 +73,12 @@ class Tools {
     
     static let css = ".contentnews { width: 96%; padding: 2%; text-align: justify; overflow: hidden} h1 { font-size: 52px; } h2 { font-size: 48px; } .date-count {color: #333; font-style: italic} .contentnews img { max-width: 100% !important;height: auto !important} p { font-size: 44px; }"
     
+    static let DELIVERY_HOME = DeliveryModel(["name": "Tại nhà", "description": "Giao hàng tại địa chỉ khách hàng nhập", "price": "Tính theo đơn vị giao hàng"], id: "-1")
+    
+    static let NDT_LABEL = "¥"
+    static var TI_GIA_NDT: Double = 0
+    static var FEE_SERVICE: Double = 0
+    
     static func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -103,26 +124,21 @@ class Tools {
         defaults.set(value, forKey: key)
         defaults.synchronize()
     }
-//    static func saveUserInfo(_ user: UserInfo) {
-//        let encoder = JSONEncoder()
-//        if let encoded = try? encoder.encode(user) {
-//            let defaults = UserDefaults.standard
-//            defaults.set(encoded, forKey: "USER_INFO")
-//            defaults.synchronize()
-//        } else {
-//            debugPrint("Tools - \(#function) - \(#line) - khong encode duoc")
-//        }
-//    }
-//    
-//    static func getUserInfo() -> UserInfo? {
-//        let defaults = UserDefaults.standard
-//        if let savedUser = defaults.object(forKey: "USER_INFO") as? Data {
-//            let decoder = JSONDecoder()
-//            let user = try? decoder.decode(UserInfo.self, from: savedUser)
-//            return user
-//        }
-//        return nil
-//    }
+
+    static func getUserInfo() -> UserBeer? {
+        if let user = Tools.getObjectFromDefault(KEY_INFO_USER) as? Data {
+            if #available(iOS 12.0, *) {
+                do {
+                    return try NSKeyedUnarchiver.unarchivedObject(ofClass: UserBeer.self, from: user)
+                } catch {
+                    
+                }
+            } else {
+                return NSKeyedUnarchiver.unarchiveObject(with: user) as? UserBeer
+            }
+        }
+        return nil
+    }
     
     static func removeUserInfo() {
         let defaults = UserDefaults.standard
@@ -148,7 +164,16 @@ class Tools {
     }
     
     static func convertCurrencyFromString(input: String) -> String {
-        let sResult = input.replacingOccurrences(of: ",", with: "")
+        var head = ""
+        var tail = ""
+        if input.contains(".") {
+            let split = input.components(separatedBy: ".")
+            head = split.first ?? ""
+            tail = split.last ?? ""
+        } else {
+            head = input
+        }
+        let sResult = head.replacingOccurrences(of: ",", with: "")
         var arrResult = Array(sResult)
         let nCount = arrResult.count
         var index = 0
@@ -158,6 +183,43 @@ class Tools {
                 arrResult.insert(",", at: i)
             }
         }
-        return String(arrResult)
+        let result = String(arrResult) + (tail.isEmpty ? "" : ".\(tail)")
+        return result
+    }
+    
+    static func randomOrderCode() -> String {
+        let random = Int.random(in: 100000..<1000000)
+        return "DH\(random)"
+    }
+    
+    static func openMessengerApp(_ userID: String) {
+        if let url = URL(string: "fb-messenger://user-thread/\(userID)") {
+
+            // Attempt to open in Messenger App first
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {
+                    (success) in
+                    if success == false {
+                        let url = URL(string: "https://m.me/\(userID)")
+                        if UIApplication.shared.canOpenURL(url!) {
+                            UIApplication.shared.open(url!)
+                        }
+                    }
+                })
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
+    static func makePhoneCall(_ phone: String) {
+        guard let url = URL(string: "tel://\(phone)") else { return }
+        if UIApplication.shared.canOpenURL(url) {
+           if #available(iOS 10, *) {
+             UIApplication.shared.open(url, options: [:], completionHandler:nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
 }

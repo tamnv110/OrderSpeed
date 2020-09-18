@@ -140,7 +140,7 @@ class RegisterViewController: MainViewController {
                 }
                 guard let _result = result, error == nil else {
                     strongSelf.hideProgressHUD()
-                    strongSelf.showErrorAlertView(error!.localizedDescription)
+                    strongSelf.showErrorAlertView(error!.localizedDescription){}
                     return
                 }
                 strongSelf.loginWithCredential(_result)
@@ -158,7 +158,7 @@ class RegisterViewController: MainViewController {
                 if let err = err {
                     debugPrint("\(String(describing: self?.TAG)) - err : \(err.localizedDescription)")
                     self?.hideProgressHUD()
-                    self?.showErrorAlertView(err.localizedDescription)
+                    self?.showErrorAlertView(err.localizedDescription){}
                 } else {
                     guard let document = querySnapshot?.documents.first else {
                         self?.createDictionaryAndRegister(uid)
@@ -185,7 +185,7 @@ class RegisterViewController: MainViewController {
             queryable.append(userName.lowercased())
         }
         
-        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "phone_number":tfPhone.text ?? "", "avatar":"", "address": "", "isEnable":true]
+        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "phone_number":tfPhone.text ?? "", "avatar":"", "address": "", "city_name": "", "district_name": "", "isEnable":true]
         let dbBatch = self.dbFireStore.batch()
         let refUser = self.dbFireStore.collection("User").document(uid)
         dbBatch.setData(registerDic, forDocument: refUser)
@@ -194,7 +194,7 @@ class RegisterViewController: MainViewController {
             self?.hideProgressHUD()
             if let error = error {
                 debugPrint("\(String(describing: self?.TAG)) - \(#function) - line : \(#line) - error : \(error.localizedDescription)")
-                self?.showErrorAlertView(error.localizedDescription)
+                self?.showErrorAlertView(error.localizedDescription){}
                 return
             }
             self?.saveUserAfterLogin(registerDic)
@@ -208,7 +208,7 @@ class RegisterViewController: MainViewController {
         }
         
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", tokenAPN: "")
+        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: "")
         user.showInfo()
         Tools.saveUserInfo(user)
         self.appDelegate.user = user

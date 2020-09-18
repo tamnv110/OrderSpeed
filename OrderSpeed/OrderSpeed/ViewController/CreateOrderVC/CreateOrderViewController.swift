@@ -25,16 +25,29 @@ class CreateOrderViewController: MainViewController {
     
     var countSection = 1
     var cellChooseImage: CreateOrderTableViewCell?
-    var arrProductOrder = [OrderProductModel(id: 1, link: "", name: "", size: "", note: "", number: 0, price: 0.0, arrProductImages: nil)]
+//    var arrProductOrder = [OrderProductModel(id: 1, link: "http://youtube.com", name: "Giày", size: "7.5", note: "Âm Thầm Bên Em | OFFICIAL MUSIC VIDEO | Sơn Tùng M-TP", number: 1, price: 10.0, arrProductImages: nil)]
+    var arrProductOrder = [ProductModel(code: "1", link: "http://youtube.com", name: "Giày", option: "7.5", amount: 1, price: 10.0, fee: 0, status: "", note: "Âm Thầm Bên Em | OFFICIAL MUSIC VIDEO | Sơn Tùng M-TP")]
+    
+    
+    var tiGiaNgoaiTe: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         btnContinute.clipsToBounds = true
         btnContinute.layer.insertSublayer(gradientLayer, below: btnContinute.titleLabel?.layer)
         tbOrder.tableFooterView = UIView(frame: .zero)
         tbOrder.register(UINib(nibName: "CreateOrderTableViewCell", bundle: nil), forCellReuseIdentifier: "CreateOrderTableViewCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = ""
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.title = "Thông tin đơn hàng"
     }
     
     override func viewDidLayoutSubviews() {
@@ -44,9 +57,11 @@ class CreateOrderViewController: MainViewController {
         btnContinute.layer.cornerRadius = btnContinute.frame.height / 2
         gradientLayer.frame = btnContinute.bounds
     }
-    
+
     func addNewItemToList() {
-        let item = OrderProductModel(id: countSection, link: "", name: "", size: "", note: "", number: 0, price: 0.0, arrProductImages: nil)
+//        let item = OrderProductModel(id: countSection, link: "", name: "", size: "", note: "", number: 0, price: 0.0, arrProductImages: nil)
+//        arrProductOrder.append(item)
+        let item = ProductModel(code: "\(countSection)", link: "", name: "", option: "", amount: 0, price: 0, fee: 0, status: "", note: "")
         arrProductOrder.append(item)
     }
 
@@ -98,7 +113,11 @@ class CreateOrderViewController: MainViewController {
     
     @IBAction func eventChooseContinute(_ sender: Any) {
         if checkInput() {
-            
+            DispatchQueue.main.async {
+                let vc = OrderInfoViewController(nibName: "OrderInfoViewController", bundle: nil)
+                vc.arrOrder = self.arrProductOrder
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -148,7 +167,7 @@ extension CreateOrderViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CreateOrderTableViewCell {
             let item = arrProductOrder[indexPath.section]
-            cell.orderProduct = item
+            cell.showInfo(item)
         }
     }
     
@@ -159,15 +178,10 @@ extension CreateOrderViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func choosePhoto() {
-//        var arrImageSelected = UIImage()
-//        if let cell = cellChooseImage, let indexPath = tbOrder.indexPath(for: cell) {
-//            arrImageSelected = arrProductOrder[indexPath.section].arrProductImages
-//        }
         DispatchQueue.main.async {
             let vc = ListPhotosViewController(nibName: "ListPhotosViewController", bundle: nil)
             vc.delegate = self
             vc.typeUpload = 1
-//            vc.arr
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -180,12 +194,12 @@ extension CreateOrderViewController: CreateOrderCellDelegate {
         choosePhoto()
     }
     
-    func updateInfoOrderProduct(_ item: OrderProductModel?) {
+    func updateInfoOrderProduct(_ item: ProductModel?) {
         guard let order = item else { return }
         if let index = arrProductOrder.firstIndex(where: { (item2) -> Bool in
-            return order.id == item2.id
+            return order.code == item2.code
         }) {
-            print("\(TAG) - \(#function) - \(#line) - order : \(order.id) - index: \(index)")
+            print("\(TAG) - \(#function) - \(#line) - order : \(order.code) - index: \(index)")
             arrProductOrder[index] = order
         }
     }

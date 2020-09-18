@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import SDWebImage
+import FirebaseUI
 class ImageProductCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imgvProduct: UIImageView!

@@ -7,15 +7,14 @@
 //
 
 import UIKit
-
-struct OrderProductModel {
-    var id: Int
-    var link: String
-    var name: String
-    var size: String
-    var note: String
-    var number: Int
-    var price: Double
-    var arrProductImages: [ItemImageSelect]?
-    
-}
+//
+//struct OrderProductModel {
+//    var id: Int
+//    var link: String
+//    var name: String
+//    var size: String
+//    var note: String
+//    var number: Int
+//    var price: Double
+//    var arrProductImages: [ItemImageSelect]?
+//}

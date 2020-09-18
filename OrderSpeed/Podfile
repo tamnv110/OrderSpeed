@@ -9,11 +9,15 @@ target 'OrderSpeed' do
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
-  
+  pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
+
   pod 'CropViewController'
-  pod 'Alamofire', '~> 5.0'
+#  pod 'Alamofire', '~> 5.0'
   pod 'SwiftyJSON'
   pod 'GoogleSignIn'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
+  
+  pod 'SDWebImage'
 end

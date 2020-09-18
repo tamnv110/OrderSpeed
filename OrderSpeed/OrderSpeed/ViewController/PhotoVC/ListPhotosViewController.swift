@@ -10,7 +10,6 @@ import UIKit
 import Photos
 import PhotosUI
 import CropViewController
-import Alamofire
 import SwiftyJSON
 
 private extension UICollectionView {
@@ -44,7 +43,7 @@ protocol ListPhotoDelegate {
 
 class ListPhotosViewController: MainViewController {
     
-    private let MAX_IMAGES = 5
+    private let MAX_IMAGES = 3
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var viewAlbumOption: UIView!
@@ -478,7 +477,7 @@ extension ListPhotosViewController : UICollectionViewDelegateFlowLayout, UIColle
                                     let itemSelect = ItemImageSelect(imageID: asset.localIdentifier, image: imageResult, imageAsset: asset)
                                     self.arrSelectedImage.append(itemSelect)
                                 } else {
-                                    self.showErrorAlertView("Số ảnh sản phẩm tối đa là: \(self.MAX_IMAGES)")
+                                    self.showErrorAlertView("Số ảnh sản phẩm tối đa là: \(self.MAX_IMAGES)"){}
                                     return
                                 }
                             }
