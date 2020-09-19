@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
-
+import FirebaseStorage
 
 protocol CreateOrderCellDelegate {
-    func updateInfoOrderProduct(_ item: ProductModel?)
+    func updateInfoOrderProduct(_ item: ProductModel?) -> Void
     func eventChooseProductImages(_ cell: CreateOrderTableViewCell)
+    func imageCountGreateThanMax(_ count: Int)
+    func deleteImageFromServer(_ imageName: String)
 }
 
 class CreateOrderTableViewCell: UITableViewCell {
@@ -27,6 +28,8 @@ class CreateOrderTableViewCell: UITableViewCell {
     var delegate: CreateOrderCellDelegate?
     
     var orderProduct: ProductModel?
+    var refStorage: StorageReference?
+    var arrImageShow = [(Int, String?, ItemImageSelect?)]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,6 +59,7 @@ class CreateOrderTableViewCell: UITableViewCell {
     
     func showInfo(_ orderProduct: ProductModel?) {
         self.orderProduct = orderProduct
+        self.arrImageShow.removeAll()
         DispatchQueue.main.async {
             self.tfLink.text = self.orderProduct?.link
             self.tfName.text = self.orderProduct?.name
@@ -65,6 +69,21 @@ class CreateOrderTableViewCell: UITableViewCell {
             let price = self.orderProduct?.price ?? 0
             self.tfPrice.text = (price > 0) ? String(format: "%.2f", price) : nil
             self.tfNote.text = self.orderProduct?.note
+            
+            if let imagesLocal = self.orderProduct?.arrProductImages {
+                let items = imagesLocal.map { (item) -> (Int, String?, ItemImageSelect?) in
+                    return (0, nil, item)
+                }
+                self.arrImageShow.append(contentsOf: items)
+            }
+            
+            if let imagesServer = self.orderProduct?.images {
+                let items = imagesServer.map { (item) -> (Int, String?, ItemImageSelect?) in
+                    return (1, item, nil)
+                }
+                self.arrImageShow.append(contentsOf: items)
+            }
+            
             DispatchQueue.main.async {
                 self.collectionImage.reloadData()
             }
@@ -86,7 +105,32 @@ class CreateOrderTableViewCell: UITableViewCell {
     @objc func eventChooseDeleteImage(_ sender: UIButton) {
         if let cell = sender.superview?.superview as? ImageProductCollectionViewCell, let indexPath = collectionImage.indexPath(for: cell) {
             print("\(TAG) - \(#function) - \(#line) - indexPath : \(indexPath.row)")
-            orderProduct?.arrProductImages?.remove(at: indexPath.row)
+            let itemDelete = arrImageShow[indexPath.row]
+            if itemDelete.0 == 1, let imageName = itemDelete.1 {
+                delegate?.deleteImageFromServer(imageName)
+            }
+            arrImageShow.remove(at: indexPath.row)
+            var arrImageLocal: [ItemImageSelect]?
+            var arrImageServer: [String]?
+            for items in arrImageShow {
+                if items.0 == 0 {
+                    if arrImageLocal == nil {
+                        arrImageLocal = [ItemImageSelect]()
+                    }
+                    if let local = items.2 {
+                        arrImageLocal?.append(local)
+                    }
+                } else {
+                    if arrImageServer == nil {
+                        arrImageServer = [String]()
+                    }
+                    if let server = items.1 {
+                        arrImageServer?.append(server)
+                    }
+                }
+            }
+            orderProduct?.arrProductImages = arrImageLocal
+            orderProduct?.images = arrImageServer
             delegate?.updateInfoOrderProduct(orderProduct)
             DispatchQueue.main.async {
                 self.collectionImage.reloadData()
@@ -144,32 +188,45 @@ extension CreateOrderTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.orderProduct?.arrProductImages?.count ?? 0) + 1
+        return arrImageShow.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row < (self.orderProduct?.arrProductImages?.count ?? 0) {
-            if let cell = cell as? ImageProductCollectionViewCell, let item = self.orderProduct?.arrProductImages?[indexPath.row] {
-                cell.imgvProduct.image = item.image
+        if indexPath.row < arrImageShow.count {
+            if let cell = cell as? ImageProductCollectionViewCell {
+                let item = arrImageShow[indexPath.row]
+                if item.0 == 0 {
+                    cell.imgvProduct.image = item.2?.image
+                } else if let imageName = item.1, let ref = self.refStorage {
+                    let reference = ref.child("Images/\(imageName)")
+                    cell.imgvProduct.sd_setImage(with: reference, placeholderImage: nil)
+                }
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageProductCollectionViewCell", for: indexPath) as! ImageProductCollectionViewCell
-        cell.btnDelete.isHidden = indexPath.row == (self.orderProduct?.arrProductImages?.count ?? 0)
-        cell.imgvDefault.isHidden = indexPath.row != (self.orderProduct?.arrProductImages?.count ?? 0)
+        if indexPath.row >= arrImageShow.count {
+            cell.btnDelete.isHidden = true
+            cell.imgvDefault.isHidden = false
+        } else {
+            cell.btnDelete.isHidden = false
+            cell.imgvDefault.isHidden = true
+        }
+
         cell.btnDelete.addTarget(self, action: #selector(eventChooseDeleteImage(_:)), for: .touchUpInside)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let countImages = self.orderProduct?.arrProductImages?.count ?? 0
-        if indexPath.row >= countImages {
-            delegate?.eventChooseProductImages(self)
+        if indexPath.row >= arrImageShow.count {
+            if arrImageShow.count == 3 {
+                delegate?.imageCountGreateThanMax(arrImageShow.count)
+            } else {
+                delegate?.eventChooseProductImages(self)
+            }
         }
     }
-    
-    
 }
 

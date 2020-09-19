@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusOrderViewController" customModule="OrderSpeed" customModuleProvider="target">
             <connections>
+                <outlet property="btnOptionJourney" destination="wES-et-jxt" id="8ei-W8-tUk"/>
+                <outlet property="btnOptionSupport" destination="1OC-Fb-5ZH" id="yOU-Rv-LL3"/>
                 <outlet property="tbStatus" destination="KFI-0S-Gvn" id="vc0-1I-7VP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,33 +21,72 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HqY-qg-EDM">
-                    <rect key="frame" x="123.5" y="44" width="167" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="34" id="xEG-mi-eVz"/>
-                    </constraints>
-                    <segments>
-                        <segment title="Hành trình"/>
-                        <segment title="Hỗ trợ"/>
-                    </segments>
-                    <color key="selectedSegmentTintColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
-                </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KFI-0S-Gvn">
-                    <rect key="frame" x="0.0" y="90" width="414" height="806"/>
+                    <rect key="frame" x="0.0" y="96" width="414" height="800"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="oKL-Xq-x43"/>
                         <outlet property="delegate" destination="-1" id="OTQ-LW-Cpw"/>
                     </connections>
                 </tableView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuT-bK-pbF">
+                    <rect key="frame" x="87" y="44" width="240" height="44"/>
+                    <subviews>
+                        <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FVz-zT-Iaj">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wES-et-jxt">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
+                                    <color key="backgroundColor" red="0.92549019607843142" green="0.51764705882352935" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="120" id="Rcm-13-bfc"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <state key="normal" title="Hành trình">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="eventChangeOption:" destination="-1" eventType="touchUpInside" id="YoE-eg-0b9"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OC-Fb-5ZH">
+                                    <rect key="frame" x="120" y="0.0" width="120" height="44"/>
+                                    <color key="backgroundColor" red="0.92941176469999998" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <state key="normal" title="Hỗ trợ">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="eventChangeOption:" destination="-1" eventType="touchUpInside" id="sGA-4m-FP3"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="MIs-ZG-xGg"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="FVz-zT-Iaj" secondAttribute="bottom" id="Jfk-pF-dLR"/>
+                        <constraint firstItem="FVz-zT-Iaj" firstAttribute="top" secondItem="QuT-bK-pbF" secondAttribute="top" id="Zlz-85-IOE"/>
+                        <constraint firstAttribute="trailing" secondItem="FVz-zT-Iaj" secondAttribute="trailing" id="vdX-KD-NmT"/>
+                        <constraint firstItem="FVz-zT-Iaj" firstAttribute="leading" secondItem="QuT-bK-pbF" secondAttribute="leading" id="zh1-C0-dQZ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="22"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="KFI-0S-Gvn" secondAttribute="bottom" id="30L-Pc-rtP"/>
-                <constraint firstItem="HqY-qg-EDM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="EhI-s5-jom"/>
-                <constraint firstItem="KFI-0S-Gvn" firstAttribute="top" secondItem="HqY-qg-EDM" secondAttribute="bottom" constant="12" id="Men-J4-0yt"/>
-                <constraint firstItem="HqY-qg-EDM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Vgh-7g-47l"/>
+                <constraint firstItem="KFI-0S-Gvn" firstAttribute="top" secondItem="QuT-bK-pbF" secondAttribute="bottom" constant="8" id="8wS-1G-bQD"/>
+                <constraint firstItem="QuT-bK-pbF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XEs-IO-x4s"/>
                 <constraint firstItem="KFI-0S-Gvn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ktx-eK-Aft"/>
+                <constraint firstItem="QuT-bK-pbF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tsu-cR-OJb"/>
                 <constraint firstItem="KFI-0S-Gvn" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="vNv-s7-1nQ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

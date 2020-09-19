@@ -31,6 +31,8 @@
 		E76B20B4251201950041EB20 /* ManagerOrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B20B2251201950041EB20 /* ManagerOrderTableCell.swift */; };
 		E76B20B5251201950041EB20 /* ManagerOrderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E76B20B3251201950041EB20 /* ManagerOrderTableCell.xib */; };
 		E76B20BC25120AC00041EB20 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B20BB25120AC00041EB20 /* AccountViewController.swift */; };
+		E76EF6642515CD240052474F /* RequestSupportHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */; };
+		E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */; };
 		E773FACB2510C7C0003E0EFC /* OrderProductDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E773FACA2510C7C0003E0EFC /* OrderProductDataModel.swift */; };
 		E778306F2501DADF0005D59C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778306E2501DADF0005D59C /* HomeViewController.swift */; };
 		E77830712501DDFA0005D59C /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77830702501DDFA0005D59C /* HomeHeaderView.swift */; };
@@ -122,6 +124,8 @@
 		E76B20B2251201950041EB20 /* ManagerOrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerOrderTableCell.swift; sourceTree = "<group>"; };
 		E76B20B3251201950041EB20 /* ManagerOrderTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManagerOrderTableCell.xib; sourceTree = "<group>"; };
 		E76B20BB25120AC00041EB20 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSupportHeaderView.swift; sourceTree = "<group>"; };
+		E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestSupportHeaderView.xib; sourceTree = "<group>"; };
 		E773FACA2510C7C0003E0EFC /* OrderProductDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProductDataModel.swift; sourceTree = "<group>"; };
 		E778306E2501DADF0005D59C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E77830702501DDFA0005D59C /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 				E78A54672514B5BA009351FC /* StatusOrderHeaderView.xib */,
 				E78A546D2514D275009351FC /* DetailOrderStatusSectionView.swift */,
 				E78A546F2514D27F009351FC /* DetailOrderStatusSectionView.xib */,
+				E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */,
+				E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 				E78A545A25136B64009351FC /* RequestSupportViewController.xib in Resources */,
 				E7C316D4250878F3007F712B /* PaymenterTableCell.xib in Resources */,
 				E7C316D825087B1B007F712B /* CheckOrderTableCell.xib in Resources */,
+				E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */,
 				E77F7C3625008CAC001A7B7A /* Main.storyboard in Resources */,
 				E76B20B5251201950041EB20 /* ManagerOrderTableCell.xib in Resources */,
 				E748BA882503D38300612050 /* HomeHeaderSectionView.xib in Resources */,
@@ -663,6 +670,7 @@
 				E76B20B4251201950041EB20 /* ManagerOrderTableCell.swift in Sources */,
 				E7A0E63C25073501003B2040 /* ImageProductCollectionViewCell.swift in Sources */,
 				E778306F2501DADF0005D59C /* HomeViewController.swift in Sources */,
+				E76EF6642515CD240052474F /* RequestSupportHeaderView.swift in Sources */,
 				E78A546B2514C1A8009351FC /* OrderStatusTableCell.swift in Sources */,
 				E78A545C2513734C009351FC /* SupportModel.swift in Sources */,
 				E77830712501DDFA0005D59C /* HomeHeaderView.swift in Sources */,

@@ -122,7 +122,8 @@ struct OrderProductDataModel: Codable {
     
     var createAt: String
     var updateAt: String
-
+    var imageDefault: String?
+    
     enum CodingKeys: String, CodingKey {
         case idOrder
         case code
@@ -149,7 +150,7 @@ struct OrderProductDataModel: Codable {
         case createdAt = "created_at"
         case updateAt = "update_at"
         case currencyLabel = "currency_label"
-
+        case imageDefault = "image_default"
     }
     
     init(from decoder:Decoder) throws {
@@ -180,6 +181,7 @@ struct OrderProductDataModel: Codable {
         createAt = try (values.decodeIfPresent(String.self, forKey: .createdAt) ?? "")
         updateAt = try (values.decodeIfPresent(String.self, forKey: .updateAt) ?? "")
         currencyLabel = try (values.decodeIfPresent(String.self, forKey: .currencyLabel) ?? "")
+        imageDefault = try values.decodeIfPresent(String.self, forKey: .imageDefault)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -208,6 +210,7 @@ struct OrderProductDataModel: Codable {
         try container.encode(createAt, forKey: .createdAt)
         try container.encode(updateAt, forKey: .updateAt)
         try container.encode(currencyLabel, forKey: .currencyLabel)
+        try container.encode(imageDefault, forKey: .imageDefault)
     }
     
     init(code: String, status: String, productCount: Int, shippingMethod: String, userID: String, cityName: String, districtName: String, receiverAddress: String, note: String, receiverName: String, receiverPhone: String, paymentName: String, paymentPhone: String, warehouseName: String, warehouseAddress: String, warehouseID: String, subTotalMoney: Double, depositMoney: Double, currentcyRate: Double, serviceCost: Double, shippingCost: Double, createAt: String, updateAt: String, currencyLabel: String) {

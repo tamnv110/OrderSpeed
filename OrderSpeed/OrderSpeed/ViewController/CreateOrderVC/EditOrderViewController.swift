@@ -15,8 +15,9 @@ import UIKit
 class EditOrderViewController: MainViewController {
 
     @IBOutlet weak var tbOrder: UITableView!
+    var arrImageServerDeleted: [String]?
     var orderInfo: ProductModel?
-//    var delegate: EditOrderVCDelegate?
+    var typeEdit = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,16 @@ class EditOrderViewController: MainViewController {
         tbOrder.separatorStyle = .none
         tbOrder.register(UINib(nibName: "CreateOrderTableViewCell", bundle: nil), forCellReuseIdentifier: "CreateOrderTableViewCell")
         
-        print("\(TAG) - \(#function) - \(#line) - orderInfo : \(orderInfo?.code)")
+        print("\(TAG) - \(#function) - \(#line) - orderInfo : \(orderInfo?.code) - typeEdit : \(typeEdit)")
     }
     
     @objc func eventChooseEditProduct(_ sender: UIBarButtonItem) {
         self.view.endEditing(true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_EDIT_ORDER"), object: self.orderInfo)
+            if let arrImageDel = self.arrImageServerDeleted, arrImageDel.count > 0 {
+                NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_EDIT_ORDER_DELETE_IMAGES"), object: arrImageDel)
+            }
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -65,6 +69,7 @@ extension EditOrderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CreateOrderTableViewCell", for: indexPath) as! CreateOrderTableViewCell
+        cell.refStorage = self.storageRef
         cell.showInfo(orderInfo)
         cell.delegate = self
         return cell
@@ -72,6 +77,19 @@ extension EditOrderViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension EditOrderViewController: CreateOrderCellDelegate {
+    func deleteImageFromServer(_ imageName: String) {
+        if arrImageServerDeleted == nil {
+            arrImageServerDeleted = [String]()
+        }
+        arrImageServerDeleted?.append(imageName)
+    }
+    
+    func imageCountGreateThanMax(_ count: Int) {
+        self.showAlertView("Số lượng ảnh tối đa là \(Tools.MAX_IMAGES). \r\nĐể thay ảnh mới bạn phải xoá ảnh trước khi thêm.") {
+            
+        }
+    }
+    
     func eventChooseProductImages(_ cell: CreateOrderTableViewCell) {
         choosePhoto()
     }
@@ -91,6 +109,7 @@ extension EditOrderViewController: ListPhotoDelegate {
             orderInfo?.arrProductImages = [ItemImageSelect]()
         }
         orderInfo?.arrProductImages = arrImages
+        print("\(TAG) - \(#function) - \(#line) - orderInfo?.arrProductImages : \(orderInfo?.arrProductImages)")
         DispatchQueue.main.async {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             self.tbOrder.reloadData()

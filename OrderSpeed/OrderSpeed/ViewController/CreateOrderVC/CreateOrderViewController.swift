@@ -189,6 +189,14 @@ extension CreateOrderViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 extension CreateOrderViewController: CreateOrderCellDelegate {
+    func deleteImageFromServer(_ imageName: String) {
+        
+    }
+    
+    func imageCountGreateThanMax(_ count: Int) {
+        
+    }
+    
     func eventChooseProductImages(_ cell: CreateOrderTableViewCell) {
         cellChooseImage = cell
         choosePhoto()

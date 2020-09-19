@@ -10,6 +10,7 @@ import UIKit
 
 enum OrderFolderName: String {
     case rootOrderProduct = "OrderProduct"
+    case rootRequestSupport = "RequestSupport"
     case product = "Product"
     case status = "Status"
     case settings = "Settings"
@@ -23,7 +24,8 @@ extension UIButton {
   }
 }
 
-extension UITextField {
+extension UIView {
+
     func shakeAnimationTextField() {
         let midX = self.center.x
         let midY = self.center.y
@@ -37,10 +39,7 @@ extension UITextField {
         
         self.layer.borderColor = UIColor.red.cgColor
     }
-}
-
-extension UIView {
-
+    
     func addShadow(shadowColor: UIColor, offSet: CGSize, opacity: Float, shadowRadius: CGFloat, cornerRadius: CGFloat, corners: UIRectCorner, fillColor: UIColor = .white) {
         
         let shadowLayer = CAShapeLayer()
@@ -68,6 +67,7 @@ extension NSObject {
 }
 
 class Tools {
+    static let MAX_IMAGES = 3
     static let GOOGLE_SIGN_IN_KEY = "1030282007437-r5ju99j9bjseia8l94as7el140jstn6p.apps.googleusercontent.com"
     static let KEY_INFO_USER = "KEY_INFO_USER"
     

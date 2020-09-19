@@ -9,12 +9,12 @@
 import UIKit
 
 @IBDesignable class BottomLineTextField: UITextField {
-
+    let colorLine = UIColor(red: 210.0/255.0, green: 210.0/255.0, blue: 210.0/255.0, alpha: 1)
     let bottomLine = UIView()
     
     var isChecked = true {
         didSet {
-            let color = isChecked ? UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 1) : UIColor.red
+            let color = isChecked ? colorLine : UIColor.red
             bottomLine.backgroundColor = color
             if !isChecked {
                 shakeAnimationTextField()
@@ -55,7 +55,7 @@ import UIKit
     func addBottomLine() {
         borderStyle = .none
         bottomLine.tag = 100
-        bottomLine.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 1)
+        bottomLine.backgroundColor = colorLine
         bottomLine.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(bottomLine)
         bottomLine.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

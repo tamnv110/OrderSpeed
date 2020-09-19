@@ -177,6 +177,7 @@ class ManagerOrderViewController: MainViewController {
             let order = arrOrders[indexPath.row]
             DispatchQueue.main.async {
                 let vc = OrderInfoViewController(nibName: "OrderInfoViewController", bundle: nil)
+                vc.typeEdit = 1
                 vc.orderEdit = order
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)

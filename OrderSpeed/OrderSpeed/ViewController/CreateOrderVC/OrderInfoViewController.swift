@@ -59,20 +59,22 @@ class OrderInfoViewController: MainViewController {
     
     var orderStatus: OrderStatusModel?
     var orderEdit: OrderProductDataModel?
+    var typeEdit = 0
+    var arrImageDelete: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        #if DEBUG
-//        receiverName = "Nguyễn Văn Tâm"
-//        receiverPhone = "094391033"
-//        cityName = "Hà Nội"
-//        districtName = "Quận Hà Đông"
-//        address = "CT1-Nam Xa La, P.Phúc La"
-//        note = "Gọi trước 30'"
-//        paymentName = "Nguyễn Văn Tâm"
-//        paymentPhone = "094391033"
-//        #endif
+        #if DEBUG
+        receiverName = "Nguyễn Văn Tâm"
+        receiverPhone = "094391033"
+        cityName = "Hà Nội"
+        districtName = "Quận Hà Đông"
+        address = "CT1-Nam Xa La, P.Phúc La"
+        note = "Gọi trước 30'"
+        paymentName = "Nguyễn Văn Tâm"
+        paymentPhone = "094391033"
+        #endif
         
         btnOrder.clipsToBounds = true
         btnOrder.layer.insertSublayer(gradientLayer, below: btnOrder.titleLabel?.layer)
@@ -83,6 +85,30 @@ class OrderInfoViewController: MainViewController {
         tbInfo.register(UINib(nibName: "CheckOrderTableCell", bundle: nil), forCellReuseIdentifier: "CheckOrderTableCell")
         tbInfo.register(UINib(nibName: "ShowTitleTableCell", bundle: nil), forCellReuseIdentifier: "ShowTitleTableCell")
         
+        hanleNotification()
+        
+        if let order = orderEdit {
+            self.btnOrder.setTitle("Sửa", for: .normal)
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sửa", style: .done, target: self, action: #selector(eventChooseDoneEditOrder(_:)))
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            paymentName = order.paymentName
+            paymentPhone = order.paymentPhone
+            if order.shippingMethod == "Tại nhà" {
+                receiverName = order.receiverName
+                receiverPhone = order.receiverPhone
+                cityName = order.cityName
+                districtName = order.districtName
+                address = order.receiverAddress
+                note = order.note
+            } else {
+                deliveryType = DeliveryModel(["name": order.warehouseName, "description": order.warehouseAddress, "price": "\(order.shippingCost)"], id: warehouseID)
+            }
+            connectGetProductEdit(order.idOrder)
+        }
+        connectGetStatus()
+    }
+    
+    func hanleNotification() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_EDIT_ORDER"), object: nil, queue: .main) { (notification) in
             if let order = notification.object as? ProductModel {
                 if let index = self.arrOrder.firstIndex(where: { (item) -> Bool in
@@ -112,25 +138,13 @@ class OrderInfoViewController: MainViewController {
             }
         }
         
-        if let order = orderEdit {
-            self.btnOrder.setTitle("Sửa", for: .normal)
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sửa", style: .done, target: self, action: #selector(eventChooseDoneEditOrder(_:)))
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            paymentName = order.paymentName
-            paymentPhone = order.paymentPhone
-            if order.shippingMethod == "Tại nhà" {
-                receiverName = order.receiverName
-                receiverPhone = order.receiverPhone
-                cityName = order.cityName
-                districtName = order.districtName
-                address = order.receiverAddress
-                note = order.note
-            } else {
-                deliveryType = DeliveryModel(["name": order.warehouseName, "description": order.warehouseAddress, "price": "\(order.shippingCost)"], id: warehouseID)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_EDIT_ORDER_DELETE_IMAGES"), object: nil, queue: nil) { (notification) in
+            if let arrImages = notification.object as? [String] {
+                self.arrImageDelete = [String]()
+                self.arrImageDelete?.append(contentsOf: arrImages)
             }
-            connectGetProductEdit(order.idOrder)
         }
-        connectGetStatus()
+        
     }
     
     @objc func eventChooseDoneEditOrder(_ sender: Any) {
@@ -202,6 +216,7 @@ class OrderInfoViewController: MainViewController {
             let order = arrOrder[indexPath.row]
             DispatchQueue.main.async {
                 let vc = EditOrderViewController(nibName: "EditOrderViewController", bundle: nil)
+                vc.typeEdit = self.typeEdit
                 vc.orderInfo = order
                 self.navigationController?.pushViewController(vc, animated: true)
             }
@@ -219,7 +234,21 @@ class OrderInfoViewController: MainViewController {
     
     func editOrderExists() {
         guard let order = orderEdit, let orderID = order.idOrder else { return }
-        editOrder(orderID)
+        showProgressHUD("Sửa đơn hàng...")
+        if let arrDelete = self.arrImageDelete, arrDelete.count > 0 {
+            var count = arrDelete.count
+            for item in arrDelete {
+                let imageRef = storageRef.child("Images/\(item)")
+                imageRef.delete { (error) in
+                    count -= 1
+                    if count == 0 {
+                        self.editOrder(orderID)
+                    }
+                }
+            }
+        } else {
+            editOrder(orderID)
+        }
     }
     
     func checkOrderCodeExists(_ code: String) {
@@ -259,51 +288,74 @@ class OrderInfoViewController: MainViewController {
         let batch = self.dbFireStore.batch()
 
         var totalMoney: Double = 0
+        var arrUploadData = [(String, [(String, Data)])]()
         for (index, item) in arrOrder.enumerated() {
+            totalMoney += (Double(item.amount) * item.price)
             let itemDoc = refDoc.collection(OrderFolderName.product.rawValue).document()
             let docID = itemDoc.documentID
-            totalMoney += (Double(item.amount) * item.price)
-            var arrImagesName = [String]()
-            if let arrImages = item.arrProductImages {
-                var countImage = arrImages.count
-                for (index, image) in arrImages.enumerated() {
+            arrOrder[index].productID = docID
+            if let arrImages = item.arrProductImages, arrImages.count > 0 {
+                var arrImagesUpload = [(String, Data)]()
+                for (indexImage, image) in arrImages.enumerated() {
                     if let uploadData = image.image?.jpegData(compressionQuality: 0.5) {
-                        let imageName = "\(docID)_\(index + 1).jpg"
-                        print("\(self.TAG) - \(#function) - \(#line) - imageName : \(imageName)")
-                        arrImagesName.append(imageName)
-                        let imageRef = storageRef.child("Images/\(imageName)")
-                        imageRef.putData(uploadData, metadata: nil) { (metaData, error) in
-                            countImage -= 1
-                            if countImage == 0 {
-                                
-                            }
+                        let imageName = "\(docID)_\(indexImage + 1).jpg"
+                        arrImagesUpload.append((imageName, uploadData))
+                    }
+                }
+                if arrImagesUpload.count > 0 {
+                    let itemUpload = (docID, arrImagesUpload)
+                    arrUploadData.append(itemUpload)
+                }
+            } else {
+                let productID = codeOrder + "-\(index + 1)"
+                let dict = ProductModel(code: productID, link: item.link, name: item.name, option: item.option, amount: item.amount, price: item.price, fee: Tools.FEE_SERVICE, status: "", note: item.note)
+                batch.setData(dict.dictionary, forDocument: itemDoc)
+            }
+        }
+        
+        uploadImages(arrUploadData) { kq in
+            var imageDefault = ""
+            if kq == 1 {
+                for item in arrUploadData {
+                    if let index = self.arrOrder.firstIndex(where: { (product) -> Bool in
+                        return product.productID == item.0
+                    }) {
+                        let dict = self.arrOrder[index]
+                        if let doctID = dict.productID {
+                            let itemDoc = refDoc.collection(OrderFolderName.product.rawValue).document(doctID)
+                            let productID = codeOrder + "-\(index + 1)"
+                            var dictUpload = ProductModel(code: productID, link: dict.link, name: dict.name, option: dict.option, amount: dict.amount, price: dict.price, fee: Tools.FEE_SERVICE, status: "", note: dict.note)
+                            dictUpload.images = item.1.map({ (imageData) -> String in
+                                if imageDefault.isEmpty {
+                                    imageDefault = imageData.0
+                                }
+                                return imageData.0
+                            })
+                            batch.setData(dictUpload.dictionary, forDocument: itemDoc)
                         }
                     }
                 }
             }
-            let productID = codeOrder + "-\(index + 1)"
-            var dict = ProductModel(code: productID, link: item.link, name: item.name, option: item.option, amount: item.amount, price: item.price, fee: Tools.FEE_SERVICE, status: "", note: item.note)
-            dict.images = arrImagesName
-            batch.setData(dict.dictionary, forDocument: itemDoc)
-        }
-        if var status = self.orderStatus {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            status.createAt = formatter.string(from: Date())
-            let statusDoc = refDoc.collection(OrderFolderName.status.rawValue).document()
-            batch.setData(status.dictionary, forDocument: statusDoc)
-        }
-        order.subTotalMoney = ceil(totalMoney * Tools.TI_GIA_NDT)
-        batch.setData(order.dictionary, forDocument: refDoc)
-
-        batch.commit { [weak self](error) in
-            self?.hideProgressHUD()
-            if let error = error {
-                self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau."){}
-                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
-            } else {
-                self?.showAlertController(.showSuccess, message: codeOrder)
-                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - thành công")
+            print("\(self.TAG) - \(#function) - \(#line) - chuan bị create : imageDefault \(imageDefault)")
+            if var status = self.orderStatus {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                status.createAt = formatter.string(from: Date())
+                let statusDoc = refDoc.collection(OrderFolderName.status.rawValue).document()
+                batch.setData(status.dictionary, forDocument: statusDoc)
+            }
+            order.imageDefault = imageDefault
+            order.subTotalMoney = ceil(totalMoney * order.currencyRate)
+            batch.setData(order.dictionary, forDocument: refDoc)
+            batch.commit { [weak self](error) in
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - edit thanh cong")
+                self?.hideProgressHUD()
+                if let error = error {
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {})
+                } else {
+                    self?.showAlertController(.showSuccess, message: codeOrder)
+                }
             }
         }
     }
@@ -325,18 +377,25 @@ class OrderInfoViewController: MainViewController {
         
         var totalMoney: Double = 0
         
-        var arrUploadData = [(String, String, Data)]()
-        for (index, item) in arrOrder.enumerated() {
+        var arrUploadData = [(String, [(String, Data)])]()
+        for (_, item) in arrOrder.enumerated() {
             totalMoney += (Double(item.amount) * item.price)
             if let docID = item.productID {
                 if let arrImages = item.arrProductImages, arrImages.count > 0 {
+                    var arrImagesUpload = [(String, Data)]()
                     for (indexImage, image) in arrImages.enumerated() {
                         if let uploadData = image.image?.jpegData(compressionQuality: 0.5) {
                             let imageName = "\(docID)_\(indexImage + 1)_\(formatter.string(from: Date())).jpg"
-                            let itemUpload = (docID, imageName, uploadData)
-                            arrUploadData.append(itemUpload)
+                            arrImagesUpload.append((imageName, uploadData))
                         }
                     }
+                    if arrImagesUpload.count > 0 {
+                        let itemUpload = (docID, arrImagesUpload)
+                        arrUploadData.append(itemUpload)
+                    }
+                } else {
+                    let productDocRef = refDocOrder.collection(OrderFolderName.product.rawValue).document(docID)
+                    batch.updateData(item.dictionary, forDocument: productDocRef)
                 }
             }
         }
@@ -347,45 +406,71 @@ class OrderInfoViewController: MainViewController {
          => update lại array images của ProductModel
         */
         uploadImages(arrUploadData) { kq in
+            var imageDefault = ""
             if kq == 1 {
                 for item in arrUploadData {
-                    if let dict = self.arrOrder.first(where: { (product) -> Bool in
+                    if var dict = self.arrOrder.first(where: { (product) -> Bool in
                         return product.productID == item.0
                     }) {
                         let productDocRef = refDocOrder.collection(OrderFolderName.product.rawValue).document(item.0)
+                        var arrImages = [String]()
+                        if let imageServer = dict.images, imageServer.count > 0 {
+                            arrImages.append(contentsOf: imageServer)
+                        }
+                        item.1.forEach { (itemUpload) in
+                            if imageDefault.isEmpty {
+                                imageDefault = itemUpload.0
+                            }
+                            arrImages.append(itemUpload.0)
+                        }
+                        dict.images = arrImages
                         batch.updateData(dict.dictionary, forDocument: productDocRef)
                     }
                 }
-                
             }
-            print("\(self.TAG) - \(#function) - \(#line) - chuan bị comit")
+            print("\(self.TAG) - \(#function) - \(#line) - chuan bị comit : imageDefault \(imageDefault)")
             if var status = self.orderStatus {
-                let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 status.createAt = formatter.string(from: Date())
                 let statusDoc = refDocOrder.collection(OrderFolderName.status.rawValue).document()
                 batch.setData(status.dictionary, forDocument: statusDoc)
             }
+            order.imageDefault = imageDefault
             order.subTotalMoney = ceil(totalMoney * order.currencyRate)
             batch.updateData(order.dictionary, forDocument: refDocOrder)
-            batch.commit { (error) in
-                print("\(self.TAG) - \(#function) - \(#line) - edit thanh cong")
+            batch.commit { [weak self](error) in
+                self?.hideProgressHUD()
+                if let _ = error {
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau", completion: {
+                        
+                    })
+                } else {
+                    self?.navigationItem.rightBarButtonItem?.isEnabled = false
+                    self?.showAlertView("Sửa đơn hàng thành công.\r\nChúng tôi sẽ cập nhật và liên hệ với bạn.", completion: {
+                        
+                    })
+                }
             }
         }
     }
     
-    func uploadImages(_ uploadDict: [(String, String, Data)], completion: @escaping (Int)->()) {
+    func uploadImages(_ uploadDict: [(String, [(String, Data)])], completion: @escaping (Int)->()) {
         if uploadDict.count == 0 {
             completion(0)
         }
-        var countImage = uploadDict.count
+        var countImage = 0
+        uploadDict.forEach { (item) in
+            countImage += item.1.count
+        }
         for item in uploadDict {
-            let imageRef = storageRef.child("Images/\(item.1)")
-            imageRef.putData(item.2, metadata: nil) { (metaData, error) in
-                countImage -= 1
-                print("\(self.TAG) - \(#function) - \(#line) - countImage : \(countImage)")
-                if countImage == 0 {
-                    completion(1)
+            item.1.forEach { (itemUpload) in
+                let imageRef = storageRef.child("Images/\(itemUpload.0)")
+                imageRef.putData(itemUpload.1, metadata: nil) { (metaData, error) in
+                    countImage -= 1
+                    print("\(self.TAG) - \(#function) - \(#line) - countImage : \(countImage)")
+                    if countImage == 0 {
+                        completion(1)
+                    }
                 }
             }
         }
@@ -505,6 +590,7 @@ extension OrderInfoViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CheckOrderTableCell", for: indexPath) as! CheckOrderTableCell
             cell.lblTitle.text = "SẢN PHẨM \(indexPath.row + 1)"
             let item = arrOrder[indexPath.row]
+            cell.refStorage = self.storageRef
             cell.product = item
             if (item.arrProductImages?.count ?? 0 == 0) && (item.images?.count ?? 0 == 0) {
                 cell.heightCollectionImages.constant = 0

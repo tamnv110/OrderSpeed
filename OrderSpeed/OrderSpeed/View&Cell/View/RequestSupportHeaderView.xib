@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RequestSupportHeaderView" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tiêu đề" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-jH-Cp3" customClass="BottomLineTextField" customModule="OrderSpeed" customModuleProvider="target">
+                    <rect key="frame" x="16" y="12" width="382" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Xn6-j9-4sL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textField>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pfc-9B-U8c" customClass="CustomTextViewPlaceHolder" customModule="OrderSpeed" customModuleProvider="target">
+                    <rect key="frame" x="16" y="64" width="382" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="4hS-hq-lWx"/>
+                    </constraints>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Nội dung"/>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1l-zz-Dsr">
+                    <rect key="frame" x="16" y="189" width="382" height="44"/>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="5Zl-cm-qvn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <state key="normal" title="Gửi">
+                        <color key="titleColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="22"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Qi6-jH-Cp3" secondAttribute="trailing" constant="16" id="0vw-w5-5YX"/>
+                <constraint firstItem="pfc-9B-U8c" firstAttribute="trailing" secondItem="Qi6-jH-Cp3" secondAttribute="trailing" id="2Pv-iL-1wa"/>
+                <constraint firstItem="j1l-zz-Dsr" firstAttribute="trailing" secondItem="pfc-9B-U8c" secondAttribute="trailing" id="3H7-o1-IPJ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="j1l-zz-Dsr" secondAttribute="bottom" priority="999" constant="16" id="DFF-HN-xec"/>
+                <constraint firstItem="j1l-zz-Dsr" firstAttribute="leading" secondItem="pfc-9B-U8c" secondAttribute="leading" id="GzK-1h-YHu"/>
+                <constraint firstItem="Qi6-jH-Cp3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="UgS-yR-357"/>
+                <constraint firstItem="pfc-9B-U8c" firstAttribute="top" secondItem="Qi6-jH-Cp3" secondAttribute="bottom" constant="8" id="XGV-IJ-LuV"/>
+                <constraint firstItem="pfc-9B-U8c" firstAttribute="leading" secondItem="Qi6-jH-Cp3" secondAttribute="leading" id="iFh-D8-clg"/>
+                <constraint firstItem="j1l-zz-Dsr" firstAttribute="top" secondItem="pfc-9B-U8c" secondAttribute="bottom" constant="25" id="llF-wP-PM7"/>
+                <constraint firstItem="Qi6-jH-Cp3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="yK9-fT-6pG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btnSend" destination="j1l-zz-Dsr" id="he8-uQ-OiQ"/>
+                <outlet property="tfContent" destination="pfc-9B-U8c" id="0JI-v6-EEr"/>
+                <outlet property="tfTitle" destination="Qi6-jH-Cp3" id="g65-0j-OYe"/>
+            </connections>
+            <point key="canvasLocation" x="139.13043478260872" y="-69.977678571428569"/>
+        </view>
+    </objects>
+</document>

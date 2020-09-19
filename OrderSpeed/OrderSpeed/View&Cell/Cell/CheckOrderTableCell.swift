@@ -10,7 +10,7 @@ import UIKit
 import FirebaseStorage
 
 class CheckOrderTableCell: UITableViewCell {
-
+    private let TAG = "CheckOrderTableCell"
     @IBOutlet weak var viewShadow: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblLink: UILabel!
@@ -24,25 +24,11 @@ class CheckOrderTableCell: UITableViewCell {
     @IBOutlet weak var heightCollectionImages: NSLayoutConstraint!
     @IBOutlet weak var btnEdit: UIButton!
     var heightCollectionOld: CGFloat = 0
-//    var orderProduct: OrderProductModel? {
-//        didSet {
-//            if let item = self.orderProduct {
-//                self.lblLink.text = item.link
-//                self.lblName.text = item.name
-//                self.lblSize.text = item.size
-//                self.lblNumber.text = "\(item.number)"
-//                let moneyYen = item.price * Double(item.number)
-//                self.lblPriceCNY.text = Tools.convertCurrencyFromString(input: String(format: "%.2f", moneyYen)) + " ¥"
-//                let moneyVND = ceil(moneyYen * Tools.TI_GIA_NDT)
-//                self.lblPriceVND.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyVND)) + " VND\r\n(Tỉ giá: \(Tools.convertCurrencyFromString(input: "\(Tools.TI_GIA_NDT)")))"
-//                self.lblNote.text = item.note
-//            }
-//        }
-//    }
     
     var product: ProductModel? {
         didSet {
             if let item = self.product {
+                self.arrImages.removeAll()
                 self.lblLink.text = item.link
                 self.lblName.text = item.name
                 self.lblSize.text = item.option
@@ -52,7 +38,18 @@ class CheckOrderTableCell: UITableViewCell {
                 let moneyVND = ceil(moneyYen * Tools.TI_GIA_NDT)
                 self.lblPriceVND.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyVND)) + " VND\r\n(Tỉ giá: \(Tools.convertCurrencyFromString(input: "\(Tools.TI_GIA_NDT)")))"
                 self.lblNote.text = item.note
-                print("===> \(item.arrProductImages?.count)")
+                if let imagesLocal = item.arrProductImages {
+                    let result = imagesLocal.map { (item) -> (Int, String?, ItemImageSelect?) in
+                        return (0, nil, item)
+                    }
+                    self.arrImages.append(contentsOf: result)
+                }
+                if let imagesServer = item.images {
+                    let result = imagesServer.map{ (item) -> (Int, String?, ItemImageSelect?) in
+                        return (1, item, nil)
+                    }
+                    self.arrImages.append(contentsOf: result)
+                }
                 DispatchQueue.main.async {
                     self.collectionImages.reloadData()
                 }
@@ -61,11 +58,11 @@ class CheckOrderTableCell: UITableViewCell {
     }
     
     var refStorage: StorageReference?
+    var arrImages = [(Int, String?, ItemImageSelect?)]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         heightCollectionOld = heightCollectionImages.constant
-        print("======> heightCollectionOld : \(heightCollectionOld)")
         collectionImages.register(UINib(nibName: "ImageProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImageProductCollectionViewCell")
         collectionImages.delegate = self
         collectionImages.dataSource = self
@@ -99,31 +96,24 @@ extension CheckOrderTableCell: UICollectionViewDelegate, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if product != nil {
-            if let arrImage = product?.images, arrImage.count > 0 {
-                return arrImage.count
-            } else if let arrImage = product?.arrProductImages, arrImage.count > 0 {
-                return arrImage.count
-            }
-            return 0
-        }
-        return 0
+        return arrImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageProductCollectionViewCell", for: indexPath) as! ImageProductCollectionViewCell
-        if let arrImage = product?.images, arrImage.count > indexPath.row, let ref = self.refStorage {
-            let imageName = arrImage[indexPath.row]
-            let reference = ref.child("Images/\(imageName)")
-            cell.imgvProduct.sd_setImage(with: reference, placeholderImage: UIImage(named: ""))
-        } else if let arrImage = product?.arrProductImages, arrImage.count > indexPath.row {
-            let item = arrImage[indexPath.row]
-            cell.imgvProduct.image = item.image
+        let item = arrImages[indexPath.row]
+        if item.0 == 0 {
+            cell.imgvProduct.image = item.2?.image
+        } else if let imageName = item.1, let ref = self.refStorage {
+             let reference = ref.child("Images/\(imageName)")
+            cell.imgvProduct.sd_setImage(with: reference, placeholderImage: nil)
         }
-//        if let imageName = product?.images?[indexPath.row], imageName.count > indexPath.row, let ref = self.refStorage {
+//        if let arrImage = product?.images, arrImage.count > indexPath.row, let ref = self.refStorage {
+//            let imageName = arrImage[indexPath.row]
 //            let reference = ref.child("Images/\(imageName)")
-//            cell.imgvProduct.sd_setImage(with: reference, placeholderImage: UIImage(named: ""))
-//        } else if let item = product?.arrProductImages?[indexPath.row] {
+//            cell.imgvProduct.sd_setImage(with: reference, placeholderImage: nil)
+//        } else if let arrImage = product?.arrProductImages, arrImage.count > indexPath.row {
+//            let item = arrImage[indexPath.row]
 //            cell.imgvProduct.image = item.image
 //        }
         cell.imgvDefault.isHidden = true

@@ -13,7 +13,20 @@ protocol CustomTextViewDelegate {
 }
 
 @IBDesignable class CustomTextViewPlaceHolder: UITextView {
+    let colorLine = UIColor(red: 210.0/255.0, green: 210.0/255.0, blue: 210.0/255.0, alpha: 1)
     var customDelegate: CustomTextViewDelegate?
+    var bottomLine = UIView()
+    
+    var isChecked = true {
+        didSet {
+            let color = isChecked ? colorLine : UIColor.red
+            bottomLine.backgroundColor = color
+            if !isChecked {
+                shakeAnimationTextField()
+            }
+        }
+    }
+    
     @IBInspectable public var placeholder: String? {
         get {
             var placeholderText: String?
@@ -65,19 +78,26 @@ protocol CustomTextViewDelegate {
     override var bounds: CGRect {
         didSet {
             self.resizePlaceholder()
+            self.addBottomLine()
         }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        addBottomLine()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        addBottomLine()
+    }
+    
     func addBottomLine() {
-        let bottomLine = UIView()
-        bottomLine.backgroundColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1)
-        bottomLine.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(bottomLine)
-
-        bottomLine.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        bottomLine.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        bottomLine.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        bottomLine.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        bottomLine.frame = CGRect(x: 0, y: self.bounds.height - 1, width: self.bounds.width, height: 1)
+        bottomLine.tag = 101
+        bottomLine.backgroundColor = colorLine
+        if self.viewWithTag(101) == nil {
+            self.addSubview(bottomLine)
+        }
     }
 }
 
@@ -86,6 +106,11 @@ extension CustomTextViewPlaceHolder : UITextViewDelegate {
         if let placeholderLabel = self.viewWithTag(100) as? UILabel {
             placeholderLabel.isHidden = self.text.count > 0
         }
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        isChecked = true
+        return isChecked
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

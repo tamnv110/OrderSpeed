@@ -11,33 +11,30 @@ import Firebase
 
 class RequestSupportViewController: MainViewController {
 
-    @IBOutlet weak var tfTieuDe: BottomLineTextField!
-    @IBOutlet weak var tfNoiDung: CustomTextViewPlaceHolder!
-    @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var tbInfo: UITableView!
     
-    lazy var gradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [Tools.hexStringToUIColor(hex: "#DC7942").cgColor, Tools.hexStringToUIColor(hex: "#F8AB25").cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
-        return gradientLayer
-    }()
     var arrSupport = [SupportModel]()
     var order: OrderProductDataModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        btnSend.layer.insertSublayer(gradientLayer, below: btnSend.titleLabel?.layer)
+        createHeaderView()
         tbInfo.tableFooterView = UIView(frame: .zero)
         tbInfo.register(UINib(nibName: "ManagerOrderTableCell", bundle: nil), forCellReuseIdentifier: "ManagerOrderTableCell")
         tbInfo.register(UINib(nibName: "SupportTableViewCell", bundle: nil), forCellReuseIdentifier: "SupportTableViewCell")
         connectGetListSupport()
     }
     
+    func createHeaderView() {
+        let header = RequestSupportHeaderView.instanceFromNib()
+        header.frame = CGRect(x: 0, y: 0, width: tbInfo.frame.width, height: 250)
+        tbInfo.tableHeaderView = header
+        header.btnSend.addTarget(self, action: #selector(eventChooseSend(_:)), for: .touchUpInside)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        gradientLayer.frame = btnSend.bounds
+        tbInfo.updateHeightHeader()
     }
 
     func connectGetListSupport() {
@@ -64,21 +61,28 @@ class RequestSupportViewController: MainViewController {
     @IBAction func eventChooseDismiss(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    @IBAction func eventChooseSend(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.view.endEditing(true)
-        }
-        guard let user = self.appDelegate.user, let orderID = order?.idOrder else { return }
-        self.showProgressHUD("Gửi hỗ trợ...")
-        let item = RequestSupportModel(user.userID, userName: user.fullname, userPhone: user.phoneNumber, title: tfTieuDe.text!, content: tfNoiDung.text!, orderID: orderID)
-        self.dbFireStore.collection("RequestSupport").addDocument(data: item.dictionary) { [weak self](error) in
-            self?.hideProgressHUD()
-            if let _ = error {
-                self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau."){}
-            } else {
-                self?.showErrorAlertView("Gửi yêu cầu hỗ trợ thành công. Chúng tôi sẽ phản hồi bạn sớm nhất."){}
+    
+    @objc func eventChooseSend(_ sender: Any) {
+        guard let header = tbInfo.tableHeaderView as? RequestSupportHeaderView else { return }
+        if header.checkDataInpunt() {
+            DispatchQueue.main.async {
+                self.view.endEditing(true)
+            }
+            guard let user = self.appDelegate.user, let orderID = order?.idOrder else { return }
+            self.showProgressHUD("Gửi hỗ trợ...")
+            let item = RequestSupportModel(user.userID, userName: user.fullname, userPhone: user.phoneNumber, title: header.tfTitle.text ?? "", content: header.tfContent.text, orderID: orderID)
+            self.dbFireStore.collection("RequestSupport").addDocument(data: item.dictionary) { [weak self](error) in
+                self?.hideProgressHUD()
+                if let _ = error {
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau."){}
+                } else {
+                    self?.showErrorAlertView("Gửi yêu cầu hỗ trợ thành công. Chúng tôi sẽ phản hồi bạn sớm nhất."){
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                }
             }
         }
+
     }
     
 }

@@ -42,9 +42,7 @@ protocol ListPhotoDelegate {
 }
 
 class ListPhotosViewController: MainViewController {
-    
-    private let MAX_IMAGES = 3
-    
+        
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var viewAlbumOption: UIView!
     @IBOutlet weak var tblAlbum: UITableView!
@@ -472,12 +470,12 @@ extension ListPhotosViewController : UICollectionViewDelegateFlowLayout, UIColle
                             }) {
                                 self.arrSelectedImage.remove(at: index)
                             } else {
-                                if self.arrSelectedImage.count < self.MAX_IMAGES {
+                                if self.arrSelectedImage.count < Tools.MAX_IMAGES {
                                     isAdd = true
                                     let itemSelect = ItemImageSelect(imageID: asset.localIdentifier, image: imageResult, imageAsset: asset)
                                     self.arrSelectedImage.append(itemSelect)
                                 } else {
-                                    self.showErrorAlertView("Số ảnh sản phẩm tối đa là: \(self.MAX_IMAGES)"){}
+                                    self.showErrorAlertView("Số ảnh sản phẩm tối đa là: \(Tools.MAX_IMAGES)"){}
                                     return
                                 }
                             }

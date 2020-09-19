@@ -29,4 +29,15 @@ class OrderStatusTableCell: UITableViewCell {
             lblTime.text = formatter.string(from: date)
         }
     }
+    
+    func showInfoSupport(_ item: RequestSupportModel) {
+        lblStatus.text = item.title
+        lblContent.text = item.content
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let date = formatter.date(from: item.createAt) {
+            formatter.dateFormat = "HH:mm dd/MM/yyyy"
+            lblTime.text = formatter.string(from: date)
+        }
+    }
 }

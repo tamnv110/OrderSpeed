@@ -51,6 +51,15 @@ class MainViewController: UIViewController {
         }
     }
     
+    func showAlertView(_ sThongBao:String, completion: @escaping () -> ()) {
+        let alert = UIAlertController(title: "Thông báo", message: sThongBao, preferredStyle: .alert)
+        let actionCancel = UIAlertAction(title: "Đóng", style: .cancel) { (action) in
+            completion()
+        }
+        alert.addAction(actionCancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func showErrorAlertView(_ sThongBao:String, completion: @escaping () -> ()) {
         let alert = UIAlertController(title: "Lỗi", message: sThongBao, preferredStyle: .alert)
         let actionCancel = UIAlertAction(title: "Đóng", style: .cancel) { (action) in
