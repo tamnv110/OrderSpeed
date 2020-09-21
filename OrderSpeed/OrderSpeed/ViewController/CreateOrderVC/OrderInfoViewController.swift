@@ -65,17 +65,17 @@ class OrderInfoViewController: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        #if DEBUG
-        receiverName = "Nguyễn Văn Tâm"
-        receiverPhone = "094391033"
-        cityName = "Hà Nội"
-        districtName = "Quận Hà Đông"
-        address = "CT1-Nam Xa La, P.Phúc La"
-        note = "Gọi trước 30'"
-        paymentName = "Nguyễn Văn Tâm"
-        paymentPhone = "094391033"
-        #endif
-        
+//        #if DEBUG
+//        receiverName = "Nguyễn Văn Tâm"
+//        receiverPhone = "094391033"
+//        cityName = "Hà Nội"
+//        districtName = "Quận Hà Đông"
+//        address = "CT1-Nam Xa La, P.Phúc La"
+//        note = "Gọi trước 30'"
+//        paymentName = "Nguyễn Văn Tâm"
+//        paymentPhone = "094391033"
+//        #endif
+
         btnOrder.clipsToBounds = true
         btnOrder.layer.insertSublayer(gradientLayer, below: btnOrder.titleLabel?.layer)
         
@@ -105,6 +105,18 @@ class OrderInfoViewController: MainViewController {
             }
             connectGetProductEdit(order.idOrder)
         }
+        
+        if let user = self.appDelegate.user {
+            receiverName = user.fullname
+            receiverPhone = user.phoneNumber
+            cityName = user.cityName
+            districtName = user.districtName
+            address = user.address
+
+            paymentName = user.fullname
+            paymentPhone = user.phoneNumber
+        }
+        
         connectGetStatus()
     }
     
@@ -347,6 +359,36 @@ class OrderInfoViewController: MainViewController {
             order.imageDefault = imageDefault
             order.subTotalMoney = ceil(totalMoney * order.currencyRate)
             batch.setData(order.dictionary, forDocument: refDoc)
+            
+            if let user = self.appDelegate.user {
+                let userDocRef = self.dbFireStore.collection("User").document(user.userID)
+                var isChangeUser = false
+                if user.phoneNumber.isEmpty {
+                    batch.updateData(["phone": self.receiverPhone], forDocument: userDocRef)
+                    user.phoneNumber = self.receiverPhone
+                    isChangeUser = true
+                }
+                if user.cityName.isEmpty {
+                    batch.updateData(["city_name": self.cityName], forDocument: userDocRef)
+                    user.cityName = self.cityName
+                    isChangeUser = true
+                }
+                if user.districtName.isEmpty {
+                    batch.updateData(["district_name": self.districtName], forDocument: userDocRef)
+                    user.districtName = self.districtName
+                    isChangeUser = true
+                }
+                if user.address.isEmpty {
+                    batch.updateData(["address": self.address], forDocument: userDocRef)
+                    user.address = self.address
+                    isChangeUser = true
+                }
+                if isChangeUser {
+                    Tools.saveUserInfo(user)
+                    NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHANGE_USER_INFO"), object: nil)
+                }
+            }
+            
             batch.commit { [weak self](error) in
                 print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - edit thanh cong")
                 self?.hideProgressHUD()

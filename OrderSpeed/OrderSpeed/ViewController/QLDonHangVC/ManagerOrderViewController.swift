@@ -60,21 +60,18 @@ class ManagerOrderViewController: MainViewController {
     }
     
     func addListenerManagerOrder() {
-        showProgressHUD("Lấy dữ liệu...")
         if let user = self.appDelegate.user {
+            showProgressHUD("Lấy dữ liệu...")
             listener = self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue).whereField("user_id", isEqualTo: user.userID).order(by: "created_at", descending: true).addSnapshotListener { [weak self](snapshot, error) in
                 if let docments = snapshot {
                     docments.documentChanges.forEach({ (diff) in
                         if (diff.type == .added) {
-//                            print("\(String(describing: self?.TAG)) added : \(diff.document.data())")
                             self?.addOrderProduct(diff.document.documentID, dict: diff.document.data())
                         }
                         if (diff.type == .modified) {
-//                            print("\(String(describing: self?.TAG)) modified : \(diff.document.data())")
                             self?.updateOrderProduct(diff.document.documentID, dict: diff.document.data())
                         }
                         if (diff.type == .removed) {
-//                            print("\(String(describing: self?.TAG)) remove: \(diff.document.data())")
                             self?.removeOrderProduct(diff.document.documentID)
                         }
 
@@ -85,6 +82,12 @@ class ManagerOrderViewController: MainViewController {
                     self?.hideProgressHUD()
                 }
             }
+        } else {
+            let lblFooter = UILabel(frame: tbOrder.bounds)
+            lblFooter.textAlignment = .center
+            lblFooter.text = "Bạn cần đăng nhập để quản lý đơn hàng."
+            lblFooter.textColor = UIColor.darkGray
+            tbOrder.tableFooterView = lblFooter
         }
     }
     

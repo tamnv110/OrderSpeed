@@ -77,8 +77,6 @@
 		E7A0E65A25077817003B2040 /* OrderProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0E65925077817003B2040 /* OrderProductModel.swift */; };
 		E7A0E65D2507C6BE003B2040 /* OrderInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0E65B2507C6BE003B2040 /* OrderInfoViewController.swift */; };
 		E7A0E65E2507C6BE003B2040 /* OrderInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A0E65C2507C6BE003B2040 /* OrderInfoViewController.xib */; };
-		E7A0E6612507CA1D003B2040 /* ReceiverInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0E65F2507CA1D003B2040 /* ReceiverInfoTableCell.swift */; };
-		E7A0E6622507CA1D003B2040 /* ReceiverInfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A0E6602507CA1D003B2040 /* ReceiverInfoTableCell.xib */; };
 		E7B2F28E2500943E00F1F26A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2F28D2500943E00F1F26A /* MainViewController.swift */; };
 		E7B2F2902500948200F1F26A /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2F28F2500948200F1F26A /* Tools.swift */; };
 		E7B2F296250094A000F1F26A /* BottomLineTextFiled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2F292250094A000F1F26A /* BottomLineTextFiled.swift */; };
@@ -95,6 +93,15 @@
 		E7C316DD2508D7CC007F712B /* ChooseCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7C316DB2508D7CB007F712B /* ChooseCityViewController.xib */; };
 		E7C316E02508D891007F712B /* ShowTitleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C316DE2508D891007F712B /* ShowTitleTableCell.swift */; };
 		E7C316E12508D891007F712B /* ShowTitleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7C316DF2508D891007F712B /* ShowTitleTableCell.xib */; };
+		E7D5E45D25185E32004CF16A /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5E45C25185E32004CF16A /* AccountHeaderView.swift */; };
+		E7D5E46025185E3C004CF16A /* AccountHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D5E45F25185E3B004CF16A /* AccountHeaderView.xib */; };
+		E7D5E46425189496004CF16A /* ChangeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5E46225189496004CF16A /* ChangeAddressViewController.swift */; };
+		E7D5E46525189496004CF16A /* ChangeAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D5E46325189496004CF16A /* ChangeAddressViewController.xib */; };
+		E7F05EDE2518A75500A5352B /* ReceiverInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F05EDC2518A75500A5352B /* ReceiverInfoTableCell.swift */; };
+		E7F05EDF2518A75600A5352B /* ReceiverInfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */; };
+		E7F05EE32518A86800A5352B /* AccountReceiverTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */; };
+		E7F05EE42518A86800A5352B /* AccountReceiverTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F05EE22518A86800A5352B /* AccountReceiverTableCell.xib */; };
+		E7F05EE72518CF5E00A5352B /* BankInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F05EE62518CF5E00A5352B /* BankInfoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,8 +179,6 @@
 		E7A0E65925077817003B2040 /* OrderProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProductModel.swift; sourceTree = "<group>"; };
 		E7A0E65B2507C6BE003B2040 /* OrderInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInfoViewController.swift; sourceTree = "<group>"; };
 		E7A0E65C2507C6BE003B2040 /* OrderInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderInfoViewController.xib; sourceTree = "<group>"; };
-		E7A0E65F2507CA1D003B2040 /* ReceiverInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverInfoTableCell.swift; sourceTree = "<group>"; };
-		E7A0E6602507CA1D003B2040 /* ReceiverInfoTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiverInfoTableCell.xib; sourceTree = "<group>"; };
 		E7B2F28D2500943E00F1F26A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E7B2F28F2500948200F1F26A /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		E7B2F292250094A000F1F26A /* BottomLineTextFiled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLineTextFiled.swift; sourceTree = "<group>"; };
@@ -190,6 +195,15 @@
 		E7C316DB2508D7CB007F712B /* ChooseCityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCityViewController.xib; sourceTree = "<group>"; };
 		E7C316DE2508D891007F712B /* ShowTitleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTitleTableCell.swift; sourceTree = "<group>"; };
 		E7C316DF2508D891007F712B /* ShowTitleTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowTitleTableCell.xib; sourceTree = "<group>"; };
+		E7D5E45C25185E32004CF16A /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
+		E7D5E45F25185E3B004CF16A /* AccountHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountHeaderView.xib; sourceTree = "<group>"; };
+		E7D5E46225189496004CF16A /* ChangeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAddressViewController.swift; sourceTree = "<group>"; };
+		E7D5E46325189496004CF16A /* ChangeAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeAddressViewController.xib; sourceTree = "<group>"; };
+		E7F05EDC2518A75500A5352B /* ReceiverInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverInfoTableCell.swift; sourceTree = "<group>"; };
+		E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiverInfoTableCell.xib; sourceTree = "<group>"; };
+		E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReceiverTableCell.swift; sourceTree = "<group>"; };
+		E7F05EE22518A86800A5352B /* AccountReceiverTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountReceiverTableCell.xib; sourceTree = "<group>"; };
+		E7F05EE62518CF5E00A5352B /* BankInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankInfoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +248,8 @@
 				E78A546F2514D27F009351FC /* DetailOrderStatusSectionView.xib */,
 				E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */,
 				E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */,
+				E7D5E45C25185E32004CF16A /* AccountHeaderView.swift */,
+				E7D5E45F25185E3B004CF16A /* AccountHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -257,8 +273,6 @@
 				E748BA8A2503DF4600612050 /* CreateOrderTableViewCell.xib */,
 				E7A0E63A25073501003B2040 /* ImageProductCollectionViewCell.swift */,
 				E7A0E63B25073501003B2040 /* ImageProductCollectionViewCell.xib */,
-				E7A0E65F2507CA1D003B2040 /* ReceiverInfoTableCell.swift */,
-				E7A0E6602507CA1D003B2040 /* ReceiverInfoTableCell.xib */,
 				E7C316D1250878F3007F712B /* PaymenterTableCell.swift */,
 				E7C316D2250878F3007F712B /* PaymenterTableCell.xib */,
 				E7C316D525087B1B007F712B /* CheckOrderTableCell.swift */,
@@ -269,6 +283,10 @@
 				E76B20B3251201950041EB20 /* ManagerOrderTableCell.xib */,
 				E78A54692514C1A8009351FC /* OrderStatusTableCell.swift */,
 				E78A546A2514C1A8009351FC /* OrderStatusTableCell.xib */,
+				E7F05EDC2518A75500A5352B /* ReceiverInfoTableCell.swift */,
+				E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */,
+				E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */,
+				E7F05EE22518A86800A5352B /* AccountReceiverTableCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -305,6 +323,7 @@
 				E78A545B2513734C009351FC /* SupportModel.swift */,
 				E78A545D2513789F009351FC /* RequestSupportModel.swift */,
 				E78A545F25146020009351FC /* OrderStatusModel.swift */,
+				E7F05EE62518CF5E00A5352B /* BankInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -332,6 +351,8 @@
 			isa = PBXGroup;
 			children = (
 				E76B20BB25120AC00041EB20 /* AccountViewController.swift */,
+				E7D5E46225189496004CF16A /* ChangeAddressViewController.swift */,
+				E7D5E46325189496004CF16A /* ChangeAddressViewController.xib */,
 			);
 			path = AccountVC;
 			sourceTree = "<group>";
@@ -532,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E748BA8C2503DF4600612050 /* CreateOrderTableViewCell.xib in Resources */,
+				E7D5E46025185E3C004CF16A /* AccountHeaderView.xib in Resources */,
 				E7A0E65E2507C6BE003B2040 /* OrderInfoViewController.xib in Resources */,
 				E77830802502333D0005D59C /* CustomAlertViewController.xib in Resources */,
 				E77830892503BC460005D59C /* BankInfoTableViewCell.xib in Resources */,
@@ -549,6 +571,8 @@
 				E78A54642514B511009351FC /* StatusOrderViewController.xib in Resources */,
 				E748BA932503E0BE00612050 /* CreateOrderViewController.xib in Resources */,
 				E76B20A32511C0C50041EB20 /* EditOrderViewController.xib in Resources */,
+				E7F05EDF2518A75600A5352B /* ReceiverInfoTableCell.xib in Resources */,
+				E7D5E46525189496004CF16A /* ChangeAddressViewController.xib in Resources */,
 				E77830732501DE030005D59C /* HomeHeaderView.xib in Resources */,
 				E78A54682514B5BA009351FC /* StatusOrderHeaderView.xib in Resources */,
 				E7A0E65325073FB8003B2040 /* PhotoCollectionViewCell.xib in Resources */,
@@ -557,10 +581,10 @@
 				E7C316DD2508D7CC007F712B /* ChooseCityViewController.xib in Resources */,
 				E7A0E63D25073501003B2040 /* ImageProductCollectionViewCell.xib in Resources */,
 				E77F7C3B25008CB1001A7B7A /* Assets.xcassets in Resources */,
-				E7A0E6622507CA1D003B2040 /* ReceiverInfoTableCell.xib in Resources */,
 				E7783085250241F60005D59C /* NEWSTableViewCell.xib in Resources */,
 				E78A545A25136B64009351FC /* RequestSupportViewController.xib in Resources */,
 				E7C316D4250878F3007F712B /* PaymenterTableCell.xib in Resources */,
+				E7F05EE42518A86800A5352B /* AccountReceiverTableCell.xib in Resources */,
 				E7C316D825087B1B007F712B /* CheckOrderTableCell.xib in Resources */,
 				E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */,
 				E77F7C3625008CAC001A7B7A /* Main.storyboard in Resources */,
@@ -644,6 +668,7 @@
 				E77F7C3925008CAC001A7B7A /* OrderSpeed.xcdatamodeld in Sources */,
 				E76B20AA2511CB190041EB20 /* DeliveryModel.swift in Sources */,
 				E7A0E65625073FB8003B2040 /* ListPhotosViewController.swift in Sources */,
+				E7D5E46425189496004CF16A /* ChangeAddressViewController.swift in Sources */,
 				E7B2F299250094A000F1F26A /* NVTProgressHUD.swift in Sources */,
 				E7B2F296250094A000F1F26A /* BottomLineTextFiled.swift in Sources */,
 				E75693E32501293C0017BA48 /* User.swift in Sources */,
@@ -651,6 +676,7 @@
 				E7C316D725087B1B007F712B /* CheckOrderTableCell.swift in Sources */,
 				E78A54632514B511009351FC /* StatusOrderViewController.swift in Sources */,
 				E7C316DC2508D7CC007F712B /* ChooseCityViewController.swift in Sources */,
+				E7F05EE72518CF5E00A5352B /* BankInfoModel.swift in Sources */,
 				E7B2F298250094A000F1F26A /* BottomAlignLabel.swift in Sources */,
 				E7B2F28E2500943E00F1F26A /* MainViewController.swift in Sources */,
 				E77830882503BC460005D59C /* BankInfoTableViewCell.swift in Sources */,
@@ -661,7 +687,6 @@
 				E748BA832503CCBA00612050 /* SupportCollectionCell.swift in Sources */,
 				E7C316D3250878F3007F712B /* PaymenterTableCell.swift in Sources */,
 				E7B2F2902500948200F1F26A /* Tools.swift in Sources */,
-				E7A0E6612507CA1D003B2040 /* ReceiverInfoTableCell.swift in Sources */,
 				E75693E02500E7670017BA48 /* RegisterViewController.swift in Sources */,
 				E78A545925136B64009351FC /* RequestSupportViewController.swift in Sources */,
 				E77F7C2D25008CAC001A7B7A /* AppDelegate.swift in Sources */,
@@ -669,6 +694,7 @@
 				E7783084250241F60005D59C /* NEWSTableViewCell.swift in Sources */,
 				E76B20B4251201950041EB20 /* ManagerOrderTableCell.swift in Sources */,
 				E7A0E63C25073501003B2040 /* ImageProductCollectionViewCell.swift in Sources */,
+				E7F05EDE2518A75500A5352B /* ReceiverInfoTableCell.swift in Sources */,
 				E778306F2501DADF0005D59C /* HomeViewController.swift in Sources */,
 				E76EF6642515CD240052474F /* RequestSupportHeaderView.swift in Sources */,
 				E78A546B2514C1A8009351FC /* OrderStatusTableCell.swift in Sources */,
@@ -682,11 +708,13 @@
 				E76B20B1251201100041EB20 /* ManagerOrderViewController.swift in Sources */,
 				E78A54662514B5B1009351FC /* StatusOrderHeaderView.swift in Sources */,
 				E76B20A72511CA060041EB20 /* ChooseDeliveryViewController.swift in Sources */,
+				E7F05EE32518A86800A5352B /* AccountReceiverTableCell.swift in Sources */,
 				E748BA7F2503CAC500612050 /* SupportMainCell.swift in Sources */,
 				E7A0E65825073FB8003B2040 /* PhotoCollectionViewCell.swift in Sources */,
 				E77F7C2F25008CAC001A7B7A /* SceneDelegate.swift in Sources */,
 				E78A546E2514D275009351FC /* DetailOrderStatusSectionView.swift in Sources */,
 				E748BA922503E0BE00612050 /* CreateOrderViewController.swift in Sources */,
+				E7D5E45D25185E32004CF16A /* AccountHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

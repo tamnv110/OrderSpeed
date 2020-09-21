@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AccountHeaderView" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zQp-Ut-SML">
+                    <rect key="frame" x="157" y="90" width="100" height="100"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Mha-F6-egh"/>
+                        <constraint firstAttribute="height" priority="999" constant="100" id="hPs-dh-RH4"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="50"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEw-C6-lYo">
+                    <rect key="frame" x="227" y="160" width="30" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="QSP-DM-Xdl"/>
+                        <constraint firstAttribute="width" secondItem="rEw-C6-lYo" secondAttribute="height" multiplier="1:1" id="VVz-pu-80I"/>
+                    </constraints>
+                    <state key="normal" image="icon_camera"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="0.92549019610000005" green="0.51764705879999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="rEw-C6-lYo" firstAttribute="bottom" secondItem="zQp-Ut-SML" secondAttribute="bottom" id="Atk-Ia-Nxw"/>
+                <constraint firstItem="rEw-C6-lYo" firstAttribute="trailing" secondItem="zQp-Ut-SML" secondAttribute="trailing" id="Dck-hh-Dtv"/>
+                <constraint firstItem="zQp-Ut-SML" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LhV-OP-ESm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="zQp-Ut-SML" secondAttribute="bottom" constant="20" id="lDN-tI-Klg"/>
+                <constraint firstItem="zQp-Ut-SML" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="90" id="rKU-UH-xmX"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnCamera" destination="rEw-C6-lYo" id="mg5-pN-oUM"/>
+                <outlet property="imgvAvatar" destination="zQp-Ut-SML" id="Lqj-w7-eQq"/>
+            </connections>
+            <point key="canvasLocation" x="-301.44927536231887" y="-109.48660714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_camera" width="22" height="16"/>
+    </resources>
+</document>

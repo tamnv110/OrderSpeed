@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class AccountViewController: MainViewController {
 
@@ -30,13 +33,28 @@ class AccountViewController: MainViewController {
         return vc
     }()
     
+    var arrInfoUser: [(String, String, Int)] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let header = AccountHeaderView.instanceFromNib()
+        header.frame = CGRect(x: 0, y: 0, width: tbAccount.frame.width, height: 230)
+        tbAccount.tableHeaderView = header
         tbAccount.tableFooterView = UIView(frame: .zero)
         tbAccount.register(UINib(nibName: "ShowTitleTableCell", bundle: nil), forCellReuseIdentifier: "ShowTitleTableCell")
-
-        if self.appDelegate.user == nil {
+        tbAccount.register(UINib(nibName: "AccountReceiverTableCell", bundle: nil), forCellReuseIdentifier: "AccountReceiverTableCell")
+        
+        if #available(iOS 11.0, *) {
+            tbAccount.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        if let user = self.appDelegate.user {
+            showAvatar(user)
+            setupInfoShow(user)
+        } else {
             tbAccount.isHidden = true
             showLoginController()
         }
@@ -44,8 +62,42 @@ class AccountViewController: MainViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("LOGIN_FINISH"), object: nil, queue: .main) { [weak self](notification) in
             self?.vcLogin.willMove(toParent: nil)
             self?.vcLogin.view.removeFromSuperview()
-            self?.vcLogin.removeFromParent() 
+            self?.vcLogin.removeFromParent()
+            self?.tbAccount.isHidden = false
+            self?.appDelegate.user = Tools.getUserInfo()
+            if let user = self?.appDelegate.user {
+                self?.showAvatar(user)
+                self?.setupInfoShow(user)
+            }
+            DispatchQueue.main.async {
+                self?.tbAccount.reloadData()
+            }
         }
+        
+    }
+    
+    func showAvatar(_ user: UserBeer) {
+        guard let header = tbAccount.tableHeaderView as? AccountHeaderView else { return }
+        if user.avatar.isEmpty {
+            
+        } else {
+            if user.avatar.hasPrefix("http") {
+                header.imgvAvatar.sd_setImage(with: URL(string: user.avatar), placeholderImage: UIImage(named: "noavatar.png"))
+            } else {
+                let avatarRef = self.storageRef.child("Images/\(user.avatar)")
+                header.imgvAvatar.sd_setImage(with: avatarRef, placeholderImage: UIImage(named: "noavatar.png"))
+            }
+        }
+    }
+    
+    func setupInfoShow(_ user: UserBeer) {
+        let typeAcc = (Tools.getObjectFromDefault(Tools.KEY_LOGIN_TYPE) as? Int) ?? 0
+        if typeAcc == 0 {
+            arrInfoUser = [("Cập nhật họ tên", user.fullname, 0), ("Cập nhật điện thoại", user.phoneNumber, 1), ("Cập nhật email", user.email, 2), ("Đổi mật khẩu", "Đổi mật khẩu", 110), ("Đăng xuất", "Đăng xuất", 3)]
+        } else {
+            arrInfoUser = [("Họ tên", user.fullname, 0), ("Số điện thoại", user.phoneNumber, 1), ("Email", user.email, 2), ("Đăng xuất", "Đăng xuất", 3)]
+        }
+            
     }
     
     deinit {
@@ -59,9 +111,9 @@ class AccountViewController: MainViewController {
         self.navigationController?.navigationBar.isTranslucent = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tbAccount.updateHeightHeader()
     }
     
     func showLoginController() {
@@ -72,6 +124,67 @@ class AccountViewController: MainViewController {
         vcLogin.didMove(toParent: self)
     }
 
+    func showAlertChangeInfo(_ sContent: String, nType: Int) {
+        guard let userID = self.appDelegate.user?.userID else { return }
+        var sContentShow = ""
+        var fieldUpdate = ""
+        if nType == 0 {
+            sContentShow = "Nhập họ tên"
+            fieldUpdate = "user_name"
+        } else if nType == 1 {
+            sContentShow = "Nhập số điện thoại"
+            fieldUpdate = "phone"
+        }
+
+        let alert = UIAlertController(title: "Thay đổi thông tin", message: sContentShow, preferredStyle: .alert)
+        alert.addTextField { (tf) in
+            tf.text = sContent
+        }
+        alert.addAction(UIAlertAction(title: "Huỷ", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Thay đổi", style: .default, handler: { [weak self](action) in
+            if let tf = alert.textFields?.first {
+                guard let inputData = tf.text, !inputData.isEmpty else {return}
+                self?.showProgressHUD("Cập nhật...")
+                self?.dbFireStore.collection("User").document(userID).updateData([fieldUpdate: inputData]) { [weak self](error) in
+                    self?.hideProgressHUD()
+                    if let error = error {
+                        print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error: \(error.localizedDescription)")
+                        self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
+                            
+                        })
+                    } else {
+                        if nType == 0 {
+                            self?.appDelegate.user?.fullname = inputData
+                        } else {
+                            self?.appDelegate.user?.phoneNumber = inputData
+                        }
+                        if let user = self?.appDelegate.user {
+                            Tools.saveUserInfo(user)
+                        }
+                    }
+                }
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertLogout() -> Void {
+        let alert = UIAlertController(title: "Đăng xuất", message: "Bạn muốn đăng xuất tài khoản khỏi ứng dụng?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Huỷ", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Đăng xuất", style: .destructive, handler: { (action) in
+            self.appDelegate.user = nil
+            let typeAcc = (Tools.getObjectFromDefault(Tools.KEY_LOGIN_TYPE) as? Int) ?? 0
+            if typeAcc == 1 {
+                GIDSignIn.sharedInstance()?.signOut()
+            } else if typeAcc == 2 {
+                
+            }
+            Tools.removeUserInfo()
+            self.tbAccount.isHidden = true
+            self.showLoginController()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
@@ -82,52 +195,108 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.appDelegate.user != nil ? 5 : 0
+            return arrInfoUser.count
         }
-        return 1
+        return self.appDelegate.user != nil ? 5 : 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
         return 54
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
+        }
+        let header = UIView()
+        header.backgroundColor = Tools.hexStringToUIColor(hex: "#F9F9F9")
+        let lblTitle = UILabel()
+        lblTitle.translatesAutoresizingMaskIntoConstraints = false
+        header.addSubview(lblTitle)
+        lblTitle.text = "ĐỊA CHỈ NHẬN HÀNG"
+        lblTitle.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16).isActive = true
+        lblTitle.centerYAnchor.constraint(equalTo: header.centerYAnchor, constant: 0).isActive = true
+    
+        let btnAdd = UIButton()
+        btnAdd.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        btnAdd.setTitle("Sửa", for: .normal)
+        btnAdd.translatesAutoresizingMaskIntoConstraints = false
+        header.addSubview(btnAdd)
+        btnAdd.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -12).isActive = true
+        btnAdd.centerYAnchor.constraint(equalTo: header.centerYAnchor, constant: 0).isActive = true
+        btnAdd.addTarget(self, action: #selector(eventChooseEditAddress(_:)), for: .touchUpInside)
+        return header
+    }
+    
+    @objc func eventChooseEditAddress(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            let vc = ChangeAddressViewController(nibName: "ChangeAddressViewController", bundle: nil)
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ShowTitleTableCell", for: indexPath) as! ShowTitleTableCell
-        cell.setupLeadingTitle(16)
-        var sText = ""
         if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ShowTitleTableCell", for: indexPath) as! ShowTitleTableCell
+            cell.lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            cell.setupLeadingTitle(16)
+            var sText = ""
             cell.accessoryType = .disclosureIndicator
-            if indexPath.row == 0 {
-                sText = self.appDelegate.user?.fullname ?? ""
-            } else if indexPath.row == 1 {
-                sText = self.appDelegate.user?.phoneNumber ?? ""
-                if sText.isEmpty {
-                    sText = "Cập nhật số điện thoại"
-                }
-            } else if indexPath.row == 2 {
-                sText = self.appDelegate.user?.email ?? ""
-                if sText.isEmpty {
-                    sText = "Cập nhật email"
-                } else {
-                    cell.accessoryType = .none
-                }
-            } else if indexPath.row == 3 {
-                sText = self.appDelegate.user?.cityName ?? ""
-                if sText.isEmpty {
-                    sText = "Chọn tỉnh/thành phố"
-                }
-            } else if indexPath.row == 4 {
-                sText = "Đổi mật khẩu"
-            }
-        } else {
-            sText = self.appDelegate.user?.cityName ?? ""
+            let item = arrInfoUser[indexPath.row]
+            sText = item.1
             if sText.isEmpty {
-                sText = "Bạn chưa có địa chỉ nhận hàng"
-            } else {
-                sText = "\(self.appDelegate.user?.address ?? ""), \(self.appDelegate.user?.districtName ?? ""), \(self.appDelegate.user?.cityName ?? "")"
+                sText = item.0
+            }
+            if item.2 == 2 {
+                cell.accessoryType = .none
+            }
+            cell.lblTitle.text = sText
+            return cell
+        } else {
+            let cell = tbAccount.dequeueReusableCell(withIdentifier: "AccountReceiverTableCell", for: indexPath) as! AccountReceiverTableCell
+            var title = ""
+            var content = ""
+            if indexPath.row == 0 {
+                title = "Họ tên"
+                content = self.appDelegate.user?.receiverName ?? "Chưa có"
+            } else if indexPath.row == 1 {
+                title = "Số điện thoại"
+                content = self.appDelegate.user?.receiverPhone ?? "Chưa có"
+            } else if indexPath.row == 2 {
+                title = "Tỉnh/Thành phố"
+                content = self.appDelegate.user?.cityName ?? "Chưa có"
+            } else if indexPath.row == 3 {
+                title = "Quận/Huyện"
+                content = self.appDelegate.user?.districtName ?? "Chưa có"
+            } else if indexPath.row == 4 {
+                title = "Địa chỉ nhà"
+                content = self.appDelegate.user?.address ?? "Chưa có"
+            }
+            cell.lblTitle.text = title
+            cell.lblContent.text = content
+            return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let item = arrInfoUser[indexPath.row]
+            if item.2 == 0 {
+                self.showAlertChangeInfo(self.appDelegate.user?.fullname ?? "", nType: indexPath.row)
+            } else if item.2 == 1 {
+                self.showAlertChangeInfo(self.appDelegate.user?.phoneNumber ?? "", nType: indexPath.row)
+            } else if item.2 == 3 {
+                self.showAlertLogout()
             }
         }
-        cell.lblTitle.text = sText
-        return cell
     }
 }

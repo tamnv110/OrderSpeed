@@ -253,6 +253,7 @@ extension ChooseCityViewController: UITableViewDelegate, UITableViewDataSource {
         sDistrict = arrCities[indexPath.section].dictricts[indexPath.row]
         if let arrRows = tableView.indexPathsForVisibleRows {
             DispatchQueue.main.async {
+                self.showRightButton()
                 tableView.reloadRows(at: arrRows, with: .automatic)
             }
         }

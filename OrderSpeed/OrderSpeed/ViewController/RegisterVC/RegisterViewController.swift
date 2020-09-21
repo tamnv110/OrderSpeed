@@ -185,7 +185,7 @@ class RegisterViewController: MainViewController {
             queryable.append(userName.lowercased())
         }
         
-        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "phone_number":tfPhone.text ?? "", "avatar":"", "address": "", "city_name": "", "district_name": "", "isEnable":true]
+        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "phone_number":tfPhone.text ?? "", "avatar": "", "address": "", "city_name": "", "district_name": "", "isEnable":true, "apn_key": "", "receiver_name": "", "typeAcc": 2, "type": "customer"]
         let dbBatch = self.dbFireStore.batch()
         let refUser = self.dbFireStore.collection("User").document(uid)
         dbBatch.setData(registerDic, forDocument: refUser)
@@ -208,7 +208,7 @@ class RegisterViewController: MainViewController {
         }
         
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: "")
+        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: "", typeAcc: dict["typeAcc"] as? Int ?? 2)
         user.showInfo()
         Tools.saveUserInfo(user)
         self.appDelegate.user = user

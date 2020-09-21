@@ -14,6 +14,9 @@ enum OrderFolderName: String {
     case product = "Product"
     case status = "Status"
     case settings = "Settings"
+    case rootBank = "Bank"
+    case rootUser = "User"
+    case rootSupport = "Support"
 }
 
 extension UIButton {
@@ -70,6 +73,8 @@ class Tools {
     static let MAX_IMAGES = 3
     static let GOOGLE_SIGN_IN_KEY = "1030282007437-r5ju99j9bjseia8l94as7el140jstn6p.apps.googleusercontent.com"
     static let KEY_INFO_USER = "KEY_INFO_USER"
+    
+    static let KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
     
     static let css = ".contentnews { width: 96%; padding: 2%; text-align: justify; overflow: hidden} h1 { font-size: 52px; } h2 { font-size: 48px; } .date-count {color: #333; font-style: italic} .contentnews img { max-width: 100% !important;height: auto !important} p { font-size: 44px; }"
     
@@ -142,7 +147,7 @@ class Tools {
     
     static func removeUserInfo() {
         let defaults = UserDefaults.standard
-        defaults.set(nil, forKey: "USER_INFO")
+        defaults.set(nil, forKey: KEY_INFO_USER)
         defaults.synchronize()
     }
     

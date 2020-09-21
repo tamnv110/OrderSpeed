@@ -8,14 +8,67 @@
 
 import UIKit
 
-class SupportMainCell: UITableViewCell {
+extension Collection {
+    
+    func chunked(by distance: Int) -> [[Element]] {
+        var result: [[Element]] = []
+        var batch: [Element] = []
+        
+        for element in self {
+            batch.append(element)
+            
+            if batch.count == distance {
+                result.append(batch)
+                batch = []
+            }
+        }
+        
+        if !batch.isEmpty {
+            result.append(batch)
+        }
+        
+        return result
+    }
+    
+}
 
+class SupportMainCell: UITableViewCell {
+    private let TAG = "SupportMainCell"
     @IBOutlet weak var collectionSupport: UICollectionView!
     @IBOutlet weak var pageSupport: UIPageControl!
+    @IBOutlet weak var viewLoading: UIView!
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    @IBOutlet weak var lblThongBao: UILabel!
+    var arrResultChunked:[[Any]]?
+    var arrInfo:[Any]? {
+        didSet {
+            if let _arrInfo = arrInfo {
+                if _arrInfo.count == 0 {
+                    loadingView.isHidden = true
+                    lblThongBao.text = "Không tìm thấy danh sách."
+                } else {
+                    var pageItems = 3
+                    if typeShow == 1 {
+                        pageItems = 2
+                    }
+                    let result = chunkArray(s: _arrInfo, splitSize: pageItems)
+                    if self.arrResultChunked == nil {
+                        self.arrResultChunked = [[Any]]()
+                    }
+                    self.arrResultChunked?.append(contentsOf: result)
+                    collectionSupport.reloadData()
+                    pageSupport.numberOfPages = result.count
+                }
+            } else {
+                loadingView.isHidden = false
+            }
+        }
+    }
     var typeShow = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        pageSupport.numberOfPages = 0
         collectionSupport.register(UINib(nibName: "SupportCollectionCell", bundle: nil), forCellWithReuseIdentifier: "SupportCollectionCell")
         collectionSupport.delegate = self
         collectionSupport.dataSource = self
@@ -28,6 +81,13 @@ class SupportMainCell: UITableViewCell {
         }
     }
     
+    func chunkArray<T>(s: [T], splitSize: Int) -> [[T]] {
+        if s.count <= splitSize {
+            return [s]
+        } else {
+            return [Array<T>(s[0..<splitSize])] + chunkArray(s: Array<T>(s[splitSize..<s.count]), splitSize: splitSize)
+        }
+    }
 }
 
 extension SupportMainCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -36,11 +96,16 @@ extension SupportMainCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return arrResultChunked?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageSupport.currentPage = indexPath.row
+        if let cell = cell as? SupportCollectionCell {
+            if let _arrInfo = arrResultChunked?[indexPath.row] {
+                cell.arrInfo = _arrInfo
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

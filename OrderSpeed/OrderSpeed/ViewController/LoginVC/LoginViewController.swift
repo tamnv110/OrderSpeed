@@ -26,6 +26,7 @@ class LoginViewController: MainViewController {
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
     
+    var typeLogin = 0
     
     lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
@@ -129,7 +130,7 @@ class LoginViewController: MainViewController {
     }
     
     @IBAction func eventChooseLogin(_ sender: Any) {
-        print("\(TAG) - \(#function) - \(#line) - click click")
+        typeLogin = 0
         DispatchQueue.main.async {
             self.view.endEditing(true)
         }
@@ -147,10 +148,12 @@ class LoginViewController: MainViewController {
     }
     
     @IBAction func eventChooseLoginWithGoogle(_ sender: Any) {
+        typeLogin = 1
         GIDSignIn.sharedInstance()?.signIn()
     }
     
     @IBAction func eventChooseLoginWithFacebook(_ sender: Any) {
+        typeLogin = 2
         DispatchQueue.main.async {
             self.progessHUD.showInViewWithMessage(self.view, message: "Đăng nhập...")
         }
@@ -229,21 +232,7 @@ class LoginViewController: MainViewController {
             self?.saveUserAfterLogin(dicUser)
         }
     }
-    
-    func saveUserAfterLogin(_ dict:[String:Any]) {
-        var sAvartar = dict["avatar"] as? String ?? ""
-        if sAvartar.hasPrefix("https://graph.facebook.com") {
-            sAvartar = "\(sAvartar)?type=large"
-        }
-        
-        debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", roleid: "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone_number"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "")
-        user.showInfo()
-        Tools.saveUserInfo(user)
-        self.appDelegate.user = user
-        NotificationCenter.default.post(name: NSNotification.Name("LOGIN_FINISH"), object: nil)
-    }
-    
+
     func createFolderUser(_ authResult:AuthDataResult?) {
         guard let auth = authResult else { return }
         let userName = auth.user.displayName ?? ""
@@ -256,7 +245,7 @@ class LoginViewController: MainViewController {
         } else {
             queryable.append(userName.lowercased())
         }
-        let registerDic:[String : Any] = ["uid": auth.user.uid, "email":authResult?.user.email ?? "","user_name":userName, "avatar":auth.user.photoURL?.absoluteString ?? "", "queryable":queryable, "first_name":"", "last_name":"", "job_title":"", "department":"", "organization":"", "based_in":"", "address":"", "city_name": "", "district_name": "","isEnable":true]
+        let registerDic:[String : Any] = ["uid": auth.user.uid, "email": authResult?.user.email ?? "","user_name": userName, "avatar": auth.user.photoURL?.absoluteString ?? "", "queryable": queryable, "address": "", "city_name": "", "district_name": "","isEnable":true, "phone": "", "apn_key": "", "receiver_name": "", "typeAcc": 2, "type": "customer"]
         let dbBatch = self.dbFireStore.batch()
         
         debugPrint("\(TAG) - \(#function) - line : \(#line) - _uid : \(auth.user.uid)")
@@ -271,6 +260,21 @@ class LoginViewController: MainViewController {
             }
             self?.saveUserAfterLogin(registerDic)
         }
+    }
+    
+    func saveUserAfterLogin(_ dict:[String:Any]) {
+        var sAvartar = dict["avatar"] as? String ?? ""
+        if sAvartar.hasPrefix("https://graph.facebook.com") {
+            sAvartar = "\(sAvartar)?type=large"
+        }
+        
+        debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
+        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2)
+        user.showInfo()
+        Tools.saveUserInfo(user)
+        Tools.saveObjectToDefault(typeLogin, key: Tools.KEY_LOGIN_TYPE)
+        self.appDelegate.user = user
+        NotificationCenter.default.post(name: NSNotification.Name("LOGIN_FINISH"), object: nil)
     }
 }
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -97,7 +98,7 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJg-yg-Zi6">
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJg-yg-Zi6">
                                     <rect key="frame" x="37.5" y="256" width="245" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="9b7-JS-Flw"/>
@@ -114,7 +115,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="OVA-P4-RCe" firstAttribute="top" secondItem="pIu-7h-cmV" secondAttribute="top" id="GI9-vA-npV"/>
                                 <constraint firstItem="qJg-yg-Zi6" firstAttribute="trailing" secondItem="OVA-P4-RCe" secondAttribute="trailing" id="YLk-XQ-Cbl"/>
@@ -146,7 +147,8 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="R5T-qb-WB4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="BTH-Vs-Uwg"/>
                 <constraint firstItem="xjS-7V-W4r" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="TCG-pn-xHQ"/>
@@ -159,12 +161,14 @@
                 <constraint firstItem="xjS-7V-W4r" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="vbO-yQ-1pC"/>
                 <constraint firstItem="xjS-7V-W4r" firstAttribute="top" secondItem="ceb-cf-rHq" secondAttribute="bottom" constant="24" id="wjQ-FJ-XgL"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-486" y="22"/>
         </view>
     </objects>
     <resources>
         <image name="icon_close_red" width="29" height="29"/>
         <image name="logo_register" width="109.5" height="98"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

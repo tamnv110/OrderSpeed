@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,8 +19,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ze8-r5-B4w">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="309"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="318.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="l8Y-QM-DnX">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -28,10 +29,31 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="uAq-qJ-opF">
-                        <rect key="frame" x="140.5" y="317" width="39" height="37"/>
+                        <rect key="frame" x="99" y="326.5" width="122.5" height="27.5"/>
                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="currentPageIndicatorTintColor" red="0.81176470588235294" green="0.12941176470588234" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                     </pageControl>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbv-V4-oBl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="318.5"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="5nG-9f-xqm">
+                                <rect key="frame" x="141.5" y="141" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lấy danh sách" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwB-4o-a6l">
+                                <rect key="frame" x="105.5" y="186" width="109.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5nG-9f-xqm" firstAttribute="centerY" secondItem="bbv-V4-oBl" secondAttribute="centerY" id="Kd7-3l-lni"/>
+                            <constraint firstItem="BwB-4o-a6l" firstAttribute="centerX" secondItem="bbv-V4-oBl" secondAttribute="centerX" id="LR4-Ob-gXh"/>
+                            <constraint firstItem="5nG-9f-xqm" firstAttribute="centerX" secondItem="bbv-V4-oBl" secondAttribute="centerX" id="f3q-dc-kdz"/>
+                            <constraint firstItem="BwB-4o-a6l" firstAttribute="top" secondItem="5nG-9f-xqm" secondAttribute="bottom" constant="8" id="flB-mk-bh4"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="uAq-qJ-opF" secondAttribute="bottom" constant="12" id="7Uk-gx-wgN"/>
@@ -39,15 +61,27 @@
                     <constraint firstItem="ze8-r5-B4w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CJ1-7x-AEg"/>
                     <constraint firstItem="uAq-qJ-opF" firstAttribute="top" secondItem="ze8-r5-B4w" secondAttribute="bottom" constant="8" id="bZu-mg-UFZ"/>
                     <constraint firstItem="ze8-r5-B4w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kQF-P7-9iy"/>
+                    <constraint firstItem="bbv-V4-oBl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kqV-a6-gzV"/>
+                    <constraint firstItem="bbv-V4-oBl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sED-Q3-zbw"/>
+                    <constraint firstItem="bbv-V4-oBl" firstAttribute="bottom" secondItem="ze8-r5-B4w" secondAttribute="bottom" id="sgh-ZR-oan"/>
+                    <constraint firstAttribute="trailing" secondItem="bbv-V4-oBl" secondAttribute="trailing" id="tEH-0j-Q6J"/>
                     <constraint firstAttribute="trailing" secondItem="ze8-r5-B4w" secondAttribute="trailing" id="vHT-Bn-nJz"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="collectionSupport" destination="ze8-r5-B4w" id="gnd-VP-hcT"/>
+                <outlet property="lblThongBao" destination="BwB-4o-a6l" id="96O-c1-JAP"/>
+                <outlet property="loadingView" destination="5nG-9f-xqm" id="CcK-dC-Yan"/>
                 <outlet property="pageSupport" destination="uAq-qJ-opF" id="tZq-BO-yQl"/>
+                <outlet property="viewLoading" destination="bbv-V4-oBl" id="Xnb-ui-62C"/>
             </connections>
             <point key="canvasLocation" x="-89.855072463768124" y="155.35714285714286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -42,7 +42,7 @@ class RequestSupportViewController: MainViewController {
             if let documents = snapshot?.documents {
                 self?.arrSupport = documents.map { (document) -> SupportModel in
                     let dict = document.data()
-                    return SupportModel(account: (dict["account"] as? String) ?? "", name: (dict["name"] as? String) ?? "", phone: (dict["phone"] as? String) ?? "")
+                    return SupportModel((dict["account"] as? String) ?? "", name: (dict["name"] as? String) ?? "", phone: (dict["phone"] as? String) ?? "")
                 }
                 DispatchQueue.main.async {
                     self?.tbInfo.reloadData()

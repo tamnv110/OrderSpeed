@@ -11,15 +11,20 @@ import UIKit
 class BankInfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblOwner: UILabel!
+    @IBOutlet weak var lblBankNumber: UILabel!
+    @IBOutlet weak var lblBranch: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func showInfo(_ item: BankInfoModel) {
+        lblName.text = item.bankName
+        lblOwner.text = item.ownerName
+        lblBankNumber.text = item.accountNumber
+        lblBranch.text = item.bankBranch
     }
     
 }
