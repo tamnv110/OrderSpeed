@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,40 +26,46 @@
                         <rect key="frame" x="16" y="0.0" width="288" height="231"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50q-9U-Low">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="119.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="124"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIN TỨC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbM-QM-hft">
-                                        <rect key="frame" x="16" y="8" width="264" height="18"/>
+                                        <rect key="frame" x="16" y="12.5" width="264" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cơ hội mua sắm giảm 50% tại Taobao" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFG-fW-OWh">
-                                        <rect key="frame" x="16" y="44" width="264" height="57.5"/>
+                                        <rect key="frame" x="16" y="48.5" width="264" height="57.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Me-G5-c6i">
+                                        <rect key="frame" x="249" y="8" width="27" height="27"/>
+                                        <state key="normal" image="icon_more"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8Me-G5-c6i" secondAttribute="trailing" constant="12" id="7MY-Yh-R1E"/>
                                     <constraint firstAttribute="trailing" secondItem="nbM-QM-hft" secondAttribute="trailing" constant="8" id="A60-7M-maw"/>
+                                    <constraint firstItem="nbM-QM-hft" firstAttribute="centerY" secondItem="8Me-G5-c6i" secondAttribute="centerY" id="Gag-nD-N8Y"/>
                                     <constraint firstAttribute="bottom" secondItem="eFG-fW-OWh" secondAttribute="bottom" constant="18" id="Rxb-mA-yr5"/>
                                     <constraint firstItem="eFG-fW-OWh" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="U07-Na-3fG"/>
-                                    <constraint firstItem="nbM-QM-hft" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="top" constant="8" id="dHA-6M-LAA"/>
                                     <constraint firstItem="nbM-QM-hft" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="oyr-1z-xdG"/>
                                     <constraint firstAttribute="trailing" secondItem="eFG-fW-OWh" secondAttribute="trailing" constant="8" id="psG-Ns-xm2"/>
                                     <constraint firstItem="eFG-fW-OWh" firstAttribute="top" secondItem="nbM-QM-hft" secondAttribute="bottom" constant="18" id="wiA-3N-0wM"/>
+                                    <constraint firstItem="8Me-G5-c6i" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="top" constant="8" id="xaK-Fo-Qv7"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ney-VV-5Wa">
-                                <rect key="frame" x="16" y="139.5" width="264" height="71.5"/>
+                                <rect key="frame" x="16" y="144" width="264" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Ney-VV-5Wa" secondAttribute="bottom" constant="20" id="6DP-IK-zs5"/>
                             <constraint firstItem="Ney-VV-5Wa" firstAttribute="leading" secondItem="ouL-UV-ARu" secondAttribute="leading" constant="16" id="AEx-E2-fdN"/>
@@ -86,8 +93,8 @@
                     <constraint firstItem="ouL-UV-ARu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vrm-yN-E5F"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="lblContent" destination="Ney-VV-5Wa" id="gdm-gt-ocv"/>
                 <outlet property="lblTitle" destination="eFG-fW-OWh" id="K6F-y6-juA"/>
@@ -95,7 +102,13 @@
                 <outlet property="viewMain" destination="Ake-fA-rGF" id="i3U-C9-bfg"/>
                 <outlet property="viewTitle" destination="50q-9U-Low" id="qnS-ua-3yS"/>
             </connections>
-            <point key="canvasLocation" x="-52.173913043478265" y="-21.763392857142858"/>
+            <point key="canvasLocation" x="-180" y="-21"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_more" width="27" height="27"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

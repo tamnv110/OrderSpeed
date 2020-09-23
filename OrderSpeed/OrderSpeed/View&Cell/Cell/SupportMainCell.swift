@@ -40,6 +40,7 @@ class SupportMainCell: UITableViewCell {
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     @IBOutlet weak var lblThongBao: UILabel!
     var arrResultChunked:[[Any]]?
+    
     var arrInfo:[Any]? {
         didSet {
             if let _arrInfo = arrInfo {
@@ -50,11 +51,14 @@ class SupportMainCell: UITableViewCell {
                     var pageItems = 3
                     if typeShow == 1 {
                         pageItems = 2
+                    } else if typeShow == 3 {
+                        pageItems = 1
                     }
                     let result = chunkArray(s: _arrInfo, splitSize: pageItems)
                     if self.arrResultChunked == nil {
                         self.arrResultChunked = [[Any]]()
                     }
+                    print("==========> result.count : \(result.count)")
                     self.arrResultChunked?.append(contentsOf: result)
                     collectionSupport.reloadData()
                     pageSupport.numberOfPages = result.count
@@ -70,6 +74,7 @@ class SupportMainCell: UITableViewCell {
         super.awakeFromNib()
         pageSupport.numberOfPages = 0
         collectionSupport.register(UINib(nibName: "SupportCollectionCell", bundle: nil), forCellWithReuseIdentifier: "SupportCollectionCell")
+        collectionSupport.register(UINib(nibName: "InfomationCollectionCell", bundle: nil), forCellWithReuseIdentifier: "InfomationCollectionCell")
         collectionSupport.delegate = self
         collectionSupport.dataSource = self
     }
@@ -105,10 +110,18 @@ extension SupportMainCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
             if let _arrInfo = arrResultChunked?[indexPath.row] {
                 cell.arrInfo = _arrInfo
             }
+        } else if let cell = cell as? InfomationCollectionCell {
+            if let _arrInfo = arrResultChunked?[indexPath.row], let item = _arrInfo.first as? InformationModel{
+                cell.showInfo(item)
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if typeShow == 3 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InfomationCollectionCell", for: indexPath) as! InfomationCollectionCell
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SupportCollectionCell", for: indexPath) as! SupportCollectionCell
         cell.typeShow = typeShow
         return cell

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="InfomationCollectionCell" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="270"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="270"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGN-P7-yeX">
+                        <rect key="frame" x="18" y="10" width="264" height="242"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cbx-yQ-32t">
+                        <rect key="frame" x="16" y="8" width="268" height="246"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gAh-F3-QRp">
+                                <rect key="frame" x="0.0" y="0.0" width="268" height="124"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIN TỨC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4y-V7-kRM">
+                                        <rect key="frame" x="16" y="12.5" width="244" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cơ hội mua sắm giảm 50% tại Taobao" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBy-XS-qkW">
+                                        <rect key="frame" x="16" y="48.5" width="244" height="57.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9w-oQ-5Z9">
+                                        <rect key="frame" x="229" y="8" width="27" height="27"/>
+                                        <state key="normal" image="icon_more"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="FBy-XS-qkW" secondAttribute="bottom" constant="18" id="0tC-wo-MS2"/>
+                                    <constraint firstItem="W9w-oQ-5Z9" firstAttribute="top" secondItem="gAh-F3-QRp" secondAttribute="top" constant="8" id="37Q-nS-lYL"/>
+                                    <constraint firstAttribute="trailing" secondItem="W9w-oQ-5Z9" secondAttribute="trailing" constant="12" id="KtY-Sw-L7Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="FBy-XS-qkW" secondAttribute="trailing" constant="8" id="Q3u-XK-M7P"/>
+                                    <constraint firstAttribute="trailing" secondItem="n4y-V7-kRM" secondAttribute="trailing" constant="8" id="TdK-qF-hLH"/>
+                                    <constraint firstItem="FBy-XS-qkW" firstAttribute="top" secondItem="n4y-V7-kRM" secondAttribute="bottom" constant="18" id="Up5-Hx-7mF"/>
+                                    <constraint firstItem="FBy-XS-qkW" firstAttribute="leading" secondItem="gAh-F3-QRp" secondAttribute="leading" constant="16" id="Za6-Ge-fnI"/>
+                                    <constraint firstItem="n4y-V7-kRM" firstAttribute="leading" secondItem="gAh-F3-QRp" secondAttribute="leading" constant="16" id="nJg-dA-aWH"/>
+                                    <constraint firstItem="n4y-V7-kRM" firstAttribute="centerY" secondItem="W9w-oQ-5Z9" secondAttribute="centerY" id="vMI-gB-5wm"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Meituan-Dianping là một nền tảng mua sắm của Trung Quốc chuyên dành cho các sản phẩm tiêu dùng và dịch vụ bán lẻ." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cem-CI-b3O">
+                                <rect key="frame" x="16" y="144" width="244" height="82"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Cem-CI-b3O" secondAttribute="bottom" constant="20" id="5SO-SA-58h"/>
+                            <constraint firstItem="gAh-F3-QRp" firstAttribute="top" secondItem="Cbx-yQ-32t" secondAttribute="top" id="6Ow-Cp-TOc"/>
+                            <constraint firstItem="Cem-CI-b3O" firstAttribute="leading" secondItem="Cbx-yQ-32t" secondAttribute="leading" constant="16" id="7gQ-5K-3tl"/>
+                            <constraint firstItem="Cem-CI-b3O" firstAttribute="top" secondItem="gAh-F3-QRp" secondAttribute="bottom" constant="20" id="AQp-0L-XKW"/>
+                            <constraint firstAttribute="trailing" secondItem="gAh-F3-QRp" secondAttribute="trailing" id="QC2-eQ-Fh5"/>
+                            <constraint firstItem="gAh-F3-QRp" firstAttribute="leading" secondItem="Cbx-yQ-32t" secondAttribute="leading" id="b1F-7I-cah"/>
+                            <constraint firstAttribute="trailing" secondItem="Cem-CI-b3O" secondAttribute="trailing" constant="8" id="o3e-wO-Mnq"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Cbx-yQ-32t" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="404-xR-2dm"/>
+                <constraint firstItem="ZGN-P7-yeX" firstAttribute="top" secondItem="Cbx-yQ-32t" secondAttribute="top" constant="2" id="MpL-7w-ARb"/>
+                <constraint firstAttribute="bottom" secondItem="Cbx-yQ-32t" secondAttribute="bottom" constant="16" id="S9A-5V-0Id"/>
+                <constraint firstAttribute="trailing" secondItem="Cbx-yQ-32t" secondAttribute="trailing" constant="16" id="ijL-pA-cZa"/>
+                <constraint firstItem="ZGN-P7-yeX" firstAttribute="bottom" secondItem="Cbx-yQ-32t" secondAttribute="bottom" constant="-2" id="lir-9d-YIb"/>
+                <constraint firstItem="ZGN-P7-yeX" firstAttribute="leading" secondItem="Cbx-yQ-32t" secondAttribute="leading" constant="2" id="miJ-Hm-kJJ"/>
+                <constraint firstItem="Cbx-yQ-32t" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="nyY-aW-ZpS"/>
+                <constraint firstItem="ZGN-P7-yeX" firstAttribute="trailing" secondItem="Cbx-yQ-32t" secondAttribute="trailing" constant="-2" id="sg7-PV-PYG"/>
+            </constraints>
+            <size key="customSize" width="258" height="172"/>
+            <connections>
+                <outlet property="btnMore" destination="W9w-oQ-5Z9" id="emh-Hf-JIG"/>
+                <outlet property="lblDesc" destination="Cem-CI-b3O" id="EsJ-7T-cBW"/>
+                <outlet property="lblTitle" destination="FBy-XS-qkW" id="f6O-MK-ljP"/>
+                <outlet property="lblType" destination="n4y-V7-kRM" id="vHr-Bu-tB2"/>
+                <outlet property="viewMain" destination="ZGN-P7-yeX" id="4TW-gX-mpf"/>
+                <outlet property="viewTitle" destination="gAh-F3-QRp" id="gRU-cg-FTe"/>
+            </connections>
+            <point key="canvasLocation" x="-604.34782608695662" y="-35.491071428571423"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_more" width="27" height="27"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

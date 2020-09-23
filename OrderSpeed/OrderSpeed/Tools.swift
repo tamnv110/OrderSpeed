@@ -17,6 +17,7 @@ enum OrderFolderName: String {
     case rootBank = "Bank"
     case rootUser = "User"
     case rootSupport = "Support"
+    case rootNews = "News"
 }
 
 extension UIButton {

@@ -85,6 +85,10 @@
 		E7B2F299250094A000F1F26A /* NVTProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2F295250094A000F1F26A /* NVTProgressHUD.swift */; };
 		E7B2F29C2500950A00F1F26A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2F29A2500950A00F1F26A /* LoginViewController.swift */; };
 		E7B2F29D2500950A00F1F26A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B2F29B2500950A00F1F26A /* LoginViewController.xib */; };
+		E7C012FC2519FEFC00E8FD8B /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C012FB2519FEFC00E8FD8B /* InfomationViewController.swift */; };
+		E7C012FF251A162000E8FD8B /* InformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C012FE251A162000E8FD8B /* InformationModel.swift */; };
+		E7C01303251A1C5800E8FD8B /* InfomationCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C01301251A1C5800E8FD8B /* InfomationCollectionCell.swift */; };
+		E7C01304251A1C5800E8FD8B /* InfomationCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7C01302251A1C5800E8FD8B /* InfomationCollectionCell.xib */; };
 		E7C316D3250878F3007F712B /* PaymenterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C316D1250878F3007F712B /* PaymenterTableCell.swift */; };
 		E7C316D4250878F3007F712B /* PaymenterTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7C316D2250878F3007F712B /* PaymenterTableCell.xib */; };
 		E7C316D725087B1B007F712B /* CheckOrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C316D525087B1B007F712B /* CheckOrderTableCell.swift */; };
@@ -187,6 +191,10 @@
 		E7B2F295250094A000F1F26A /* NVTProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVTProgressHUD.swift; sourceTree = "<group>"; };
 		E7B2F29A2500950A00F1F26A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E7B2F29B2500950A00F1F26A /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		E7C012FB2519FEFC00E8FD8B /* InfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
+		E7C012FE251A162000E8FD8B /* InformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationModel.swift; sourceTree = "<group>"; };
+		E7C01301251A1C5800E8FD8B /* InfomationCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationCollectionCell.swift; sourceTree = "<group>"; };
+		E7C01302251A1C5800E8FD8B /* InfomationCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfomationCollectionCell.xib; sourceTree = "<group>"; };
 		E7C316D1250878F3007F712B /* PaymenterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymenterTableCell.swift; sourceTree = "<group>"; };
 		E7C316D2250878F3007F712B /* PaymenterTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymenterTableCell.xib; sourceTree = "<group>"; };
 		E7C316D525087B1B007F712B /* CheckOrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOrderTableCell.swift; sourceTree = "<group>"; };
@@ -287,6 +295,8 @@
 				E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */,
 				E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */,
 				E7F05EE22518A86800A5352B /* AccountReceiverTableCell.xib */,
+				E7C01301251A1C5800E8FD8B /* InfomationCollectionCell.swift */,
+				E7C01302251A1C5800E8FD8B /* InfomationCollectionCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -324,6 +334,7 @@
 				E78A545D2513789F009351FC /* RequestSupportModel.swift */,
 				E78A545F25146020009351FC /* OrderStatusModel.swift */,
 				E7F05EE62518CF5E00A5352B /* BankInfoModel.swift */,
+				E7C012FE251A162000E8FD8B /* InformationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -434,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				E7B2F28D2500943E00F1F26A /* MainViewController.swift */,
+				E7C012FA2519FED800E8FD8B /* InfomationVC */,
 				E78A545625136B52009351FC /* YeuCauHoTroVC */,
 				E76B20AF251200F00041EB20 /* QLDonHangVC */,
 				E76B20A42511C9E80041EB20 /* ChooseDeliveryVC */,
@@ -480,6 +492,14 @@
 				E7B2F295250094A000F1F26A /* NVTProgressHUD.swift */,
 			);
 			path = NVTCustomView;
+			sourceTree = "<group>";
+		};
+		E7C012FA2519FED800E8FD8B /* InfomationVC */ = {
+			isa = PBXGroup;
+			children = (
+				E7C012FB2519FEFC00E8FD8B /* InfomationViewController.swift */,
+			);
+			path = InfomationVC;
 			sourceTree = "<group>";
 		};
 		E7C316D92508D782007F712B /* ChooseCityVC */ = {
@@ -557,6 +577,7 @@
 				E7A0E65E2507C6BE003B2040 /* OrderInfoViewController.xib in Resources */,
 				E77830802502333D0005D59C /* CustomAlertViewController.xib in Resources */,
 				E77830892503BC460005D59C /* BankInfoTableViewCell.xib in Resources */,
+				E7C01304251A1C5800E8FD8B /* InfomationCollectionCell.xib in Resources */,
 				E778307C250225200005D59C /* HomeOptionCollectionViewCell.xib in Resources */,
 				E748BA802503CAC500612050 /* SupportMainCell.xib in Resources */,
 				E76B20A82511CA060041EB20 /* ChooseDeliveryViewController.xib in Resources */,
@@ -667,6 +688,7 @@
 				E7B2F297250094A000F1F26A /* CustomTextViewPlaceHolder.swift in Sources */,
 				E77F7C3925008CAC001A7B7A /* OrderSpeed.xcdatamodeld in Sources */,
 				E76B20AA2511CB190041EB20 /* DeliveryModel.swift in Sources */,
+				E7C01303251A1C5800E8FD8B /* InfomationCollectionCell.swift in Sources */,
 				E7A0E65625073FB8003B2040 /* ListPhotosViewController.swift in Sources */,
 				E7D5E46425189496004CF16A /* ChangeAddressViewController.swift in Sources */,
 				E7B2F299250094A000F1F26A /* NVTProgressHUD.swift in Sources */,
@@ -676,6 +698,7 @@
 				E7C316D725087B1B007F712B /* CheckOrderTableCell.swift in Sources */,
 				E78A54632514B511009351FC /* StatusOrderViewController.swift in Sources */,
 				E7C316DC2508D7CC007F712B /* ChooseCityViewController.swift in Sources */,
+				E7C012FF251A162000E8FD8B /* InformationModel.swift in Sources */,
 				E7F05EE72518CF5E00A5352B /* BankInfoModel.swift in Sources */,
 				E7B2F298250094A000F1F26A /* BottomAlignLabel.swift in Sources */,
 				E7B2F28E2500943E00F1F26A /* MainViewController.swift in Sources */,
@@ -704,6 +727,7 @@
 				E7A0E65525073FB8003B2040 /* AlbumOptionsCell.swift in Sources */,
 				E76B20A22511C0C50041EB20 /* EditOrderViewController.swift in Sources */,
 				E77830772501E0E10005D59C /* SupportTableViewCell.swift in Sources */,
+				E7C012FC2519FEFC00E8FD8B /* InfomationViewController.swift in Sources */,
 				E778307B250225200005D59C /* HomeOptionCollectionViewCell.swift in Sources */,
 				E76B20B1251201100041EB20 /* ManagerOrderViewController.swift in Sources */,
 				E78A54662514B5B1009351FC /* StatusOrderHeaderView.swift in Sources */,

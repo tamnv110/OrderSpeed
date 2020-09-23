@@ -104,10 +104,14 @@ class HomeViewController: MainViewController {
                         print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                     }
                 }
-                DispatchQueue.main.async {
-                    self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
-                }
+               
             } else {
+                if self?.arrBank == nil {
+                    self?.arrBank = [BankInfoModel]()
+                }
+            }
+            DispatchQueue.main.async {
+                self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
             }
         }
     }
@@ -128,10 +132,13 @@ class HomeViewController: MainViewController {
                         print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                     }
                 }
-                DispatchQueue.main.async {
-                    self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
-                }
             } else {
+                if self?.arrSupport == nil {
+                    self?.arrSupport = [SupportModel]()
+                }
+            }
+            DispatchQueue.main.async {
+                self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
             }
         }
     }
