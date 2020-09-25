@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SafariServices
 
 extension UITableView {
     func updateHeightHeader() {
@@ -29,10 +29,20 @@ class HomeViewController: MainViewController {
     
     var arrBank: [BankInfoModel]?
     var arrSupport: [SupportModel]?
-    
+    var itemInfo: InformationModel?
+    var completionRequest = (false, false, false) {
+        didSet {
+            if completionRequest.0 && completionRequest.1 && completionRequest.2 {
+                self.hideProgressHUD()
+                DispatchQueue.main.async {
+                    self.tbHome.reloadData()
+                }
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.title = ""
         setupNavigationBar()
         createTableHeader()
         
@@ -47,8 +57,38 @@ class HomeViewController: MainViewController {
             window.addSubview(tempView)
         }
         
-        connectGetBank()
-        connectGetSupport()
+        self.showProgressHUD("Lấy dữ liệu...")
+        connectGetProductSite()
+        connectGetBank {
+            self.completionRequest.0 = true
+        }
+        connectGetSupport {
+            self.completionRequest.1 = true
+        }
+        connectGetInfomation(.news) {
+            self.completionRequest.2 = true
+        }
+        
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_STORE"), object: nil, queue: .main) { (notification) in
+            if let item = notification.object as? ProductSiteModel {
+                if item.sort == -110 {
+                    DispatchQueue.main.async {
+                        let vc = CreateOrderViewController(nibName: "CreateOrderViewController", bundle: nil)
+                        vc.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                } else {
+                    self.showSFSafariController(item.link)
+                }
+            }
+        }
+    }
+    
+    func showSFSafariController(_ link: String) {
+        guard let url = URL(string: link) else { return }
+        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        self.present(vc, animated: true, completion: nil)
     }
   
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +104,7 @@ class HomeViewController: MainViewController {
         self.navigationItem.leftBarButtonItem = btnLeft
         
         let btnNotification = UIBarButtonItem(image: UIImage(named: "icon_notification"), style: .done, target: self, action: #selector(eventChooseNotification(_:)))
-        let btnSearch = UIBarButtonItem(image: UIImage(named: "icon_search"), style: .done, target: self, action: #selector(eventChooseSearch(_:)))
-        self.navigationItem.rightBarButtonItems = [btnSearch, btnNotification]
+        self.navigationItem.rightBarButtonItem = btnNotification
     }
     
     func createTableHeader() {
@@ -88,7 +127,30 @@ class HomeViewController: MainViewController {
         }
     }
     
-    func connectGetBank() {
+    func connectGetProductSite() {
+        self.dbFireStore.collection(OrderFolderName.rootProductSite.rawValue).order(by: "sort", descending: false).getDocuments { [weak self](snapshot, error) in
+            if let documents = snapshot?.documents {
+                let decoder = JSONDecoder()
+                var arrProductSite = [ProductSiteModel]()
+                for document in documents {
+                    do {
+                        let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
+                        let result = try decoder.decode(ProductSiteModel.self, from: data)
+                        arrProductSite.append(result)
+                    } catch  {
+                        print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                    }
+                }
+                if arrProductSite.count > 0 {
+                    if let header = self?.tbHome.tableHeaderView as? HomeHeaderView {
+                        header.arrSite.append(contentsOf: arrProductSite)
+                    }
+                }
+            }
+        }
+    }
+    
+    func connectGetBank(completion: @escaping () -> ()) {
         self.dbFireStore.collection(OrderFolderName.rootBank.rawValue).limit(to: 6).order(by: "sort", descending: false).getDocuments { [weak self](snapshot, error) in
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()
@@ -110,13 +172,11 @@ class HomeViewController: MainViewController {
                     self?.arrBank = [BankInfoModel]()
                 }
             }
-            DispatchQueue.main.async {
-                self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
-            }
+            completion()
         }
     }
     
-    func connectGetSupport() {
+    func connectGetSupport(completion: @escaping () -> ()) {
         self.dbFireStore.collection(OrderFolderName.rootSupport.rawValue).limit(to: 9).getDocuments { [weak self](snapshot, error) in
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()
@@ -137,9 +197,27 @@ class HomeViewController: MainViewController {
                     self?.arrSupport = [SupportModel]()
                 }
             }
-            DispatchQueue.main.async {
-                self?.tbHome.reloadSections(IndexSet(integer: 1), with: .automatic)
+            completion()
+        }
+    }
+    
+    func connectGetInfomation(_ type: NewsType, completion: @escaping () -> ()) {
+        print("\(TAG) - \(#function) - \(#line) - type : \(type.rawValue)")
+        self.dbFireStore.collection(OrderFolderName.rootNews.rawValue).order(by: "time", descending: true).whereField("type", isEqualTo: type.rawValue).whereField("isEnable", isEqualTo: true).limit(to: 1).getDocuments { [weak self](snapshot, error) in
+            if let document = snapshot?.documents.first {
+                let decoder = JSONDecoder()
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
+                    var result = try decoder.decode(InformationModel.self, from: data)
+                    if self?.itemInfo == nil {
+                        self?.itemInfo = result
+                        
+                    }
+                } catch  {
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                }
             }
+            completion()
         }
     }
     
@@ -151,9 +229,7 @@ class HomeViewController: MainViewController {
     }
     
     @objc func eventChooseNotification(_ sender: UIBarButtonItem) {
-        let vc = CreateOrderViewController(nibName: "CreateOrderViewController", bundle: nil)
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     func searchOrderWithCode(_ orderCode: String) {
@@ -204,18 +280,21 @@ extension HomeViewController: UITextFieldDelegate {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return (completionRequest.0 && completionRequest.1 && completionRequest.2) ? 3 : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 || section == 2 {
             return 1
         }
-        return 3
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
+            return itemInfo != nil ? UITableView.automaticDimension : 0
+        }
+        else if indexPath.section == 1 {
             return 390.0
         } else if indexPath.section == 2 {
             return 270.0
@@ -264,8 +343,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NEWSTableViewCell", for: indexPath) as! NEWSTableViewCell
-            cell.lblTitle.text = "Đi chạy nào"
-            cell.lblContent.text = "Nhật Bản là một trong những thị trường mang lại nhiều doanh thu nhất cho cửa hàng ứng dụng của Apple trong năm 2019."
+            if let _itemInfo = itemInfo {
+                cell.showInfo(_itemInfo)
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMainCell", for: indexPath) as! SupportMainCell
@@ -290,5 +370,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            if let _itemInfo = itemInfo {
+                DispatchQueue.main.async {
+                    let vc = DetailInfomationViewController(nibName: "DetailInfomationViewController", bundle: nil)
+                    vc.infomation = _itemInfo
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
     
 }

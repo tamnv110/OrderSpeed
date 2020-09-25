@@ -12,6 +12,7 @@ enum NewsType: Int {
     case news = 1
     case guide = 2
     case notification = 3
+    case temp
 }
 
 class InfomationViewController: MainViewController {
@@ -42,6 +43,8 @@ class InfomationViewController: MainViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Thông tin", style: .done, target: nil, action: nil)
+        
         tbInfomation.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
         
         connectGetInfomation(.news) { (items) -> (Void) in
@@ -49,15 +52,26 @@ class InfomationViewController: MainViewController {
             self.completion.0 = true
         }
         
-//        connectGetInfomation(.guide) { (items) -> (Void) in
-//            self.arrInfomation.append(items)
-//            self.completion.1 = true
-//        }
+        connectGetInfomation(.guide) { (items) -> (Void) in
+            self.arrInfomation.append(items)
+            self.completion.1 = true
+        }
         
-//        connectGetInfomation(.notification) { (items) -> (Void) in
-//            self.arrInfomation.append(items)
-//            self.completion.2 = true
-//        }
+        connectGetInfomation(.notification) { (items) -> (Void) in
+            self.arrInfomation.append(items)
+            self.completion.2 = true
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_SHOW_INFO"), object: nil, queue: .main) { (notification) in
+            if let itemInfo = notification.object as? InformationModel {
+                DispatchQueue.main.async {
+                    let vc = DetailInfomationViewController(nibName: "DetailInfomationViewController", bundle: nil)
+                    vc.infomation = itemInfo
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
     }
     
     func connectGetInfomation(_ type: NewsType, completion: @escaping ([InformationModel]) -> (Void)) {
@@ -69,7 +83,14 @@ class InfomationViewController: MainViewController {
                 documents.forEach { (document) in
                     do {
                         let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
-                        let result = try decoder.decode(InformationModel.self, from: data)
+                        var result = try decoder.decode(InformationModel.self, from: data)
+                        if type == .news {
+                            result.colorStart = Tools.hexStringToUIColor(hex: "#BD3A52")
+                            result.colorEnd = Tools.hexStringToUIColor(hex: "#FED182")
+                        } else {
+                            result.colorStart = Tools.hexStringToUIColor(hex: "#3D73C5")
+                            result.colorEnd = Tools.hexStringToUIColor(hex: "#4C9F95")
+                        }
                         arrInfo.append(result)
                     } catch  {
                         print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
@@ -84,7 +105,7 @@ class InfomationViewController: MainViewController {
 
 extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrInfomation[section].count
+        return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,22 +125,4 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         cell.arrInfo = items
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let cell = cell as? SupportMainCell {
-//            if indexPath.section == 0 {
-//                arrNews == nil ? cell.loadingView.startAnimating() : cell.loadingView.stopAnimating()
-//            } else {
-//                arrGuide == nil ? cell.loadingView.startAnimating() : cell.loadingView.stopAnimating()
-//            }
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let cell = cell as? SupportMainCell {
-//            if (indexPath.section == 0 && arrNews == nil) || (indexPath.section == 1 && arrGuide == nil) {
-//                cell.loadingView.stopAnimating()
-//            }
-//        }
-//    }
 }

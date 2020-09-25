@@ -25,6 +25,12 @@ class HomeHeaderView: UIView {
     
     var isDropShadow = false
     
+    var arrSite = [(ProductSiteModel("Tạo đơn hàng", image: "icon_tao_gd", link: "", sort: -110))] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     class func instanceFromNib() -> HomeHeaderView {
         return UINib(nibName: "HomeHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! HomeHeaderView
     }
@@ -77,13 +83,18 @@ extension HomeHeaderView: UICollectionViewDelegateFlowLayout, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return arrSite.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeOptionCollectionViewCell", for: indexPath) as! HomeOptionCollectionViewCell
+        let item = arrSite[indexPath.row]
+        cell.showInfo(item)
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = arrSite[indexPath.row]
+        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHOOSE_STORE"), object: item)
+    }
 }

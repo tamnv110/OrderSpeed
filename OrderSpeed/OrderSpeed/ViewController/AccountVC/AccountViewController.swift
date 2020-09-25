@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
+import FirebaseUI
 
 class AccountViewController: MainViewController {
 
@@ -74,6 +75,13 @@ class AccountViewController: MainViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("CHANGE_AVATAR"), object: nil, queue: .main) { (notification) in
+            guard let imageName = notification.object as? String else {return}
+            if let header = self.tbAccount.tableHeaderView as? AccountHeaderView {
+                let imageRef = self.storageRef.child("Images/\(imageName)")
+                header.imgvAvatar.sd_setImage(with: imageRef)
+            }
+        }
     }
     
     func showAvatar(_ user: UserBeer) {
@@ -182,6 +190,9 @@ class AccountViewController: MainViewController {
             Tools.removeUserInfo()
             self.tbAccount.isHidden = true
             self.showLoginController()
+            if let header = self.tbAccount.tableHeaderView as? AccountHeaderView {
+                header.imgvAvatar.image = nil
+            }
         }))
         self.present(alert, animated: true, completion: nil)
     }

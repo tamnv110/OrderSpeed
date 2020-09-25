@@ -33,6 +33,9 @@
 		E76B20BC25120AC00041EB20 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B20BB25120AC00041EB20 /* AccountViewController.swift */; };
 		E76EF6642515CD240052474F /* RequestSupportHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */; };
 		E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */; };
+		E770145A251C4FCF004AB7E3 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7701458251C4FCF004AB7E3 /* DetailInfomationViewController.swift */; };
+		E770145B251C4FCF004AB7E3 /* DetailInfomationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7701459251C4FCF004AB7E3 /* DetailInfomationViewController.xib */; };
+		E770145E251DDBF6004AB7E3 /* ProductSiteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E770145D251DDBF6004AB7E3 /* ProductSiteModel.swift */; };
 		E773FACB2510C7C0003E0EFC /* OrderProductDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E773FACA2510C7C0003E0EFC /* OrderProductDataModel.swift */; };
 		E778306F2501DADF0005D59C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778306E2501DADF0005D59C /* HomeViewController.swift */; };
 		E77830712501DDFA0005D59C /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77830702501DDFA0005D59C /* HomeHeaderView.swift */; };
@@ -137,6 +140,9 @@
 		E76B20BB25120AC00041EB20 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		E76EF6632515CD240052474F /* RequestSupportHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSupportHeaderView.swift; sourceTree = "<group>"; };
 		E76EF6652515CD300052474F /* RequestSupportHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestSupportHeaderView.xib; sourceTree = "<group>"; };
+		E7701458251C4FCF004AB7E3 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
+		E7701459251C4FCF004AB7E3 /* DetailInfomationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailInfomationViewController.xib; sourceTree = "<group>"; };
+		E770145D251DDBF6004AB7E3 /* ProductSiteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSiteModel.swift; sourceTree = "<group>"; };
 		E773FACA2510C7C0003E0EFC /* OrderProductDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProductDataModel.swift; sourceTree = "<group>"; };
 		E778306E2501DADF0005D59C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E77830702501DDFA0005D59C /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
@@ -335,6 +341,7 @@
 				E78A545F25146020009351FC /* OrderStatusModel.swift */,
 				E7F05EE62518CF5E00A5352B /* BankInfoModel.swift */,
 				E7C012FE251A162000E8FD8B /* InformationModel.swift */,
+				E770145D251DDBF6004AB7E3 /* ProductSiteModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,6 +505,8 @@
 			isa = PBXGroup;
 			children = (
 				E7C012FB2519FEFC00E8FD8B /* InfomationViewController.swift */,
+				E7701458251C4FCF004AB7E3 /* DetailInfomationViewController.swift */,
+				E7701459251C4FCF004AB7E3 /* DetailInfomationViewController.xib */,
 			);
 			path = InfomationVC;
 			sourceTree = "<group>";
@@ -610,6 +619,7 @@
 				E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */,
 				E77F7C3625008CAC001A7B7A /* Main.storyboard in Resources */,
 				E76B20B5251201950041EB20 /* ManagerOrderTableCell.xib in Resources */,
+				E770145B251C4FCF004AB7E3 /* DetailInfomationViewController.xib in Resources */,
 				E748BA882503D38300612050 /* HomeHeaderSectionView.xib in Resources */,
 				E75693E12500E7670017BA48 /* RegisterViewController.xib in Resources */,
 			);
@@ -681,6 +691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E770145E251DDBF6004AB7E3 /* ProductSiteModel.swift in Sources */,
 				E7B2F29C2500950A00F1F26A /* LoginViewController.swift in Sources */,
 				E7A0E65D2507C6BE003B2040 /* OrderInfoViewController.swift in Sources */,
 				E76B20BC25120AC00041EB20 /* AccountViewController.swift in Sources */,
@@ -697,6 +708,7 @@
 				E7A0E65A25077817003B2040 /* OrderProductModel.swift in Sources */,
 				E7C316D725087B1B007F712B /* CheckOrderTableCell.swift in Sources */,
 				E78A54632514B511009351FC /* StatusOrderViewController.swift in Sources */,
+				E770145A251C4FCF004AB7E3 /* DetailInfomationViewController.swift in Sources */,
 				E7C316DC2508D7CC007F712B /* ChooseCityViewController.swift in Sources */,
 				E7C012FF251A162000E8FD8B /* InformationModel.swift in Sources */,
 				E7F05EE72518CF5E00A5352B /* BankInfoModel.swift in Sources */,
@@ -884,17 +896,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU6VREYD7S;
+				DEVELOPMENT_TEAM = 7JA5TPJ68M;
 				INFOPLIST_FILE = OrderSpeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tamnv.OrderSpeed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -904,17 +916,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RU6VREYD7S;
+				DEVELOPMENT_TEAM = 7JA5TPJ68M;
 				INFOPLIST_FILE = OrderSpeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tamnv.OrderSpeed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

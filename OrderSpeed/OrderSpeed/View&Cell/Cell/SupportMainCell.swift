@@ -58,7 +58,6 @@ class SupportMainCell: UITableViewCell {
                     if self.arrResultChunked == nil {
                         self.arrResultChunked = [[Any]]()
                     }
-                    print("==========> result.count : \(result.count)")
                     self.arrResultChunked?.append(contentsOf: result)
                     collectionSupport.reloadData()
                     pageSupport.numberOfPages = result.count
@@ -111,7 +110,7 @@ extension SupportMainCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
                 cell.arrInfo = _arrInfo
             }
         } else if let cell = cell as? InfomationCollectionCell {
-            if let _arrInfo = arrResultChunked?[indexPath.row], let item = _arrInfo.first as? InformationModel{
+            if let _arrInfo = arrResultChunked?[indexPath.row], let item = _arrInfo.first as? InformationModel {
                 cell.showInfo(item)
             }
         }
@@ -125,5 +124,13 @@ extension SupportMainCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SupportCollectionCell", for: indexPath) as! SupportCollectionCell
         cell.typeShow = typeShow
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if typeShow == 3 {
+            if let _arrInfo = arrResultChunked?[indexPath.row], let item = _arrInfo.first as? InformationModel {
+                NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_SHOW_INFO"), object: item, userInfo: nil)
+            }
+        }
     }
 }

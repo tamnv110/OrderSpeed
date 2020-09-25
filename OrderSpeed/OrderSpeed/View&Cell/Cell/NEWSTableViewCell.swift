@@ -42,4 +42,9 @@ class NEWSTableViewCell: UITableViewCell {
             self.viewMain.layer.shouldRasterize = true
         }
     }
+    
+    func showInfo(_ item: InformationModel) {
+        lblTitle.text = item.title
+        lblContent.text = item.desc
+    }
 }

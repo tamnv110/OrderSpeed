@@ -50,11 +50,11 @@
                                     <constraint firstAttribute="trailing" secondItem="8Me-G5-c6i" secondAttribute="trailing" constant="12" id="7MY-Yh-R1E"/>
                                     <constraint firstAttribute="trailing" secondItem="nbM-QM-hft" secondAttribute="trailing" constant="8" id="A60-7M-maw"/>
                                     <constraint firstItem="nbM-QM-hft" firstAttribute="centerY" secondItem="8Me-G5-c6i" secondAttribute="centerY" id="Gag-nD-N8Y"/>
-                                    <constraint firstAttribute="bottom" secondItem="eFG-fW-OWh" secondAttribute="bottom" constant="18" id="Rxb-mA-yr5"/>
-                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="U07-Na-3fG"/>
-                                    <constraint firstItem="nbM-QM-hft" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" constant="16" id="oyr-1z-xdG"/>
+                                    <constraint firstAttribute="bottom" secondItem="eFG-fW-OWh" secondAttribute="bottom" priority="999" constant="18" id="Rxb-mA-yr5"/>
+                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" priority="999" constant="16" id="U07-Na-3fG"/>
+                                    <constraint firstItem="nbM-QM-hft" firstAttribute="leading" secondItem="50q-9U-Low" secondAttribute="leading" priority="999" constant="16" id="oyr-1z-xdG"/>
                                     <constraint firstAttribute="trailing" secondItem="eFG-fW-OWh" secondAttribute="trailing" constant="8" id="psG-Ns-xm2"/>
-                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="top" secondItem="nbM-QM-hft" secondAttribute="bottom" constant="18" id="wiA-3N-0wM"/>
+                                    <constraint firstItem="eFG-fW-OWh" firstAttribute="top" secondItem="nbM-QM-hft" secondAttribute="bottom" priority="999" constant="18" id="wiA-3N-0wM"/>
                                     <constraint firstItem="8Me-G5-c6i" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="top" constant="8" id="xaK-Fo-Qv7"/>
                                 </constraints>
                             </view>
@@ -67,9 +67,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Ney-VV-5Wa" secondAttribute="bottom" constant="20" id="6DP-IK-zs5"/>
-                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="leading" secondItem="ouL-UV-ARu" secondAttribute="leading" constant="16" id="AEx-E2-fdN"/>
-                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="bottom" constant="20" id="AHV-nH-b4R"/>
+                            <constraint firstAttribute="bottom" secondItem="Ney-VV-5Wa" secondAttribute="bottom" priority="999" constant="20" id="6DP-IK-zs5"/>
+                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="leading" secondItem="ouL-UV-ARu" secondAttribute="leading" priority="999" constant="16" id="AEx-E2-fdN"/>
+                            <constraint firstItem="Ney-VV-5Wa" firstAttribute="top" secondItem="50q-9U-Low" secondAttribute="bottom" priority="999" constant="20" id="AHV-nH-b4R"/>
                             <constraint firstAttribute="trailing" secondItem="50q-9U-Low" secondAttribute="trailing" id="F5l-tn-v2v"/>
                             <constraint firstAttribute="trailing" secondItem="Ney-VV-5Wa" secondAttribute="trailing" constant="8" id="HL7-HV-Jjg"/>
                             <constraint firstItem="50q-9U-Low" firstAttribute="top" secondItem="ouL-UV-ARu" secondAttribute="top" id="OrF-Ov-W5n"/>
@@ -83,13 +83,13 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="ouL-UV-ARu" secondAttribute="trailing" constant="16" id="5Ih-8O-ome"/>
-                    <constraint firstAttribute="bottom" secondItem="ouL-UV-ARu" secondAttribute="bottom" constant="16" id="Klq-MB-BkU"/>
-                    <constraint firstItem="Ake-fA-rGF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="PI6-TK-Ujc"/>
-                    <constraint firstAttribute="trailing" secondItem="Ake-fA-rGF" secondAttribute="trailing" constant="18" id="SD7-dJ-tKs"/>
-                    <constraint firstAttribute="bottom" secondItem="Ake-fA-rGF" secondAttribute="bottom" constant="18" id="beR-a4-O8Y"/>
+                    <constraint firstAttribute="trailing" secondItem="ouL-UV-ARu" secondAttribute="trailing" priority="999" constant="16" id="5Ih-8O-ome"/>
+                    <constraint firstAttribute="bottom" secondItem="ouL-UV-ARu" secondAttribute="bottom" priority="999" constant="16" id="Klq-MB-BkU"/>
+                    <constraint firstItem="Ake-fA-rGF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="999" constant="18" id="PI6-TK-Ujc"/>
+                    <constraint firstAttribute="trailing" secondItem="Ake-fA-rGF" secondAttribute="trailing" priority="999" constant="18" id="SD7-dJ-tKs"/>
+                    <constraint firstAttribute="bottom" secondItem="Ake-fA-rGF" secondAttribute="bottom" priority="999" constant="18" id="beR-a4-O8Y"/>
                     <constraint firstItem="Ake-fA-rGF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="sqL-Zp-NYu"/>
-                    <constraint firstItem="ouL-UV-ARu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vfJ-Dy-0rr"/>
+                    <constraint firstItem="ouL-UV-ARu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="999" constant="16" id="vfJ-Dy-0rr"/>
                     <constraint firstItem="ouL-UV-ARu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vrm-yN-E5F"/>
                 </constraints>
             </tableViewCellContentView>
@@ -102,7 +102,7 @@
                 <outlet property="viewMain" destination="Ake-fA-rGF" id="i3U-C9-bfg"/>
                 <outlet property="viewTitle" destination="50q-9U-Low" id="qnS-ua-3yS"/>
             </connections>
-            <point key="canvasLocation" x="-180" y="-21"/>
+            <point key="canvasLocation" x="-494" y="-30"/>
         </tableViewCell>
     </objects>
     <resources>

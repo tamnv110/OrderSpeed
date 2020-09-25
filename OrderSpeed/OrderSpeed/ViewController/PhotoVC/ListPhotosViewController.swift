@@ -506,34 +506,29 @@ extension ListPhotosViewController : CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         cropViewController.dismiss(animated: true, completion: {
             print("\(self.TAG) - \(#function) - \(#line) - dismiss CropViewController")
-//            DispatchQueue.main.async {
-//                self.progressHUD.showInViewWithNavigationBar(self.navigationController!, message: "Cập nhật ảnh...")
-//            }
-//            self.uploadImage(image, type: "avatar") { (response) in
-//                switch response.result {
-//                case .success:
-//                    if let data = response.data {
-//                        do {
-//                            let json = try JSON(data: data)
-//                            print("\(self.TAG) - \(#function) - \(#line) - userInfo : \(json)")
-//                            if let message = json["message"].string {
-//                                self.hideProgress()
-//                                self.showAlertController(message)
-//                            }
-//                            else if let idAvatar = json["file_id"].int, let urlAvatar = json["url"].string {
-//                                self.appDelegate.userBee?.avatar = urlAvatar
-//                                Tools.saveUserInfo(self.appDelegate.userBee!)
-//                                self.updateAvatarProfile(idAvatar)
-//                            }
-//                        } catch  {
-//                            print("\(self.TAG) - \(#function) - \(#line) - error : \(error.localizedDescription)")
-//                            self.hideProgress()
-//                        }
-//                    }
-//                case let .failure(error):
-//                    print("\(self.TAG) - \(#function) - \(#line) - error : \(error.localizedDescription)")
-//                }
-//            }
+            DispatchQueue.main.async {
+                self.progessHUD.showInViewWithMessage(self.view, message: "Cập nhật ảnh...")
+            }
+            guard let userID = self.appDelegate.user?.userID, let uploadData = image.jpegData(compressionQuality: 0.8) else { return }
+            let imageName = "\(userID).jpg"
+            let imageRef = self.storageRef.child("Avatar/\(imageName)")
+            imageRef.putData(uploadData, metadata: nil) { [weak self](metaData, error) in
+                if let _error = error {
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {
+                        
+                    }
+                } else {
+                    self?.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).updateData(["avatar": imageName])
+                    self?.appDelegate.user?.avatar = imageName
+                    if let user = self?.appDelegate.user {
+                        Tools.saveUserInfo(user)
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name("CHANGE_AVATAR"), object: imageName)
+                    self?.showAlertView("Cập nhật ảnh đại diện thành công.") {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
         })
     }
     

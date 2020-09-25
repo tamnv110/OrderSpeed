@@ -15,7 +15,16 @@ class HomeOptionCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imgvIcon.layer.cornerRadius = 12
     }
 
+    func showInfo(_ item: ProductSiteModel) {
+        lblName.text = item.name
+        if item.link.isEmpty {
+            imgvIcon.image = UIImage(named: item.image)
+        } else {
+            imgvIcon.sd_setImage(with: URL(string: item.image), placeholderImage: UIImage(named: ""))
+        }
+    }
+    
 }

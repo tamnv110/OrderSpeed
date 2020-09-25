@@ -22,14 +22,7 @@ struct ProductModel: Codable {
     var status: String?
     var note: String
     var arrProductImages: [ItemImageSelect]?
-//    var id: Int
-//    var link: String
-//    var name: String
-//    var size: String
-//    var note: String
-//    var number: Int
-//    var price: Double
-//    var arrProductImages: [ItemImageSelect]?
+
     
     enum CodingKeys: String, CodingKey {
         case code

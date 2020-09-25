@@ -40,6 +40,9 @@ class InfomationCollectionCell: UICollectionViewCell {
         }
         lblTitle.text = item.title
         lblDesc.text = item.desc
+        if let colorStart = item.colorStart, let colorEnd = item.colorEnd {
+            gradient.colors = [colorStart.cgColor, colorEnd.cgColor]
+        }
     }
 
     override func layoutSubviews() {

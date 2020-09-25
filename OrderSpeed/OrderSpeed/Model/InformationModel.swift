@@ -7,12 +7,14 @@
 //
 
 import Foundation
-
+import UIKit
 struct InformationModel: Codable {
     var type: Int
     var title: String
     var content: String
     var desc: String?
+    var colorStart: UIColor?
+    var colorEnd: UIColor?
     
     enum CodingKeys: String, CodingKey {
         case type
