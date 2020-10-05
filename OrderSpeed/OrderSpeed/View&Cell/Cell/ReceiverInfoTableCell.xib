@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NGƯỜI NHẬN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-y4-gBk">
-                        <rect key="frame" x="16" y="16" width="95" height="18"/>
+                        <rect key="frame" x="16" y="16" width="94" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,7 +52,7 @@
                                         <rect key="frame" x="275" y="15" width="13" height="14"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="TqV-fk-7Su" firstAttribute="leading" secondItem="ugj-rY-djR" secondAttribute="leading" id="2AP-cm-MV6"/>
                                     <constraint firstItem="lBz-8Z-MHU" firstAttribute="centerY" secondItem="ugj-rY-djR" secondAttribute="centerY" id="85U-rQ-OGh"/>
@@ -73,7 +74,7 @@
                                         <rect key="frame" x="275" y="15" width="13" height="14"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="5gD-ja-9Kb" firstAttribute="leading" secondItem="nYI-Gw-Di3" secondAttribute="leading" id="2Ja-wz-qbR"/>
                                     <constraint firstAttribute="trailing" secondItem="PfF-ot-d8T" secondAttribute="trailing" id="dKZ-1p-JrI"/>
@@ -92,35 +93,25 @@
                     </stackView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UOs-62-Xf4" customClass="CustomTextViewPlaceHolder" customModule="OrderSpeed" customModuleProvider="target">
                         <rect key="frame" x="16" y="302" width="288" height="80"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="8tE-VA-HyS"/>
                         </constraints>
-                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" systemColor="labelColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Ghi chú"/>
                         </userDefinedRuntimeAttributes>
                     </textView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QgY-zP-X02">
-                        <rect key="frame" x="16" y="382" width="288" height="1"/>
-                        <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="RGI-lT-zvN"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Xhr-y4-gBk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1D4-Nl-h8W"/>
-                    <constraint firstItem="QgY-zP-X02" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1yA-bn-P3h"/>
                     <constraint firstItem="UOs-62-Xf4" firstAttribute="top" secondItem="akN-B7-1YG" secondAttribute="bottom" constant="8" id="2f3-0k-Lz9"/>
                     <constraint firstAttribute="bottom" secondItem="UOs-62-Xf4" secondAttribute="bottom" constant="15" id="2we-rB-WKg"/>
                     <constraint firstItem="UOs-62-Xf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6YV-wd-G8V"/>
                     <constraint firstAttribute="trailing" secondItem="akN-B7-1YG" secondAttribute="trailing" constant="16" id="7VR-CI-RUd"/>
                     <constraint firstItem="akN-B7-1YG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GfS-Mf-TAG"/>
-                    <constraint firstItem="QgY-zP-X02" firstAttribute="top" secondItem="UOs-62-Xf4" secondAttribute="bottom" id="Qgi-A5-Puz"/>
-                    <constraint firstAttribute="trailing" secondItem="QgY-zP-X02" secondAttribute="trailing" constant="16" id="Xde-lZ-f3e"/>
                     <constraint firstItem="Xhr-y4-gBk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="YhX-24-QNv"/>
                     <constraint firstItem="akN-B7-1YG" firstAttribute="top" secondItem="Xhr-y4-gBk" secondAttribute="bottom" constant="8" id="hDo-U8-wUm"/>
                     <constraint firstAttribute="trailing" secondItem="UOs-62-Xf4" secondAttribute="trailing" constant="16" id="sKQ-PF-ZCh"/>
@@ -140,7 +131,30 @@
             <point key="canvasLocation" x="-522" y="71"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="5gD-ja-9Kb">
+            <size key="intrinsicContentSize" width="137" height="22"/>
+        </designable>
+        <designable name="B0C-Sw-bwW">
+            <size key="intrinsicContentSize" width="143" height="22"/>
+        </designable>
+        <designable name="GhI-hq-HjP">
+            <size key="intrinsicContentSize" width="193" height="22"/>
+        </designable>
+        <designable name="SRM-7W-mVu">
+            <size key="intrinsicContentSize" width="139" height="22"/>
+        </designable>
+        <designable name="TqV-fk-7Su">
+            <size key="intrinsicContentSize" width="159" height="22"/>
+        </designable>
+    </designables>
     <resources>
         <image name="icon_accessory_cell" width="13" height="14"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

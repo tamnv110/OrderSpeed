@@ -55,5 +55,11 @@ class ManagerOrderTableCell: UITableViewCell {
         } else {
             lblDate.text = nil
         }
+        
+        btnEdit.setTitle(item.depositMoney > 0 ? "Hủy" : "Chỉnh sửa", for: .normal)
+        
+        if item.status.lowercased() == "đã huỷ" || item.status.lowercased() == "đã hủy" {
+            btnEdit.setTitle("Đã hủy", for: .normal)
+        }
     }
 }

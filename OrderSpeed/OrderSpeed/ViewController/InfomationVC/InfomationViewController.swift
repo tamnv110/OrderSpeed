@@ -41,8 +41,11 @@ class InfomationViewController: MainViewController {
         }
     }
     
+    var typeInfo: NewsType = .news
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Thông tin", style: .done, target: nil, action: nil)
         
         tbInfomation.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
@@ -72,6 +75,38 @@ class InfomationViewController: MainViewController {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_TITLE_NEWS"), object: nil, queue: .main) { (notification) in
+            if let typeInfo = notification.object as? NewsType {
+                self.typeInfo = typeInfo
+                DispatchQueue.main.async {
+                    let vc = ListInfomationViewController(nibName: "ListInfomationViewController", bundle: nil)
+                    vc.typeInfo = typeInfo
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+//        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHOOSE_TITLE_NEWS"), object: typeInfo, userInfo: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = ""
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if typeInfo == .news {
+            self.navigationItem.title = "Tin tức"
+        } else if typeInfo == .guide {
+            self.navigationItem.title = "Hướng dẫn"
+        } else {
+            self.navigationItem.title = "Thông báo"
+        }
     }
     
     func connectGetInfomation(_ type: NewsType, completion: @escaping ([InformationModel]) -> (Void)) {
@@ -79,6 +114,7 @@ class InfomationViewController: MainViewController {
         self.dbFireStore.collection(OrderFolderName.rootNews.rawValue).order(by: "time", descending: true).whereField("type", isEqualTo: type.rawValue).whereField("isEnable", isEqualTo: true).limit(to: 3).getDocuments { [weak self](snapshot, error) in
             var arrInfo = [InformationModel]()
             if let documents = snapshot?.documents {
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - documents : \(documents.count)")
                 let decoder = JSONDecoder()
                 documents.forEach { (document) in
                     do {
@@ -96,6 +132,8 @@ class InfomationViewController: MainViewController {
                         print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                     }
                 }
+            } else {
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.debugDescription)")
             }
             completion(arrInfo)
         }
@@ -113,7 +151,7 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 320
+        return 360
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

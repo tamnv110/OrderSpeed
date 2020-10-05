@@ -33,6 +33,8 @@ class CustomAlertViewController: MainViewController {
     @IBOutlet weak var lblContentContent: UILabel!
     
     var sOrderCode = ""
+    var titleContent = ""
+    var msgContent = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,8 @@ class CustomAlertViewController: MainViewController {
         print("\(TAG) - \(#function) - \(#line) - typeShow : \(typeShow.rawValue)")
         if typeShow == .showContent {
             viewContent.isHidden = false
+            lblTitleContent.text = titleContent
+            lblContentContent.text = msgContent
         } else {
             viewSuccess.isHidden = false
             lblContentContent.text = "Chúng tôi sẽ liên hệ và báo giá tói bạn sớm nhất."

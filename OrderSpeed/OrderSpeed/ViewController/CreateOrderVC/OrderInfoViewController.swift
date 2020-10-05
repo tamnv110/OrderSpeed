@@ -185,7 +185,7 @@ class OrderInfoViewController: MainViewController {
     
     func connectGetStatus() {
         self.showProgressHUD("Xử lý đơn...")
-        self.dbFireStore.collection("OrderStatus").whereField("sort", isEqualTo: 1).limit(to: 1).getDocuments { [weak self](snapshot, error) in
+        self.dbFireStore.collection(OrderFolderName.rootStatus.rawValue).whereField("sort", isEqualTo: 1).limit(to: 1).getDocuments { [weak self](snapshot, error) in
             self?.hideProgressHUD()
             if let document = snapshot?.documents.first {
                 do {
@@ -396,7 +396,7 @@ class OrderInfoViewController: MainViewController {
                     print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {})
                 } else {
-                    self?.showAlertController(.showSuccess, message: codeOrder)
+                    self?.showAlertController(.showSuccess, message: codeOrder, title: "")
                 }
             }
         }

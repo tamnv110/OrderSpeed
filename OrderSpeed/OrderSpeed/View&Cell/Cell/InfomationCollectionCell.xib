@@ -43,6 +43,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9w-oQ-5Z9">
                                         <rect key="frame" x="229" y="8" width="27" height="27"/>
                                         <state key="normal" image="icon_more"/>
+                                        <connections>
+                                            <action selector="eventChooseMore:" destination="gTV-IL-0wX" eventType="touchUpInside" id="CUQ-bl-i5p"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.63137254899999995" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,8 +61,8 @@
                                     <constraint firstItem="n4y-V7-kRM" firstAttribute="centerY" secondItem="W9w-oQ-5Z9" secondAttribute="centerY" id="vMI-gB-5wm"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Meituan-Dianping là một nền tảng mua sắm của Trung Quốc chuyên dành cho các sản phẩm tiêu dùng và dịch vụ bán lẻ." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cem-CI-b3O">
-                                <rect key="frame" x="16" y="144" width="244" height="82"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Meituan-Dianping là một nền tảng mua sắm của Trung Quốc chuyên dành cho các sản phẩm tiêu dùng và dịch vụ bán lẻ." lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cem-CI-b3O">
+                                <rect key="frame" x="16" y="136" width="244" height="81.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -67,10 +70,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Cem-CI-b3O" secondAttribute="bottom" constant="20" id="5SO-SA-58h"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Cem-CI-b3O" secondAttribute="bottom" priority="999" constant="20" id="5SO-SA-58h"/>
                             <constraint firstItem="gAh-F3-QRp" firstAttribute="top" secondItem="Cbx-yQ-32t" secondAttribute="top" id="6Ow-Cp-TOc"/>
                             <constraint firstItem="Cem-CI-b3O" firstAttribute="leading" secondItem="Cbx-yQ-32t" secondAttribute="leading" constant="16" id="7gQ-5K-3tl"/>
-                            <constraint firstItem="Cem-CI-b3O" firstAttribute="top" secondItem="gAh-F3-QRp" secondAttribute="bottom" constant="20" id="AQp-0L-XKW"/>
+                            <constraint firstItem="Cem-CI-b3O" firstAttribute="top" secondItem="gAh-F3-QRp" secondAttribute="bottom" priority="999" constant="12" id="AQp-0L-XKW"/>
                             <constraint firstAttribute="trailing" secondItem="gAh-F3-QRp" secondAttribute="trailing" id="QC2-eQ-Fh5"/>
                             <constraint firstItem="gAh-F3-QRp" firstAttribute="leading" secondItem="Cbx-yQ-32t" secondAttribute="leading" id="b1F-7I-cah"/>
                             <constraint firstAttribute="trailing" secondItem="Cem-CI-b3O" secondAttribute="trailing" constant="8" id="o3e-wO-Mnq"/>

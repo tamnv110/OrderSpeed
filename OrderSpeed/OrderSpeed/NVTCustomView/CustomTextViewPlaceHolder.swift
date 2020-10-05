@@ -109,6 +109,7 @@ extension CustomTextViewPlaceHolder : UITextViewDelegate {
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_BEGIN_EDITING_TEXTVIEW"), object: self, userInfo: nil)
         isChecked = true
         return isChecked
     }

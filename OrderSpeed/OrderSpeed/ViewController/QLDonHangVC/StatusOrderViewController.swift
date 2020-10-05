@@ -147,9 +147,9 @@ class StatusOrderViewController: MainViewController {
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau."){}
                 } else {
                     self?.arrSupport.append(item)
-                    self?.showErrorAlertView("Gửi yêu cầu hỗ trợ thành công. Chúng tôi sẽ phản hồi bạn sớm nhất."){
+                    self?.showAlertView("Gửi yêu cầu hỗ trợ thành công. Chúng tôi sẽ phản hồi bạn sớm nhất.", completion: {
                         self?.dismiss(animated: true, completion: nil)
-                    }
+                    })
                     DispatchQueue.main.async {
                         self?.tbStatus.reloadData()
                     }

@@ -69,13 +69,16 @@ class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    func showAlertController(_ typeShow: AlertShowType, message: String) {
+    func showAlertController(_ typeShow: AlertShowType, message: String, title: String) {
         DispatchQueue.main.async {
             let vc = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
             vc.modalPresentationStyle = .overFullScreen
             vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
             if typeShow == .showSuccess {
                 vc.sOrderCode = message
+            } else {
+                vc.titleContent = title
+                vc.msgContent = message
             }
             self.present(vc, animated: true) {
                 vc.typeShow = typeShow

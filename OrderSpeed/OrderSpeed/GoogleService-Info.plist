@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1030282007437-r5ju99j9bjseia8l94as7el140jstn6p.apps.googleusercontent.com</string>
+	<string>1030282007437-6946772s4jo4qhhu61ceftshhqrb900c.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1030282007437-r5ju99j9bjseia8l94as7el140jstn6p</string>
+	<string>com.googleusercontent.apps.1030282007437-6946772s4jo4qhhu61ceftshhqrb900c</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1030282007437-3fc786keuuvq6hovehc3gr90sm1ut2sc.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCDTn4gEkuew8MYtIb-ZFnQo6SPQ9Xixng</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,23 +15,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tamnv.OrderSpeed</string>
+	<string>com.beerteam.OrderSpeed</string>
 	<key>PROJECT_ID</key>
 	<string>order-speed</string>
 	<key>STORAGE_BUCKET</key>
 	<string>order-speed.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1030282007437:ios:60faf1ae307aeba3d3a3c4</string>
+	<string>1:1030282007437:ios:9ef6005a302e172fd3a3c4</string>
 	<key>DATABASE_URL</key>
 	<string>https://order-speed.firebaseio.com</string>
 </dict>

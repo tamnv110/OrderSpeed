@@ -11,14 +11,16 @@ import UIKit
 enum OrderFolderName: String {
     case rootOrderProduct = "OrderProduct"
     case rootRequestSupport = "RequestSupport"
-    case product = "Product"
-    case status = "Status"
-    case settings = "Settings"
     case rootBank = "Bank"
     case rootUser = "User"
     case rootSupport = "Support"
     case rootNews = "News"
     case rootProductSite = "ProductSite"
+    case rootStatus = "OrderStatus"
+    case product = "Product"
+    case status = "Status"
+    case settings = "Settings"
+    case notification = "Notification"
 }
 
 extension UIButton {
@@ -68,6 +70,16 @@ extension NSObject {
     
     class var className: String {
         return String(describing: self)
+    }
+}
+
+extension UITableView {
+
+    func setBottomInset(to value: CGFloat) {
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
+
+        self.contentInset = edgeInset
+        self.scrollIndicatorInsets = edgeInset
     }
 }
 
@@ -200,17 +212,14 @@ class Tools {
     }
     
     static func openMessengerApp(_ userID: String) {
-        if let url = URL(string: "fb-messenger://user-thread/\(userID)") {
-
-            // Attempt to open in Messenger App first
+        if let url = URL(string: "https://m.me/\(userID)") {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: {
                     (success) in
-                    if success == false {
-                        let url = URL(string: "https://m.me/\(userID)")
-                        if UIApplication.shared.canOpenURL(url!) {
-                            UIApplication.shared.open(url!)
-                        }
+                    if !success {
+                        print("\(#file) - open failed")
+                    } else {
+                        print("\(#file) - open success")
                     }
                 })
             } else {

@@ -60,6 +60,9 @@
                             <constraint firstAttribute="width" secondItem="NHX-0n-i26" secondAttribute="height" id="upV-YR-IQR"/>
                         </constraints>
                         <state key="normal" image="icon_copy"/>
+                        <connections>
+                            <action selector="eventChooseCopyBankNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fQB-E9-0sd"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -78,6 +81,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="imgvIcon" destination="uEJ-DH-FXq" id="jq1-Dk-yHb"/>
                 <outlet property="lblBankNumber" destination="c4n-FE-euH" id="WZa-if-uWF"/>
                 <outlet property="lblBranch" destination="Zfr-IO-d63" id="aEW-jN-vq1"/>
                 <outlet property="lblName" destination="mWl-kZ-cDY" id="U9u-XR-Drc"/>

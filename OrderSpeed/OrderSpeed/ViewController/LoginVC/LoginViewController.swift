@@ -20,7 +20,7 @@ class LoginViewController: MainViewController {
     @IBOutlet weak var sizeLogo: NSLayoutConstraint!
     @IBOutlet weak var widthStack: NSLayoutConstraint!
     @IBOutlet weak var topStack: NSLayoutConstraint!
-    @IBOutlet weak var topLoginOther: NSLayoutConstraint!
+//    @IBOutlet weak var topLoginOther: NSLayoutConstraint!
     
     @IBOutlet weak var stackInput: UIStackView!
     @IBOutlet weak var tfEmail: UITextField!
@@ -33,6 +33,7 @@ class LoginViewController: MainViewController {
         gradientLayer.colors = [Tools.hexStringToUIColor(hex: "#F5A125").cgColor, Tools.hexStringToUIColor(hex: "#EC8325").cgColor]
         return gradientLayer
     }()
+    var apnsKey = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ class LoginViewController: MainViewController {
             widthStack.constant = 40
             topStack.constant = 16
             topBtnForgot.constant = 8
-            topLoginOther.constant = 22
+//            topLoginOther.constant = 22
         }
         
         #if DEBUG
@@ -60,6 +61,15 @@ class LoginViewController: MainViewController {
         GIDSignIn.sharedInstance()?.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(eventRegisterSuccess(_:)), name: NSNotification.Name("REGISTER_SUCCESS"), object: nil)
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("\(self.TAG) - \(#function) - \(#line) - Error fetching remote instance ID: \(error)")
+            } else if let result = result {
+                self.apnsKey = result.token
+                print("\(self.TAG) - \(#function) - \(#line) - Remote instance ID token: \(result.token)")
+            }
+        }
     }
     
     @objc func eventRegisterSuccess(_ notification:Notification) {
@@ -245,7 +255,7 @@ class LoginViewController: MainViewController {
         } else {
             queryable.append(userName.lowercased())
         }
-        let registerDic:[String : Any] = ["uid": auth.user.uid, "email": authResult?.user.email ?? "","user_name": userName, "avatar": auth.user.photoURL?.absoluteString ?? "", "queryable": queryable, "address": "", "city_name": "", "district_name": "","isEnable":true, "phone": "", "apn_key": "", "receiver_name": "", "typeAcc": 2, "type": "customer"]
+        let registerDic:[String : Any] = ["uid": auth.user.uid, "email": authResult?.user.email ?? "","user_name": userName, "avatar": auth.user.photoURL?.absoluteString ?? "", "queryable": queryable, "address": "", "city_name": "", "district_name": "","isEnable":true, "phone": "", "apn_key": self.apnsKey, "receiver_name": "", "typeAcc": 2, "type": "customer"]
         let dbBatch = self.dbFireStore.batch()
         
         debugPrint("\(TAG) - \(#function) - line : \(#line) - _uid : \(auth.user.uid)")
@@ -274,6 +284,9 @@ class LoginViewController: MainViewController {
         Tools.saveUserInfo(user)
         Tools.saveObjectToDefault(typeLogin, key: Tools.KEY_LOGIN_TYPE)
         self.appDelegate.user = user
+        if user.tokenAPN != self.apnsKey && !self.apnsKey.isEmpty {
+            self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(user.userID).updateData(["apn_key": self.apnsKey])
+        }
         NotificationCenter.default.post(name: NSNotification.Name("LOGIN_FINISH"), object: nil)
     }
 }

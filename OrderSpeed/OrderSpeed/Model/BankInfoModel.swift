@@ -13,12 +13,13 @@ struct BankInfoModel: Codable {
     var bankName: String
     var accountNumber: String
     var bankBranch: String
-    
+    var image: String
     enum CodingKeys: String, CodingKey {
         case ownerName = "owner_name"
         case bankName = "name"
         case accountNumber = "account_number"
         case bankBranch = "branch"
+        case image
     }
     
     init(from decoder: Decoder) throws {
@@ -27,13 +28,15 @@ struct BankInfoModel: Codable {
         bankName = try values.decodeIfPresent(String.self, forKey: .bankName) ?? ""
         accountNumber = try values.decodeIfPresent(String.self, forKey: .accountNumber) ?? ""
         bankBranch = try values.decodeIfPresent(String.self, forKey: .bankBranch) ?? ""
+        image = try values.decodeIfPresent(String.self, forKey: .image) ?? ""
     }
     
-    init(_ ownerName: String, bankName: String, accountNumber: String, bankBranch: String) {
+    init(_ ownerName: String, bankName: String, accountNumber: String, bankBranch: String, image: String) {
         self.ownerName = ownerName
         self.bankName = bankName
         self.accountNumber = accountNumber
         self.bankBranch = bankBranch
+        self.image = image
     }
     
     var dictionary: [String: Any] {

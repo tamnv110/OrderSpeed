@@ -38,8 +38,9 @@ class AccountViewController: MainViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.title = ""
         let header = AccountHeaderView.instanceFromNib()
+        header.btnCamera.addTarget(self, action: #selector(eventChooseChangeAvatar), for: .touchUpInside)
         header.frame = CGRect(x: 0, y: 0, width: tbAccount.frame.width, height: 230)
         tbAccount.tableHeaderView = header
         tbAccount.tableFooterView = UIView(frame: .zero)
@@ -78,8 +79,18 @@ class AccountViewController: MainViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("CHANGE_AVATAR"), object: nil, queue: .main) { (notification) in
             guard let imageName = notification.object as? String else {return}
             if let header = self.tbAccount.tableHeaderView as? AccountHeaderView {
-                let imageRef = self.storageRef.child("Images/\(imageName)")
+                let imageRef = self.storageRef.child("Avatar/\(imageName)")
                 header.imgvAvatar.sd_setImage(with: imageRef)
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHANGE_ADDRESS"), object: nil, queue: .main) { [weak self](notification) in
+            self?.appDelegate.user = Tools.getUserInfo()
+            if let user = self?.appDelegate.user {
+                self?.setupInfoShow(user)
+            }
+            DispatchQueue.main.async {
+                self?.tbAccount.reloadData()
             }
         }
     }
@@ -87,12 +98,13 @@ class AccountViewController: MainViewController {
     func showAvatar(_ user: UserBeer) {
         guard let header = tbAccount.tableHeaderView as? AccountHeaderView else { return }
         if user.avatar.isEmpty {
-            
+            header.imgvAvatar.image = UIImage(named: "noavatar.png")
         } else {
             if user.avatar.hasPrefix("http") {
                 header.imgvAvatar.sd_setImage(with: URL(string: user.avatar), placeholderImage: UIImage(named: "noavatar.png"))
             } else {
-                let avatarRef = self.storageRef.child("Images/\(user.avatar)")
+                print("\(self.TAG) - \(#function) - \(#line) - user.avatar : \(user.avatar)")
+                let avatarRef = self.storageRef.child("Avatar/\(user.avatar)")
                 header.imgvAvatar.sd_setImage(with: avatarRef, placeholderImage: UIImage(named: "noavatar.png"))
             }
         }
@@ -153,7 +165,7 @@ class AccountViewController: MainViewController {
             if let tf = alert.textFields?.first {
                 guard let inputData = tf.text, !inputData.isEmpty else {return}
                 self?.showProgressHUD("Cập nhật...")
-                self?.dbFireStore.collection("User").document(userID).updateData([fieldUpdate: inputData]) { [weak self](error) in
+                self?.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).updateData([fieldUpdate: inputData]) { [weak self](error) in
                     self?.hideProgressHUD()
                     if let error = error {
                         print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error: \(error.localizedDescription)")
@@ -167,7 +179,12 @@ class AccountViewController: MainViewController {
                             self?.appDelegate.user?.phoneNumber = inputData
                         }
                         if let user = self?.appDelegate.user {
+                            self?.setupInfoShow(user)
                             Tools.saveUserInfo(user)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self?.tbAccount.reloadData()
                         }
                     }
                 }
@@ -185,7 +202,7 @@ class AccountViewController: MainViewController {
             if typeAcc == 1 {
                 GIDSignIn.sharedInstance()?.signOut()
             } else if typeAcc == 2 {
-                
+                LoginManager().logOut()
             }
             Tools.removeUserInfo()
             self.tbAccount.isHidden = true
@@ -195,6 +212,12 @@ class AccountViewController: MainViewController {
             }
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func eventChooseChangeAvatar() {
+        let vc = ListPhotosViewController(nibName: "ListPhotosViewController", bundle: nil)
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -236,6 +259,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         lblTitle.centerYAnchor.constraint(equalTo: header.centerYAnchor, constant: 0).isActive = true
     
         let btnAdd = UIButton()
+        btnAdd.setTitleColor(.black, for: .normal)
         btnAdd.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         btnAdd.setTitle("Sửa", for: .normal)
         btnAdd.translatesAutoresizingMaskIntoConstraints = false

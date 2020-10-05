@@ -24,6 +24,7 @@ class InfomationCollectionCell: UICollectionViewCell {
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         return gradientLayer
     }()
+    var typeInfo: NewsType = .news
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,10 +33,13 @@ class InfomationCollectionCell: UICollectionViewCell {
     
     func showInfo(_ item: InformationModel) {
         if item.type == 1 {
+            typeInfo = .news
             lblType.text = "TIN TỨC"
         } else if item.type == 2 {
+            typeInfo = .guide
             lblType.text = "HƯỚNG DẪN"
         } else if item.type == 3 {
+            typeInfo = .notification
             lblType.text = "THÔNG BÁO"
         }
         lblTitle.text = item.title
@@ -58,4 +62,9 @@ class InfomationCollectionCell: UICollectionViewCell {
             self.viewMain.layer.shouldRasterize = true
         }
     }
+    
+    @IBAction func eventChooseMore(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHOOSE_TITLE_NEWS"), object: typeInfo, userInfo: nil)
+    }
+    
 }

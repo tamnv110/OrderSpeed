@@ -57,7 +57,7 @@
                 <constraint firstItem="rEw-C6-lYo" firstAttribute="bottom" secondItem="zQp-Ut-SML" secondAttribute="bottom" id="Atk-Ia-Nxw"/>
                 <constraint firstItem="rEw-C6-lYo" firstAttribute="trailing" secondItem="zQp-Ut-SML" secondAttribute="trailing" id="Dck-hh-Dtv"/>
                 <constraint firstItem="zQp-Ut-SML" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LhV-OP-ESm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="zQp-Ut-SML" secondAttribute="bottom" constant="20" id="lDN-tI-Klg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="zQp-Ut-SML" secondAttribute="bottom" priority="999" constant="20" id="lDN-tI-Klg"/>
                 <constraint firstItem="zQp-Ut-SML" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="90" id="rKU-UH-xmX"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

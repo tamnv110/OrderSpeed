@@ -40,9 +40,12 @@ class HomeViewController: MainViewController {
             }
         }
     }
+    var isShowToast = false
+    var toast: ToastView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = ""
+
         setupNavigationBar()
         createTableHeader()
         
@@ -50,13 +53,7 @@ class HomeViewController: MainViewController {
         tbHome.register(UINib(nibName: "BankInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "BankInfoTableViewCell")
         tbHome.register(UINib(nibName: "NEWSTableViewCell", bundle: nil), forCellReuseIdentifier: "NEWSTableViewCell")
         tbHome.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
-        
-        if let window = self.appDelegate.window {
-            let tempView = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-            tempView.backgroundColor = UIColor.red
-            window.addSubview(tempView)
-        }
-        
+                
         self.showProgressHUD("Lấy dữ liệu...")
         connectGetProductSite()
         connectGetBank {
@@ -68,7 +65,7 @@ class HomeViewController: MainViewController {
         connectGetInfomation(.news) {
             self.completionRequest.2 = true
         }
-        
+        connectGetNotificationPopup()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_STORE"), object: nil, queue: .main) { (notification) in
             if let item = notification.object as? ProductSiteModel {
@@ -83,16 +80,68 @@ class HomeViewController: MainViewController {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_COPY_BANK_NUMBER"), object: nil, queue: .main) { (notification) in
+            print("\(self.TAG) - \(#function) - \(#line) - copy thanh cong")
+            if !self.isShowToast {
+                self.isShowToast = true
+                if self.toast == nil {
+                    self.toast = ToastView()
+                }
+                self.toast?.showMessage("Đã sao chép", inView: self.view)
+                if #available(iOS 10.0, *) {
+                    Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (timer) in
+                        self.isShowToast = false
+                        self.toast?.removeFromSuperview()
+                    }
+                } else {
+                    Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.eventTimerSchedule(_:)), userInfo: nil, repeats: false)
+                }
+            }
+            
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_MAKE_PHONE_CALL"), object: nil, queue: .main) { (notification) in
+            if let phonenumber = notification.object as? String {
+                Tools.makePhoneCall(phonenumber)
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_MAKE_MESSENGER"), object: nil, queue: .main) { (notification) in
+            if let messenger = notification.object as? String {
+                print("\(#file) - \(#line) - messenger : \(messenger)")
+                Tools.openMessengerApp(messenger)
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CREATE_WITH_LINK"), object: nil, queue: .main) { [weak self](notification) in
+            if let url = notification.object as? String {
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - url : \(url)")
+                DispatchQueue.main.async {
+                    let vc = CreateOrderViewController(nibName: "CreateOrderViewController", bundle: nil)
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.urlInput = url
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
+    
+    @objc func eventTimerSchedule(_ timer: Timer) {
+        self.toast?.removeFromSuperview()
+        timer.invalidate()
     }
     
     func showSFSafariController(_ link: String) {
-        guard let url = URL(string: link) else { return }
-        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+        let vc = CustomBrowserViewController(nibName: "CustomBrowserViewController", bundle: nil)
+        vc.arrURL.append(link)
+        vc.hidesBottomBarWhenPushed = true
         self.present(vc, animated: true, completion: nil)
     }
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = ""
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -203,12 +252,13 @@ class HomeViewController: MainViewController {
     
     func connectGetInfomation(_ type: NewsType, completion: @escaping () -> ()) {
         print("\(TAG) - \(#function) - \(#line) - type : \(type.rawValue)")
-        self.dbFireStore.collection(OrderFolderName.rootNews.rawValue).order(by: "time", descending: true).whereField("type", isEqualTo: type.rawValue).whereField("isEnable", isEqualTo: true).limit(to: 1).getDocuments { [weak self](snapshot, error) in
+//            .whereField("isEnable", isEqualTo: true).whereField("isPopUp", isEqualTo: false)
+        self.dbFireStore.collection(OrderFolderName.rootNews.rawValue).order(by: "time", descending: true).whereField("type", isEqualTo: type.rawValue).whereField("isPopUp", isEqualTo: false).whereField("isEnable", isEqualTo: true).limit(to: 1).getDocuments { [weak self](snapshot, error) in
             if let document = snapshot?.documents.first {
                 let decoder = JSONDecoder()
                 do {
                     let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
-                    var result = try decoder.decode(InformationModel.self, from: data)
+                    let result = try decoder.decode(InformationModel.self, from: data)
                     if self?.itemInfo == nil {
                         self?.itemInfo = result
                         
@@ -221,6 +271,21 @@ class HomeViewController: MainViewController {
         }
     }
     
+    func connectGetNotificationPopup() {
+        self.dbFireStore.collection(OrderFolderName.rootNews.rawValue).whereField("type", isEqualTo: NewsType.notification.rawValue).whereField("isEnable", isEqualTo: true).whereField("isPopUp", isEqualTo: true).order(by: "time", descending: true).limit(to: 1).getDocuments { [weak self](snapshot, error) in
+            if let document = snapshot?.documents.first {
+                let decoder = JSONDecoder()
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
+                    let result = try decoder.decode(InformationModel.self, from: data)
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - result : \(result.title)")
+                    self?.showAlertController(.showContent, message: result.content, title: result.title)
+                } catch  {
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                }
+            }
+        }
+    }
     
     @objc func eventChooseSearch(_ sender: UIBarButtonItem) {
 //        let vc = ChooseCityViewController(nibName: "ChooseCityViewController", bundle: nil)
@@ -229,7 +294,9 @@ class HomeViewController: MainViewController {
     }
     
     @objc func eventChooseNotification(_ sender: UIBarButtonItem) {
-        
+        self.navigationItem.title = "Thông báo"
+        let vc = NotificationViewController(nibName: "NotificationViewController", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func searchOrderWithCode(_ orderCode: String) {

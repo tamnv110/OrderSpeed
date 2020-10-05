@@ -27,13 +27,14 @@ class DetailInfomationViewController: MainViewController {
         webDetail.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         webDetail.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         webDetail.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        
+        webDetail.scrollView.showsVerticalScrollIndicator = false
+        webDetail.scrollView.showsHorizontalScrollIndicator = false
         showDetailInformation()
     }
 
     func showDetailInformation() {
         guard let item = infomation else { return }
-        let html = "<html><head><style>h1 { font-size: 56px; padding: 5px;} h2 { font-size: 48px;  padding: 5px;} p { font-size: 44px;  padding: 5px;} div {font-size: 44px; padding: 5px;}</style></head><body><h1>\(item.title)</h1><div>\(item.content)</div></body></html>"
+        let html = "<html><head><style>h1 { font-size: 56px; padding: 5px;} h2 { font-size: 48px;  padding: 5px;} p { font-size: 44px;  padding: 5px;} div {font-size: 44px; padding: 5px;} body {overflow: hidden;} </style></head><body><h1>\(item.title)</h1><div>\(item.content)</div></body></html>"
         webDetail.loadHTMLString(html, baseURL: nil)
     }
 

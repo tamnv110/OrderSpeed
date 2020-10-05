@@ -102,6 +102,7 @@ class ChangeAddressViewController: MainViewController {
                     user.districtName = self?.districtName ?? ""
                     user.address = self?.tfAddress.text ?? ""
                     Tools.saveUserInfo(user)
+                    NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHANGE_ADDRESS"), object: nil, userInfo: nil)
                     self?.showAlertView("Cập nhật địa chỉ nhận hàng thành công.", completion: {
                         self?.navigationController?.popViewController(animated: true)
                     })

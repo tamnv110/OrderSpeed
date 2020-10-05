@@ -26,18 +26,54 @@ class CreateOrderViewController: MainViewController {
     var countSection = 1
     var cellChooseImage: CreateOrderTableViewCell?
 //    var arrProductOrder = [OrderProductModel(id: 1, link: "http://youtube.com", name: "Giày", size: "7.5", note: "Âm Thầm Bên Em | OFFICIAL MUSIC VIDEO | Sơn Tùng M-TP", number: 1, price: 10.0, arrProductImages: nil)]
-    var arrProductOrder = [ProductModel(code: "1", link: "http://youtube.com", name: "Giày", option: "7.5", amount: 1, price: 10.0, fee: 0, status: "", note: "Âm Thầm Bên Em | OFFICIAL MUSIC VIDEO | Sơn Tùng M-TP")]
-    
+    var arrProductOrder = [ProductModel(code: "1", link: "", name: "", option: "", amount: 0, price: 0, fee: 0, status: "", note: "")]
     
     var tiGiaNgoaiTe: Double = 0.0
+    var isKeyboardAppear = false
+    var urlInput = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         btnContinute.clipsToBounds = true
         btnContinute.layer.insertSublayer(gradientLayer, below: btnContinute.titleLabel?.layer)
+        if #available(iOS 11.0, *) {
+            tbOrder.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         tbOrder.tableFooterView = UIView(frame: .zero)
         tbOrder.register(UINib(nibName: "CreateOrderTableViewCell", bundle: nil), forCellReuseIdentifier: "CreateOrderTableViewCell")
+        NotificationCenter.default.addObserver(self, selector: #selector(eventShowKeyboard(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventHideKeyboard), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(editingCustomTextField(_:)), name: NSNotification.Name("NOTIFICATION_BEGIN_EDITING_TEXTVIEW"), object: nil)
+        
+        arrProductOrder[0].link = urlInput
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func editingCustomTextField(_ notification: Notification) {
+        if let tf = notification.object as? CustomTextViewPlaceHolder {
+            print("\(self.TAG) - \(#function) - \(#line) - result : \(tf.frame.height)")
+            var contentOffset = tbOrder.contentOffset
+            contentOffset.y += (tf.frame.height + 50)
+            tbOrder.contentOffset = contentOffset
+        }
+    }
+    
+    @objc func eventShowKeyboard(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            tbOrder.setBottomInset(to: keyboardHeight)
+        }
+    }
+    
+    @objc func eventHideKeyboard(_ notification: Notification) {
+        isKeyboardAppear = false
+        tbOrder.contentInset = .zero
     }
     
     override func viewWillAppear(_ animated: Bool) {

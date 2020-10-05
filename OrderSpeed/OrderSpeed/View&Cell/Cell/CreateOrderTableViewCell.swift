@@ -55,6 +55,8 @@ class CreateOrderTableViewCell: UITableViewCell {
         collectionImage.delegate = self
         collectionImage.dataSource = self
         collectionImage.register(UINib(nibName: "ImageProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImageProductCollectionViewCell")
+        
+        tfNote.customDelegate = self
     }
     
     func showInfo(_ orderProduct: ProductModel?) {
@@ -179,6 +181,15 @@ extension CreateOrderTableViewCell: UITextFieldDelegate {
         }
     }
 
+}
+
+extension CreateOrderTableViewCell: CustomTextViewDelegate {
+    func customTextViewEndEditting(_ textView: UITextView) {
+        orderProduct?.note = textView.text
+        delegate?.updateInfoOrderProduct(orderProduct)
+    }
+    
+    
 }
 
 extension CreateOrderTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {

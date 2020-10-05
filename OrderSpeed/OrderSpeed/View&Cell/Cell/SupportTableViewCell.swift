@@ -15,6 +15,9 @@ class SupportTableViewCell: UITableViewCell {
     @IBOutlet weak var btnPhone: UIButton!
     @IBOutlet weak var btnMessenger: UIButton!
     
+    var phonenumber = ""
+    var messenger = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,6 +26,15 @@ class SupportTableViewCell: UITableViewCell {
     func showInfo(_ item: SupportModel) {
         lblTitle.text = item.name
         lblPhone.text = item.phone
+        phonenumber = item.phone
+        messenger = item.account
     }
     
+    @IBAction func eventChooseMakePhoneCall(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_MAKE_PHONE_CALL"), object: phonenumber, userInfo: nil)
+    }
+    
+    @IBAction func eventChooseMakeMessenger(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_MAKE_MESSENGER"), object: messenger, userInfo: nil)
+    }
 }

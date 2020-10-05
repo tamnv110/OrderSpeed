@@ -23,12 +23,36 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1030282007437-r5ju99j9bjseia8l94as7el140jstn6p</string>
+				<string>com.googleusercontent.apps.1030282007437-6946772s4jo4qhhu61ceftshhqrb900c</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb3646790462006997</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>3646790462006997</string>
+	<key>FacebookDisplayName</key>
+	<string>Order Speed</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -36,6 +60,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Luôn cho phép định vị các thiết bị xung quanh bạn.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Sử dụng để định vị các thiết bị xung quanh bạn.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Cho phép để cung cấp ảnh sản phẩm khi tạo đơn hàng, cập nhật ảnh đại diện.</string>
 	<key>UIApplicationSceneManifest</key>
@@ -57,6 +85,10 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
