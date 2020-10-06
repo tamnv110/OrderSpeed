@@ -15,6 +15,7 @@ class StatusOrderViewController: MainViewController {
     @IBOutlet weak var btnOptionJourney: UIButton!
     @IBOutlet weak var btnOptionSupport: UIButton!
     var orderProduct: OrderProductDataModel?
+    var orderID: String?
     var arrProducts = [ProductModel]()
     var arrStatus = [OrderStatusModel]()
     
@@ -30,7 +31,11 @@ class StatusOrderViewController: MainViewController {
         tbStatus.register(UINib(nibName: "CheckOrderTableCell", bundle: nil), forCellReuseIdentifier: "CheckOrderTableCell")
         tbStatus.register(UINib(nibName: "OrderStatusTableCell", bundle: nil), forCellReuseIdentifier: "OrderStatusTableCell")
         tbStatus.isHidden = true
-        connectGetDetail()
+        if orderProduct != nil {
+            connectGetDetail()
+        } else if let _orderID = orderID {
+            connectGetOrderInfo(_orderID)
+        }
     }
 
     @IBAction func eventChangeOption(_ sender: UIButton) {
@@ -70,6 +75,34 @@ class StatusOrderViewController: MainViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tbStatus.updateHeightHeader()
+    }
+    
+    func connectGetOrderInfo(_ orderID: String) -> Void {
+        print("\(TAG) - \(#function) - \(#line) - orderID : \(orderID)")
+        self.showProgressHUD("Lấy chi tiết...")
+        self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue).document(orderID).getDocument { [weak self](snapshot, error) in
+            self?.hideProgressHUD()
+            if let data = snapshot?.data() {
+                do {
+                    let decoder = JSONDecoder()
+                    let data = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    var result = try decoder.decode(OrderProductDataModel.self, from: data)
+                    result.idOrder = orderID
+                    self?.orderProduct = result
+                    print("\(self?.TAG) - \(#function) - \(#line) - orderProduct : \(self?.orderProduct?.idOrder) - \(self?.orderProduct?.status)")
+                    self?.createHeaderStatus()
+                    self?.connectGetDetail()
+                } catch  {
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
+                        
+                    })
+                }
+            } else {
+                self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
+                    
+                })
+            }
+        }
     }
     
     func connectGetDetail() {

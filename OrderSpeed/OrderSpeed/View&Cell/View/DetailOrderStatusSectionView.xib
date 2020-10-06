@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +19,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chi tiết đơn hàng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNF-3u-ezr">
-                            <rect key="frame" x="16" y="14" width="136.5" height="20.5"/>
+                            <rect key="frame" x="16" y="14" width="135.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMe-9V-HhU">
-                            <rect key="frame" x="160.5" y="14" width="245.5" height="20.5"/>
+                            <rect key="frame" x="159.5" y="14" width="246.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -34,9 +35,9 @@
                     <constraints>
                         <constraint firstItem="SMe-9V-HhU" firstAttribute="leading" secondItem="TNF-3u-ezr" secondAttribute="trailing" constant="8" id="Cqv-le-1Kg"/>
                         <constraint firstItem="SMe-9V-HhU" firstAttribute="centerY" secondItem="2wA-hE-n6v" secondAttribute="centerY" id="D7H-Cy-wsj"/>
-                        <constraint firstAttribute="trailing" secondItem="SMe-9V-HhU" secondAttribute="trailing" constant="8" id="n21-ZK-N69"/>
+                        <constraint firstAttribute="trailing" secondItem="SMe-9V-HhU" secondAttribute="trailing" priority="999" constant="8" id="n21-ZK-N69"/>
                         <constraint firstItem="TNF-3u-ezr" firstAttribute="centerY" secondItem="2wA-hE-n6v" secondAttribute="centerY" id="spz-JY-aEe"/>
-                        <constraint firstAttribute="height" constant="48" id="wC1-aX-v6e"/>
+                        <constraint firstAttribute="height" priority="999" constant="48" id="wC1-aX-v6e"/>
                         <constraint firstItem="TNF-3u-ezr" firstAttribute="leading" secondItem="2wA-hE-n6v" secondAttribute="leading" constant="16" id="wmP-RG-yfg"/>
                     </constraints>
                 </view>
@@ -47,19 +48,19 @@
                             <rect key="frame" x="0.0" y="0.0" width="382" height="38.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sN-ov-LTx">
-                                    <rect key="frame" x="125" y="9" width="249" height="20.5"/>
+                                    <rect key="frame" x="124" y="9" width="250" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền sản phẩm:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciq-Yy-TCo">
-                                    <rect key="frame" x="0.0" y="9" width="117" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9" width="116" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="5sN-ov-LTx" secondAttribute="trailing" constant="8" id="D9W-JJ-hMV"/>
                                 <constraint firstItem="ciq-Yy-TCo" firstAttribute="leading" secondItem="flT-59-Ofo" secondAttribute="leading" id="FO7-Sy-lrI"/>
@@ -72,19 +73,19 @@
                             <rect key="frame" x="0.0" y="46.5" width="382" height="38.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Y4-is-lt8">
-                                    <rect key="frame" x="125" y="9" width="249" height="20.5"/>
+                                    <rect key="frame" x="124" y="9" width="250" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền phí:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-q3-zBY">
-                                    <rect key="frame" x="0.0" y="9" width="66" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9" width="65" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="SKP-q3-zBY" firstAttribute="centerY" secondItem="Uth-gX-xRD" secondAttribute="centerY" id="Dx7-iY-D3C"/>
                                 <constraint firstItem="SKP-q3-zBY" firstAttribute="leading" secondItem="Uth-gX-xRD" secondAttribute="leading" id="QLe-da-edq"/>
@@ -96,19 +97,19 @@
                             <rect key="frame" x="0.0" y="93" width="382" height="38"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evP-eZ-M3X">
-                                    <rect key="frame" x="125" y="9" width="249" height="20.5"/>
+                                    <rect key="frame" x="124" y="9" width="250" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tổng tiền:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVQ-bV-hdT">
-                                    <rect key="frame" x="0.0" y="9" width="76" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9" width="75.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="mVQ-bV-hdT" firstAttribute="centerY" secondItem="ms6-UY-iDE" secondAttribute="centerY" id="1Bd-O8-OJN"/>
                                 <constraint firstItem="mVQ-bV-hdT" firstAttribute="leading" secondItem="ms6-UY-iDE" secondAttribute="leading" id="HSq-sC-RCG"/>
@@ -120,19 +121,19 @@
                             <rect key="frame" x="0.0" y="139" width="382" height="38.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeR-dZ-lej">
-                                    <rect key="frame" x="125" y="9" width="249" height="20.5"/>
+                                    <rect key="frame" x="124" y="9" width="250" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền cọc:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cq-u3-gi4">
-                                    <rect key="frame" x="0.0" y="9" width="70" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9" width="69.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="TeR-dZ-lej" firstAttribute="centerY" secondItem="Ova-aF-ubp" secondAttribute="centerY" id="9CJ-SR-Ysu"/>
                                 <constraint firstItem="7Cq-u3-gi4" firstAttribute="leading" secondItem="Ova-aF-ubp" secondAttribute="leading" id="9XE-Au-94d"/>
@@ -144,19 +145,19 @@
                             <rect key="frame" x="0.0" y="185.5" width="382" height="38.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSa-Va-7rU">
-                                    <rect key="frame" x="125" y="9" width="249" height="20.5"/>
+                                    <rect key="frame" x="124" y="9" width="250" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền còn lại:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehA-2s-DPs">
-                                    <rect key="frame" x="0.0" y="9" width="91.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9" width="91" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="BSa-Va-7rU" firstAttribute="centerY" secondItem="jNj-Xc-Cg2" secondAttribute="centerY" id="8nH-Yc-3Uo"/>
                                 <constraint firstItem="ehA-2s-DPs" firstAttribute="leading" secondItem="jNj-Xc-Cg2" secondAttribute="leading" id="epN-9j-nyA"/>
@@ -173,12 +174,13 @@
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2wA-hE-n6v" secondAttribute="trailing" id="22C-7r-y0K"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eTl-73-RZN" secondAttribute="trailing" constant="16" id="4hf-Wq-1xR"/>
                 <constraint firstItem="2wA-hE-n6v" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="62Z-VN-C1M"/>
-                <constraint firstItem="eTl-73-RZN" firstAttribute="top" secondItem="2wA-hE-n6v" secondAttribute="bottom" constant="8" id="SRT-Gl-MnW"/>
+                <constraint firstItem="eTl-73-RZN" firstAttribute="top" secondItem="2wA-hE-n6v" secondAttribute="bottom" priority="999" constant="8" id="SRT-Gl-MnW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eTl-73-RZN" secondAttribute="bottom" constant="16" id="ZeH-yW-5nk"/>
                 <constraint firstItem="2wA-hE-n6v" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eCn-Bw-bR0"/>
                 <constraint firstItem="eTl-73-RZN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="fln-eC-JjD"/>
@@ -186,7 +188,6 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="lblDepositMoney" destination="TeR-dZ-lej" id="gBt-jR-bnR"/>
                 <outlet property="lblFee" destination="7Y4-is-lt8" id="07H-nV-zaw"/>
@@ -198,4 +199,9 @@
             <point key="canvasLocation" x="-189.85507246376812" y="-61.607142857142854"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

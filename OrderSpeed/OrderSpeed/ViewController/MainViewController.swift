@@ -33,9 +33,23 @@ class MainViewController: UIViewController {
         if self.appDelegate.user == nil {
             self.appDelegate.user = Tools.getUserInfo()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(eventClickNotification(_:)), name: NSNotification.Name("NOTIFICATION_POST_ORDER_ID"), object: nil)
+    }
+    
+    @objc func eventClickNotification(_ notification: Notification) {
+        if let orderID = notification.object as? String {
+            DispatchQueue.main.async {
+                let vc = StatusOrderViewController(nibName: "StatusOrderViewController", bundle: nil)
+                vc.orderID = orderID
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     deinit {
+        print("\(TAG) - \(#function) - \(#line) - START")
         NotificationCenter.default.removeObserver(self)
     }
     

@@ -22,10 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     let gcmMessageIDKey = "gcm.message_id"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
-//        self.window?.rootViewController = vc
-
         UINavigationBar.appearance().tintColor = UIColor.black
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
@@ -50,18 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         Messaging.messaging().apnsToken = deviceToken
         InstanceID.instanceID().instanceID { (result, error) in
             if let error = error {
-//                print("AppDelegate - \(#line) - Error fetching remote instance ID: \(error)")
+                print("AppDelegate - \(#line) - Error fetching remote instance ID: \(error)")
             } else if let result = result {
-//                print("AppDelegate - \(#line) - Remote instance ID token: \(result.token)")
+                print("AppDelegate - \(#line) - Remote instance ID token: \(result.token)")
             }
         }
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         if let messageID = userInfo[gcmMessageIDKey] {
-              print("Message ID: \(messageID)")
+              print("AppDelegate - \(#function) - \(#line) - userInfo : Message ID: \(messageID)")
             }
-            print(userInfo)
+        print("AppDelegate - \(#function) - \(#line) - userInfo : \(userInfo)")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
@@ -73,11 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-          print("Message ID: \(messageID)")
+          print("AppDelegate - \(#function) - \(#line) - Message ID: \(messageID)")
         }
 
         // Print full message.
-        print(userInfo)
+        print("AppDelegate - \(#function) - \(#line) - userInfo : \(userInfo)")
 
         completionHandler(UIBackgroundFetchResult.newData)
       }
@@ -228,11 +224,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+            print("Appdelegate - \(#function) - \(#line) - Message ID: \(messageID)")
         }
 
         // Print full message.
-        print(userInfo)
+        print("Appdelegate - \(#function) - \(#line) - userInfo: \(userInfo)")
 
         // Change this to your preferred presentation option
         completionHandler([[.alert, .sound]])
@@ -242,12 +238,24 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
+        print("Appdelegate - \(#function) - \(#line) - Message ID: \(messageID)")
         }
 
-        // Print full message.
-        print(userInfo)
-
+        print("Appdelegate - \(#function) - \(#line) - userInfo: \(userInfo)")
+        if let orderID = userInfo["order_id"] as? String {
+            print("Appdelegate - \(#function) - \(#line) - orderID: \(orderID)")
+//            let sb = UIStoryboard(name: "Main", bundle: nil)
+//            if #available(iOS 13.0, *) {
+//                let tabbar = sb.instantiateViewController(identifier: "MainTabbar") as! UITabBarController
+//                window?.rootViewController = tabbar
+//            } else {
+//                let tabbar = sb.instantiateViewController(withIdentifier: "MainTabbar") as! UITabBarController
+//                window?.rootViewController = tabbar
+//            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_POST_ORDER_ID"), object: orderID, userInfo: nil)
+            }
+        }
         completionHandler()
     }
 }

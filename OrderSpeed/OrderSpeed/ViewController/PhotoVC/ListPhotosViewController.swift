@@ -123,7 +123,7 @@ class ListPhotosViewController: MainViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     

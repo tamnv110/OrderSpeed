@@ -52,7 +52,7 @@ class CreateOrderViewController: MainViewController {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func editingCustomTextField(_ notification: Notification) {

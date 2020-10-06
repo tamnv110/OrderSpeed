@@ -222,7 +222,7 @@ class LoginViewController: MainViewController {
             self.hideProgressHUD()
             return
         }
-        self.dbFireStore.collection("User").whereField("uid", isEqualTo: uid).limit(to: 1).getDocuments { [weak self](querySnapshot, err) in
+        self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).whereField("uid", isEqualTo: uid).limit(to: 1).getDocuments { [weak self](querySnapshot, err) in
             guard let snapshot = querySnapshot else {
                 debugPrint("\(self!.TAG) - \(#function) - line : \(#line) - err : \(err.debugDescription)")
                 self?.hideProgressHUD()
@@ -234,7 +234,7 @@ class LoginViewController: MainViewController {
                 self?.createFolderUser(authResult)
                 return
             }
-
+            
             DispatchQueue.main.async {
                 self?.hideProgressHUD()
             }
@@ -259,6 +259,8 @@ class LoginViewController: MainViewController {
         let dbBatch = self.dbFireStore.batch()
         
         debugPrint("\(TAG) - \(#function) - line : \(#line) - _uid : \(auth.user.uid)")
+        debugPrint("\(TAG) - \(#function) - line : \(#line) - registerDic : \(registerDic)")
+        
         let refUser = self.dbFireStore.collection("User").document(auth.user.uid)
         dbBatch.setData(registerDic, forDocument: refUser)
         
@@ -281,12 +283,15 @@ class LoginViewController: MainViewController {
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
         let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2)
         user.showInfo()
+        if !self.apnsKey.isEmpty {
+            print("\(TAG) - \(#function) - \(#line) =====> update tokenAPN")
+            user.tokenAPN = self.apnsKey
+            self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(user.userID).updateData(["apn_key": self.apnsKey])
+        }
         Tools.saveUserInfo(user)
         Tools.saveObjectToDefault(typeLogin, key: Tools.KEY_LOGIN_TYPE)
         self.appDelegate.user = user
-        if user.tokenAPN != self.apnsKey && !self.apnsKey.isEmpty {
-            self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(user.userID).updateData(["apn_key": self.apnsKey])
-        }
+        
         NotificationCenter.default.post(name: NSNotification.Name("LOGIN_FINISH"), object: nil)
     }
 }
