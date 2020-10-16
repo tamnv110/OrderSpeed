@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SafariServices
 
 class RegisterViewController: MainViewController {
 
@@ -19,6 +20,8 @@ class RegisterViewController: MainViewController {
     @IBOutlet weak var widthLogo: NSLayoutConstraint!
     @IBOutlet weak var topLogo: NSLayoutConstraint!
     @IBOutlet weak var widthStack: NSLayoutConstraint!
+    @IBOutlet weak var btnDieuKhoan: UIButton!
+    @IBOutlet weak var lblDieuKhoan: UILabel!
     
     lazy var btnGradient: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
@@ -28,8 +31,15 @@ class RegisterViewController: MainViewController {
         return gradientLayer
     }()
     
+    var isChecked = false {
+        didSet {
+            btnDieuKhoan.backgroundColor = isChecked ? Tools.hexStringToUIColor(hex: "#DC7942") : .white
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnDieuKhoan.layer.borderColor = UIColor.black.cgColor
         btnRegister.tintColor = UIColor.white
         btnRegister.layer.insertSublayer(btnGradient, below: btnRegister.titleLabel?.layer)
         
@@ -47,16 +57,32 @@ class RegisterViewController: MainViewController {
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(eventTouchToView(_:))))
         
-        #if DEBUG
-        tfName.text = "Nguyễn Văn Tâm"
-        tfPhone.text = "0943910333"
-        tfEmail.text = "nguyenvantam110@gmail.com"
-        tfPassword.text = "113456"
-        #endif
+        let multiColor = NSMutableAttributedString(string: "Tôi đồng ý với ", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+        multiColor.append(NSAttributedString(string: "điều khoản", attributes: [NSAttributedString.Key.foregroundColor : Tools.hexStringToUIColor(hex: "#DC7942")]))
+        lblDieuKhoan.attributedText = multiColor
+        lblDieuKhoan.isUserInteractionEnabled = true
+        lblDieuKhoan.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(eventTouchToDieuKhoan(_:))))
+        
+//        #if DEBUG
+//        tfName.text = "Nguyễn Văn Tâm"
+//        tfPhone.text = "0943910333"
+//        tfEmail.text = "nguyenvantam110@gmail.com"
+//        tfPassword.text = "113456"
+//        #endif
+    }
+    
+    @objc func eventTouchToDieuKhoan(_ gesture: UITapGestureRecognizer) {
+        let url = "http://orderspeed.vn/chinh-sach"
+        let vc = SFSafariViewController(url: URL(string: url)!)
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func eventTouchToView(_ gesture: UITapGestureRecognizer) {
         hideKeyboard()
+    }
+    
+    @IBAction func eventCheckDieuKhoan(_ sender: Any) {
+        isChecked = !isChecked
     }
     
     func hideKeyboard() {
@@ -121,6 +147,10 @@ class RegisterViewController: MainViewController {
             if !flag {
                 tfEmail.shakeAnimationTextField()
             }
+        }
+        if !isChecked {
+            flag = false
+            lblDieuKhoan.shakeAnimationTextField()
         }
         return flag
     }

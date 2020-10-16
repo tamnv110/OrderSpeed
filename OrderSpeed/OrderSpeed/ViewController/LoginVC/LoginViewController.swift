@@ -50,10 +50,10 @@ class LoginViewController: MainViewController {
 //            topLoginOther.constant = 22
         }
         
-        #if DEBUG
-        tfEmail.text = "nguyenvantam110@gmail.com"
-        tfPassword.text = "113456"
-        #endif
+//        #if DEBUG
+//        tfEmail.text = "nguyenvantam110@gmail.com"
+//        tfPassword.text = "113456"
+//        #endif
         tfEmail.delegate = self
         tfPassword.delegate = self
         addLoginFacebook()
@@ -137,6 +137,34 @@ class LoginViewController: MainViewController {
             }
         }
         return flag
+    }
+    
+    @IBAction func eventChooseForgotPassword(_ sender: Any) {
+        let alertForgot = UIAlertController(title: "Quên mật khẩu", message: "Nhập địa chỉ email của bạn, chúng tôi sẽ gửi một email chứa mật khẩu mới.", preferredStyle: .alert)
+        alertForgot.addTextField { (tf) in
+            tf.keyboardType = .emailAddress
+            tf.placeholder = "Nhập địa chỉ email"
+        }
+        let cancel = UIAlertAction(title: "Đóng", style: .cancel, handler: nil)
+        let continute = UIAlertAction(title: "Gửi", style: .default) { (action) in
+            if let tf = alertForgot.textFields?.first, let email = tf.text, Tools.isValidEmail(email: email) {
+                self.showProgressHUD("Quên mật khẩu...")
+                Auth.auth().sendPasswordReset(withEmail: email) { [weak self](error) in
+                    self?.hideProgressHUD()
+                    if let _ = error {
+                        self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {
+                        }
+                    } else {
+                        self?.showAlertView("Vui lòng kiểm tra email của bạn để lấy lại mật khẩu.") {
+                            
+                        }
+                    }
+                }
+            }
+        }
+        alertForgot.addAction(cancel)
+        alertForgot.addAction(continute)
+        self.present(alertForgot, animated: true, completion: nil)
     }
     
     @IBAction func eventChooseLogin(_ sender: Any) {

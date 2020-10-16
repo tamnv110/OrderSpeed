@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController" customModule="OrderSpeed" customModuleProvider="target">
             <connections>
+                <outlet property="btnDieuKhoan" destination="GCs-wl-Kk4" id="LvU-t5-HV5"/>
                 <outlet property="btnRegister" destination="qJg-yg-Zi6" id="UrY-SE-yFv"/>
+                <outlet property="lblDieuKhoan" destination="nT0-1h-d8h" id="aWS-Mb-7c0"/>
                 <outlet property="tfEmail" destination="whZ-ey-scz" id="w99-Mv-nR2"/>
                 <outlet property="tfName" destination="kXI-7M-UtU" id="dXS-Gc-o7l"/>
                 <outlet property="tfPassword" destination="nr3-kk-waT" id="gyZ-tN-Cyf"/>
@@ -98,8 +100,46 @@
                                         </textField>
                                     </subviews>
                                 </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vti-ZT-sx7">
+                                    <rect key="frame" x="37.5" y="232" width="245" height="40"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tôi đồng ý với điều khoản" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT0-1h-d8h">
+                                            <rect key="frame" x="29" y="10" width="216" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCs-wl-Kk4">
+                                            <rect key="frame" x="0.0" y="8" width="24" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="GCs-wl-Kk4" secondAttribute="height" id="UAR-Li-nnD"/>
+                                                <constraint firstAttribute="width" constant="24" id="e5c-ce-ziO"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="eventCheckDieuKhoan:" destination="-1" eventType="touchUpInside" id="s4n-JW-j2a"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="nT0-1h-d8h" secondAttribute="trailing" id="0Re-N9-dM2"/>
+                                        <constraint firstItem="nT0-1h-d8h" firstAttribute="centerY" secondItem="Vti-ZT-sx7" secondAttribute="centerY" id="A10-9s-JvF"/>
+                                        <constraint firstItem="GCs-wl-Kk4" firstAttribute="leading" secondItem="Vti-ZT-sx7" secondAttribute="leading" id="C8X-ma-Gjs"/>
+                                        <constraint firstAttribute="height" constant="40" id="GYd-Lk-wd3"/>
+                                        <constraint firstItem="GCs-wl-Kk4" firstAttribute="centerY" secondItem="Vti-ZT-sx7" secondAttribute="centerY" id="KaV-Bw-bDe"/>
+                                        <constraint firstItem="nT0-1h-d8h" firstAttribute="leading" secondItem="GCs-wl-Kk4" secondAttribute="trailing" constant="5" id="dKN-T8-1Wt"/>
+                                    </constraints>
+                                </view>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJg-yg-Zi6">
-                                    <rect key="frame" x="37.5" y="256" width="245" height="44"/>
+                                    <rect key="frame" x="37.5" y="284" width="245" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="9b7-JS-Flw"/>
                                     </constraints>
@@ -117,12 +157,15 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="Vti-ZT-sx7" firstAttribute="trailing" secondItem="OVA-P4-RCe" secondAttribute="trailing" id="1fo-jT-PKE"/>
                                 <constraint firstItem="OVA-P4-RCe" firstAttribute="top" secondItem="pIu-7h-cmV" secondAttribute="top" id="GI9-vA-npV"/>
+                                <constraint firstItem="Vti-ZT-sx7" firstAttribute="top" secondItem="OVA-P4-RCe" secondAttribute="bottom" constant="8" id="Sd7-Pr-hfk"/>
+                                <constraint firstItem="qJg-yg-Zi6" firstAttribute="top" secondItem="Vti-ZT-sx7" secondAttribute="bottom" constant="12" id="U9M-r0-EMR"/>
                                 <constraint firstItem="qJg-yg-Zi6" firstAttribute="trailing" secondItem="OVA-P4-RCe" secondAttribute="trailing" id="YLk-XQ-Cbl"/>
                                 <constraint firstItem="OVA-P4-RCe" firstAttribute="width" secondItem="pIu-7h-cmV" secondAttribute="width" multiplier="0.765333" id="cPR-EF-Ez0"/>
                                 <constraint firstItem="OVA-P4-RCe" firstAttribute="centerX" secondItem="pIu-7h-cmV" secondAttribute="centerX" id="h7G-kp-BxK"/>
-                                <constraint firstItem="qJg-yg-Zi6" firstAttribute="top" secondItem="OVA-P4-RCe" secondAttribute="bottom" constant="32" id="oH3-C6-Rbz"/>
                                 <constraint firstItem="qJg-yg-Zi6" firstAttribute="leading" secondItem="OVA-P4-RCe" secondAttribute="leading" id="sOT-eR-eds"/>
+                                <constraint firstItem="Vti-ZT-sx7" firstAttribute="leading" secondItem="OVA-P4-RCe" secondAttribute="leading" id="zfe-En-G0n"/>
                             </constraints>
                         </view>
                     </subviews>

@@ -29,14 +29,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="hUu-au-6Za">
                     <rect key="frame" x="37.5" y="160" width="245" height="104"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email/số điện thoại" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZa-Iv-oq5">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LZa-Iv-oq5">
                             <rect key="frame" x="0.0" y="0.0" width="245" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="qLF-Gs-Pnf"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                            <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="22"/>
@@ -90,6 +90,9 @@
                     <state key="normal" title="Quên mật khẩu?">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="eventChooseForgotPassword:" destination="-1" eventType="touchUpInside" id="pZK-jI-2Cy"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRg-6O-0ir">
                     <rect key="frame" x="191.5" y="345" width="91" height="44"/>
@@ -112,7 +115,7 @@
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Q0h-Xm-quX">
-                    <rect key="frame" x="37.5" y="446" width="245" height="104"/>
+                    <rect key="frame" x="37.5" y="438" width="245" height="104"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AF2-Tl-37s" customClass="UIControl">
                             <rect key="frame" x="0.0" y="0.0" width="245" height="44"/>
@@ -203,7 +206,7 @@
                 <constraint firstItem="p60-t8-NFh" firstAttribute="top" secondItem="vs2-JJ-DKA" secondAttribute="bottom" constant="24" id="fPe-JV-ihS"/>
                 <constraint firstItem="mRO-af-5XT" firstAttribute="height" secondItem="LZa-Iv-oq5" secondAttribute="height" id="riP-xM-dzh"/>
                 <constraint firstItem="mRO-af-5XT" firstAttribute="top" secondItem="hUu-au-6Za" secondAttribute="bottom" constant="32" id="txl-zs-bxR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Q0h-Xm-quX" secondAttribute="bottom" constant="18" id="y6v-SI-ccF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Q0h-Xm-quX" secondAttribute="bottom" constant="26" id="y6v-SI-ccF"/>
                 <constraint firstItem="hUu-au-6Za" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-72" id="zgq-zz-Fw4"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="152.95566502463055"/>

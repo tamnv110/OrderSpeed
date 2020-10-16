@@ -13,12 +13,14 @@ struct ProductSiteModel: Codable {
     var link: String
     var name: String
     var sort: Int
+    var typeShow: Int?
     
     enum CodingKeys: String, CodingKey {
         case image
         case link
         case name
         case sort
+        case typeShow = "type_show"
     }
     
     init(from decoder: Decoder) throws {
@@ -27,6 +29,7 @@ struct ProductSiteModel: Codable {
         link = try values.decode(String.self, forKey: .link)
         name = try values.decode(String.self, forKey: .name)
         sort = try values.decode(Int.self, forKey: .sort)
+        typeShow = try values.decodeIfPresent(Int.self, forKey: .typeShow) ?? 0
     }
     
     init(_ name: String, image: String, link: String, sort: Int) {
@@ -34,5 +37,6 @@ struct ProductSiteModel: Codable {
         self.image = image
         self.link = link
         self.sort = sort
+        self.typeShow = 1
     }
 }

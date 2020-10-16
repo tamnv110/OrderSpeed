@@ -65,7 +65,17 @@ class HomeViewController: MainViewController {
         connectGetInfomation(.news) {
             self.completionRequest.2 = true
         }
-        connectGetNotificationPopup()
+        let isLegal = (Tools.getObjectFromDefault("KEY_LEGAL") as? Bool) ?? false
+        if isLegal {
+            connectGetNotificationPopup()
+        } else {
+            DispatchQueue.main.async {
+                let vc = LegalViewController(nibName: "LegalViewController", bundle: nil)
+                vc.modalPresentationStyle = .overFullScreen
+                vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_STORE"), object: nil, queue: .main) { (notification) in
             if let item = notification.object as? ProductSiteModel {
@@ -177,7 +187,7 @@ class HomeViewController: MainViewController {
     }
     
     func connectGetProductSite() {
-        self.dbFireStore.collection(OrderFolderName.rootProductSite.rawValue).order(by: "sort", descending: false).getDocuments { [weak self](snapshot, error) in
+        self.dbFireStore.collection(OrderFolderName.rootProductSite.rawValue).order(by: "sort", descending: false).whereField("type_show", isEqualTo: 1).getDocuments { [weak self](snapshot, error) in
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()
                 var arrProductSite = [ProductSiteModel]()
@@ -279,7 +289,7 @@ class HomeViewController: MainViewController {
                     let data = try JSONSerialization.data(withJSONObject: document.data(), options: .prettyPrinted)
                     let result = try decoder.decode(InformationModel.self, from: data)
                     print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - result : \(result.title)")
-                    self?.showAlertController(.showContent, message: result.content, title: result.title)
+                    self?.showAlertController(.showContent, message: result.desc ?? result.content, title: result.title)
                 } catch  {
                     print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                 }
