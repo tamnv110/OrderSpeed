@@ -71,7 +71,10 @@ class RequestSupportViewController: MainViewController {
             guard let user = self.appDelegate.user, let orderID = order?.idOrder else { return }
             self.showProgressHUD("Gửi hỗ trợ...")
             let item = RequestSupportModel(user.userID, userName: user.fullname, userPhone: user.phoneNumber, title: header.tfTitle.text ?? "", content: header.tfContent.text, orderID: orderID)
-            self.dbFireStore.collection("RequestSupport").addDocument(data: item.dictionary) { [weak self](error) in
+            let test = item.dictionary
+            print("\(TAG) - \(#function) - \(#line) - test : \(test)")
+            
+            self.dbFireStore.collection(OrderFolderName.rootRequestSupport.rawValue).addDocument(data: item.dictionary) { [weak self](error) in
                 self?.hideProgressHUD()
                 if let _ = error {
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau."){}

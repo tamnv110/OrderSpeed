@@ -21,6 +21,7 @@ struct RequestSupportModel: Codable {
     var feedbackAt: String
     var userName: String
     var userPhone: String
+    var isRequest: Bool
     
     enum CodingKeys: String, CodingKey {
         case idRequest
@@ -35,6 +36,7 @@ struct RequestSupportModel: Codable {
         case feedbackAt = "feedback_at"
         case userName = "user_name"
         case userPhone = "user_phone"
+        case isRequest = "isRequest"
     }
     
     init(from decoder: Decoder) throws {
@@ -50,6 +52,7 @@ struct RequestSupportModel: Codable {
         feedbackAt = try values.decodeIfPresent(String.self, forKey: .feedbackAt) ?? ""
         userName = try values.decodeIfPresent(String.self, forKey: .userName) ?? ""
         userPhone = try values.decodeIfPresent(String.self, forKey: .userPhone) ?? ""
+        isRequest = try values.decodeIfPresent(Bool.self, forKey: .isRequest) ?? true
     }
     
     init(_ userID: String, userName: String, userPhone: String, title: String, content: String, orderID: String) {
@@ -67,6 +70,7 @@ struct RequestSupportModel: Codable {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         self.createAt = formatter.string(from: Date())
         self.feedbackAt = ""
+        self.isRequest = true
     }
     
     var dictionary: [String: Any] {
