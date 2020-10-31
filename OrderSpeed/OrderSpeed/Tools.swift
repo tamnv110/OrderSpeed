@@ -9,6 +9,7 @@
 import UIKit
 
 enum OrderFolderName: String {
+    case rootProductReal = "ProductOS"
     case rootOrderProduct = "OrderProduct"
     case rootRequestSupport = "RequestSupport"
     case rootBank = "Bank"
@@ -112,7 +113,7 @@ class Tools {
     
     static let DELIVERY_HOME = DeliveryModel(["name": "Tại nhà", "description": "Giao hàng tại địa chỉ khách hàng nhập", "price": "Tính theo đơn vị giao hàng"], id: "-1")
     
-    static let NDT_LABEL = "¥"
+    static var NDT_LABEL = ""
     static var TI_GIA_NDT: Double = 0
     static var FEE_SERVICE: Double = 0
     

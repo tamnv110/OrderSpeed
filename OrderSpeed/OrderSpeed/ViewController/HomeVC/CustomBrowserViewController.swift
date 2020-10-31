@@ -129,7 +129,7 @@ extension CustomBrowserViewController: WKNavigationDelegate, WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let sURL = navigationAction.request.url?.absoluteString {
+        if (navigationAction.request.url?.absoluteString) != nil {
             
         }
         decisionHandler(.allow)

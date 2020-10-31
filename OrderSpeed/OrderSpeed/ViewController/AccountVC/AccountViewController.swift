@@ -11,6 +11,7 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseUI
+import Firebase
 
 class AccountViewController: MainViewController {
 
@@ -154,11 +155,17 @@ class AccountViewController: MainViewController {
         } else if nType == 1 {
             sContentShow = "Nhập số điện thoại"
             fieldUpdate = "phone"
+        } else if nType == 2 {
+            sContentShow = "Nhập email"
+            fieldUpdate = "email"
         }
 
         let alert = UIAlertController(title: "Thay đổi thông tin", message: sContentShow, preferredStyle: .alert)
         alert.addTextField { (tf) in
             tf.text = sContent
+            if nType == 2 {
+                tf.keyboardType = .emailAddress
+            }
         }
         alert.addAction(UIAlertAction(title: "Huỷ", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Thay đổi", style: .default, handler: { [weak self](action) in
@@ -175,6 +182,8 @@ class AccountViewController: MainViewController {
                     } else {
                         if nType == 0 {
                             self?.appDelegate.user?.fullname = inputData
+                        } else if nType == 2 {
+                            self?.appDelegate.user?.email = inputData
                         } else {
                             self?.appDelegate.user?.phoneNumber = inputData
                         }
@@ -203,7 +212,13 @@ class AccountViewController: MainViewController {
                 GIDSignIn.sharedInstance()?.signOut()
             } else if typeAcc == 2 {
                 LoginManager().logOut()
+            } else if typeAcc == 3 {
+                
             }
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch {}
             Tools.removeUserInfo()
             self.tbAccount.isHidden = true
             self.showLoginController()
@@ -291,7 +306,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 sText = item.0
             }
             if item.2 == 2 {
-                cell.accessoryType = .none
+                cell.accessoryType = item.1.isEmpty ? .disclosureIndicator : .none
             }
             cell.lblTitle.text = sText
             return cell
@@ -329,7 +344,10 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 self.showAlertChangeInfo(self.appDelegate.user?.fullname ?? "", nType: indexPath.row)
             } else if item.2 == 1 {
                 self.showAlertChangeInfo(self.appDelegate.user?.phoneNumber ?? "", nType: indexPath.row)
-            } else if item.2 == 3 {
+            } else if item.2 == 2 {
+                self.showAlertChangeInfo(self.appDelegate.user?.email ?? "", nType: indexPath.row)
+            }
+            else if item.2 == 3 {
                 self.showAlertLogout()
             }
         }

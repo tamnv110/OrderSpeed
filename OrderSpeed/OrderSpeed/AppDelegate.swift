@@ -98,6 +98,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         application.registerForRemoteNotifications()
     }
     
+    func connectGetLabel() {
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
+            if let document = snapshot?.data() {
+                if let tiGia = document["value"] as? String {
+                    Tools.NDT_LABEL = tiGia
+                    NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, userInfo: nil)
+                }
+            }
+        }
+    }
+    
     func connectGetCurrencyRate() {
         Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("CurrencyRate").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
@@ -112,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func connectGetFeeSercive() {
-        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { [weak self](snapshot, error) in
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
                 if let tiGia = document["value"] as? Double {
                     Tools.FEE_SERVICE = tiGia
@@ -126,6 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             isConnect = true
             connectGetCurrencyRate()
             connectGetFeeSercive()
+            connectGetLabel()
         }
     }
     

@@ -51,7 +51,7 @@ class CustomAlertViewController: MainViewController {
             lblContentContent.text = msgContent
         } else {
             viewSuccess.isHidden = false
-            lblContentContent.text = "Chúng tôi sẽ liên hệ và báo giá tói bạn sớm nhất."
+            lblContentContent.text = "Chúng tôi sẽ liên hệ với bạn sớm nhất."
             lblSubTitleSuccess.text = sOrderCode
         }
     }

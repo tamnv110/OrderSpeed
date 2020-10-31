@@ -89,7 +89,7 @@ class StatusOrderViewController: MainViewController {
                     var result = try decoder.decode(OrderProductDataModel.self, from: data)
                     result.idOrder = orderID
                     self?.orderProduct = result
-                    print("\(self?.TAG) - \(#function) - \(#line) - orderProduct : \(self?.orderProduct?.idOrder) - \(self?.orderProduct?.status)")
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - orderProduct : \(String(describing: self?.orderProduct?.idOrder)) - \(String(describing: self?.orderProduct?.status))")
                     self?.createHeaderStatus()
                     self?.connectGetDetail()
                 } catch  {
@@ -128,7 +128,7 @@ class StatusOrderViewController: MainViewController {
                             self?.arrStatus.append(result)
                         } catch{}
                     }
-                    print("\(self?.TAG) - \(#function) - \(#line) - self?.arrStatus : \(self?.arrStatus.count)")
+                    print("\(self?.TAG) - \(#function) - \(#line) - self?.arrStatus : \(String(describing: self?.arrStatus.count))")
                 }
                 DispatchQueue.main.async {
                     self?.tbStatus.isHidden = false
@@ -144,7 +144,7 @@ class StatusOrderViewController: MainViewController {
             return
         }
         self.showProgressHUD("Lấy thông tin...")
-        let docRef = self.dbFireStore.collection(OrderFolderName.rootRequestSupport.rawValue).whereField("order_id", isEqualTo: orderID).getDocuments { [weak self](snapshot, error) in
+        let docRef: Void = self.dbFireStore.collection(OrderFolderName.rootRequestSupport.rawValue).whereField("order_id", isEqualTo: orderID).getDocuments { [weak self](snapshot, error) in
             self?.hideProgressHUD()
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()

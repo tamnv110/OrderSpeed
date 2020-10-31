@@ -21,7 +21,7 @@ class HomeOptionCollectionViewCell: UICollectionViewCell {
     func showInfo(_ item: ProductSiteModel) {
         lblName.text = item.name
         if item.link.isEmpty {
-            imgvIcon.image = UIImage(named: item.image)
+            imgvIcon.image = item.image.isEmpty ? UIImage(named: "icon_tao_gd") : UIImage(named: item.image)
         } else {
             imgvIcon.sd_setImage(with: URL(string: item.image), placeholderImage: UIImage(named: ""))
         }

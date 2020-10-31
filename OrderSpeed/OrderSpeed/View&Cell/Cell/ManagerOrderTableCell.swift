@@ -37,15 +37,23 @@ class ManagerOrderTableCell: UITableViewCell {
             lblReceiveName.text = item.warehouseName
             lblReceiveAddress.text = item.warehouseAddress
         }
-        let money = ceil(item.subTotalMoney + item.serviceCost)
-        if item.depositMoney == 0 {
+        
+        var money = ceil(item.subTotalMoney + item.serviceCost)
+        if Tools.NDT_LABEL.isEmpty {
+            money = item.subTotalMoney
             lblAmount.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", money)) + " VND"
             lblAmountTitle.text = "Tổng tiền tạm tính:"
         } else {
-            let moneyRest = ceil(money - item.depositMoney)
-            lblAmount.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyRest)) + " VND"
-            lblAmountTitle.text = "Thanh toán còn thiếu:"
+            if item.depositMoney == 0 {
+                lblAmount.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", money)) + " VND"
+                lblAmountTitle.text = "Tổng tiền tạm tính:"
+            } else {
+                let moneyRest = ceil(money - item.depositMoney)
+                lblAmount.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyRest)) + " VND"
+                lblAmountTitle.text = "Thanh toán còn thiếu:"
+            }
         }
+        
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -56,7 +64,11 @@ class ManagerOrderTableCell: UITableViewCell {
             lblDate.text = nil
         }
         
-        btnEdit.setTitle(item.depositMoney > 0 ? "Hủy" : "Chỉnh sửa", for: .normal)
+        if Tools.NDT_LABEL.isEmpty {
+            btnEdit.setTitle("Huỷ", for: .normal)
+        } else {
+            btnEdit.setTitle(item.depositMoney > 0 ? "Hủy" : "Chỉnh sửa", for: .normal)
+        }
         
         if item.status.lowercased() == "đã huỷ" || item.status.lowercased() == "đã hủy" {
             btnEdit.setTitle("Đã hủy", for: .normal)

@@ -46,7 +46,7 @@ class CreateOrderTableViewCell: UITableViewCell {
         tfPrice.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
         
         let lblRightView = UILabel()
-        lblRightView.text = "¥"
+        lblRightView.text = Tools.NDT_LABEL
         lblRightView.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         lblRightView.textColor = Tools.hexStringToUIColor(hex: "#848383")
         tfPrice.rightView = lblRightView
@@ -69,7 +69,7 @@ class CreateOrderTableViewCell: UITableViewCell {
             let number = self.orderProduct?.amount ?? 0
             self.tfNumber.text = (number > 0) ? "\(number)" : nil
             let price = self.orderProduct?.price ?? 0
-            self.tfPrice.text = (price > 0) ? String(format: "%.2f", price) : nil
+            self.tfPrice.text = price == 0 ? "" : Tools.convertCurrencyFromString(input: "\(price)")
             self.tfNote.text = self.orderProduct?.note
             
             if let imagesLocal = self.orderProduct?.arrProductImages {
@@ -141,7 +141,7 @@ class CreateOrderTableViewCell: UITableViewCell {
     }
     
     @objc func editingChanged(_ tf: BottomLineTextField) {
-        print("\(TAG) - \(#function) - \(#line) - editing : \(tf.text)")
+        print("\(TAG) - \(#function) - \(#line) - editing : \(String(describing: tf.text))")
         switch tf {
         case tfLink:
             orderProduct?.link = tfLink.text ?? ""

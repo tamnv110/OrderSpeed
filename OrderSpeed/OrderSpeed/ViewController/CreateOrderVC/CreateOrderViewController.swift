@@ -14,6 +14,7 @@ class CreateOrderViewController: MainViewController {
     @IBOutlet weak var btnReset: UIButton!
     @IBOutlet weak var btnAddProduct: UIButton!
     @IBOutlet weak var btnContinute: UIButton!
+    @IBOutlet weak var viewThemSP: UIView!
     
     lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
@@ -31,6 +32,7 @@ class CreateOrderViewController: MainViewController {
     var tiGiaNgoaiTe: Double = 0.0
     var isKeyboardAppear = false
     var urlInput = ""
+    var productTrans: ProductModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +51,10 @@ class CreateOrderViewController: MainViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(editingCustomTextField(_:)), name: NSNotification.Name("NOTIFICATION_BEGIN_EDITING_TEXTVIEW"), object: nil)
         
         arrProductOrder[0].link = urlInput
+        if let product = productTrans {
+            viewThemSP.isHidden = true
+            arrProductOrder[0] = product
+        }
     }
     
     deinit {
@@ -135,7 +141,7 @@ class CreateOrderViewController: MainViewController {
     
     func checkInput() -> Bool {
         var flag = true
-        for (index, item) in arrProductOrder.enumerated() {
+        for (index, _) in arrProductOrder.enumerated() {
             let indexPath = IndexPath(row: 0, section: index)
             if let cell = tbOrder.cellForRow(at: indexPath) as? CreateOrderTableViewCell {
                 let result = cell.checkInput()
@@ -210,6 +216,7 @@ extension CreateOrderViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CreateOrderTableViewCell", for: indexPath) as! CreateOrderTableViewCell
         cell.delegate = self
+        cell.tfLink.isHidden = productTrans != nil
         return cell
     }
     

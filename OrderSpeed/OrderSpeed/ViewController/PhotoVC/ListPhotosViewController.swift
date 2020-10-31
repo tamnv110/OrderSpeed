@@ -161,15 +161,15 @@ class ListPhotosViewController: MainViewController {
                 case .denied, .restricted: break
                 // as above
                 case .notDetermined: break
-                // won't happen but still
+                case .limited: break
                 @unknown default:
                     break
                 }
             }
-
         case .restricted:
             print("\(TAG) - \(#function) - \(#line) - restricted")
-
+        case .limited:
+            print("\(TAG) - \(#function) - \(#line) - limited")
         @unknown default:
             print("\(TAG) - \(#function) - \(#line) - default")
         }
@@ -513,7 +513,7 @@ extension ListPhotosViewController : CropViewControllerDelegate {
             let imageName = "\(userID).jpg"
             let imageRef = self.storageRef.child("Avatar/\(imageName)")
             imageRef.putData(uploadData, metadata: nil) { [weak self](metaData, error) in
-                if let _error = error {
+                if error != nil {
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {
                         
                     }

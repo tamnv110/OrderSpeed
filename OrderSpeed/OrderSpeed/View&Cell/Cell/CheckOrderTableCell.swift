@@ -31,13 +31,20 @@ class CheckOrderTableCell: UITableViewCell {
                 self.arrImages.removeAll()
                 self.lblLink.text = item.link
                 self.lblName.text = item.name
+                if item.name.isEmpty {
+                    self.lblName.text = " "
+                }
                 self.lblSize.text = item.option
                 self.lblNumber.text = "\(item.amount)"
                 let moneyYen = item.price * Double(item.amount)
-                self.lblPriceCNY.text = Tools.convertCurrencyFromString(input: String(format: "%.2f", moneyYen)) + " ¥"
+                self.lblPriceCNY.text = Tools.convertCurrencyFromString(input: String(format: "%.2f", moneyYen)) + " \(Tools.NDT_LABEL)"
                 let moneyVND = ceil(moneyYen * Tools.TI_GIA_NDT)
-                self.lblPriceVND.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyVND)) + " VND\r\n(Tỉ giá: \(Tools.convertCurrencyFromString(input: "\(Tools.TI_GIA_NDT)")))"
+                self.lblPriceVND.isHidden = Tools.NDT_LABEL.isEmpty
+                self.lblLink.isHidden = Tools.NDT_LABEL.isEmpty
+                
+                self.lblPriceVND.text = Tools.NDT_LABEL.isEmpty ? "" : Tools.convertCurrencyFromString(input: String(format: "%.0f", moneyVND)) + " VND\r\n(Tỉ giá: \(Tools.convertCurrencyFromString(input: "\(Tools.TI_GIA_NDT)")))"
                 self.lblNote.text = item.note
+                self.lblNote.isHidden = Tools.NDT_LABEL.isEmpty
                 if let imagesLocal = item.arrProductImages {
                     let result = imagesLocal.map { (item) -> (Int, String?, ItemImageSelect?) in
                         return (0, nil, item)
@@ -71,7 +78,7 @@ class CheckOrderTableCell: UITableViewCell {
         lblName.text = nil
         lblSize.text = nil
         lblNumber.text = nil
-        lblPriceCNY.text = "¥"
+        lblPriceCNY.text = Tools.NDT_LABEL
         lblPriceVND.text = "đ"
     }
     

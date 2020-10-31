@@ -211,9 +211,8 @@ class OrderInfoViewController: MainViewController {
         }
         self.showProgressHUD("Lấy sản phẩm...")
         connectGetProduct(orderID) { [weak self](result, error) in
-            if let error = error {
+            if error != nil {
                 self?.showAlertError()
-                
             } else {
                 self?.arrOrder.append(contentsOf: result)
                 DispatchQueue.main.async {
@@ -357,7 +356,12 @@ class OrderInfoViewController: MainViewController {
                 batch.setData(status.dictionary, forDocument: statusDoc)
             }
             order.imageDefault = imageDefault
-            order.subTotalMoney = ceil(totalMoney * order.currencyRate)
+            if Tools.NDT_LABEL.isEmpty {
+                let itemTemp = self.arrOrder.first
+                order.subTotalMoney = itemTemp?.price ?? 0
+            } else {
+                order.subTotalMoney = ceil(totalMoney * order.currencyRate)
+            }
             batch.setData(order.dictionary, forDocument: refDoc)
             
             if let user = self.appDelegate.user {
@@ -639,6 +643,7 @@ extension OrderInfoViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.heightCollectionImages.constant = cell.heightCollectionOld
             }
+            cell.btnEdit.isHidden = Tools.NDT_LABEL.isEmpty
             cell.btnEdit.addTarget(self, action: #selector(eventChooseEditOrder(_:)), for: .touchUpInside)
             return cell
         }

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let scene = (scene as? UIWindowScene) else { return }
+        guard let _ = (scene as? UIWindowScene) else { return }
 //        window = UIWindow(windowScene: scene)
 //        let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
 //        window?.rootViewController = vc
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func connectGetFeeSercive() {
-        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { [weak self](snapshot, error) in
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
                 if let tiGia = document["value"] as? Double {
                     Tools.FEE_SERVICE = tiGia
@@ -57,12 +57,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
+    
+    func connectGetLabel() {
+        Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
+            if let document = snapshot?.data() {
+                if let tiGia = document["value"] as? String {
+                    Tools.NDT_LABEL = tiGia
+                    NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, userInfo: nil)
+                }
+            }
+        }
+    }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         if !isConnect {
             isConnect = true
             connectGetCurrencyRate()
             connectGetFeeSercive()
+            connectGetLabel()
         }
     }
 

@@ -30,7 +30,7 @@ class EditOrderViewController: MainViewController {
         tbOrder.separatorStyle = .none
         tbOrder.register(UINib(nibName: "CreateOrderTableViewCell", bundle: nil), forCellReuseIdentifier: "CreateOrderTableViewCell")
         
-        print("\(TAG) - \(#function) - \(#line) - orderInfo : \(orderInfo?.code) - typeEdit : \(typeEdit)")
+        print("\(TAG) - \(#function) - \(#line) - orderInfo : \(String(describing: orderInfo?.code)) - typeEdit : \(typeEdit)")
     }
     
     @objc func eventChooseEditProduct(_ sender: UIBarButtonItem) {
@@ -109,7 +109,6 @@ extension EditOrderViewController: ListPhotoDelegate {
             orderInfo?.arrProductImages = [ItemImageSelect]()
         }
         orderInfo?.arrProductImages = arrImages
-        print("\(TAG) - \(#function) - \(#line) - orderInfo?.arrProductImages : \(orderInfo?.arrProductImages)")
         DispatchQueue.main.async {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             self.tbOrder.reloadData()

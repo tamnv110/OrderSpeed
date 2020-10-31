@@ -11,6 +11,8 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import CryptoKit
+import AuthenticationServices
 
 class LoginViewController: MainViewController {
 
@@ -20,7 +22,8 @@ class LoginViewController: MainViewController {
     @IBOutlet weak var sizeLogo: NSLayoutConstraint!
     @IBOutlet weak var widthStack: NSLayoutConstraint!
     @IBOutlet weak var topStack: NSLayoutConstraint!
-//    @IBOutlet weak var topLoginOther: NSLayoutConstraint!
+    @IBOutlet weak var viewSiginApple: UIView!
+    
     
     @IBOutlet weak var stackInput: UIStackView!
     @IBOutlet weak var tfEmail: UITextField!
@@ -34,28 +37,27 @@ class LoginViewController: MainViewController {
         return gradientLayer
     }()
     var apnsKey = ""
+    fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.layer.insertSublayer(gradientLayer, below: self.stackInput.layer)
 
-        let screenMain = UIScreen.main.bounds
-        if screenMain.width <= 320.0 && screenMain.height <= 568 {
-            topLabelTitle.constant = 24
-            sizeLogo.constant = 60
-//            topLogo.constant = 16
-            widthStack.constant = 40
-            topStack.constant = 16
-            topBtnForgot.constant = 8
-//            topLoginOther.constant = 22
-        }
-        
+//        let screenMain = UIScreen.main.bounds
+//        if screenMain.width <= 320.0 && screenMain.height <= 568 {
+//            topLabelTitle.constant = 24
+//            sizeLogo.constant = 60
+//            widthStack.constant = 40
+//            topStack.constant = 16
+//            topBtnForgot.constant = 8
+//        }
 //        #if DEBUG
 //        tfEmail.text = "nguyenvantam110@gmail.com"
 //        tfPassword.text = "113456"
 //        #endif
         tfEmail.delegate = self
         tfPassword.delegate = self
+        setupSigninApple()
         addLoginFacebook()
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.delegate = self
@@ -70,6 +72,78 @@ class LoginViewController: MainViewController {
                 print("\(self.TAG) - \(#function) - \(#line) - Remote instance ID token: \(result.token)")
             }
         }
+    }
+    
+    //MARK: - Signin Apple
+    func setupSigninApple() {
+        viewSiginApple.backgroundColor = UIColor.clear
+        if #available(iOS 13.0, *) {
+            let authorizationButton = ASAuthorizationAppleIDButton()
+            authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+            viewSiginApple.addSubview(authorizationButton)
+            authorizationButton.leadingAnchor.constraint(equalTo: viewSiginApple.leadingAnchor).isActive = true
+            authorizationButton.trailingAnchor.constraint(equalTo: viewSiginApple.trailingAnchor).isActive = true
+            authorizationButton.topAnchor.constraint(equalTo: viewSiginApple.topAnchor).isActive = true
+            authorizationButton.bottomAnchor.constraint(equalTo: viewSiginApple.bottomAnchor).isActive = true
+//            authorizationButton.anchor(top: viewSiginApple.topAnchor, leading: viewSiginApple.leadingAnchor, bottom: viewSiginApple.bottomAnchor, trailing: viewSiginApple.trailingAnchor)
+            authorizationButton.addTarget(self, action: #selector(eventChooseSigninWithApple(_:)), for: .touchUpInside)
+        }
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
+        }
+        return result
+    }
+    
+    @available(iOS 13, *)
+    @objc func eventChooseSigninWithApple(_ sender: Any) {
+        typeLogin = 3
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = sha256(nonce)
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            return String(format: "%02x", $0)
+        }.joined()
+        return hashString
     }
     
     @objc func eventRegisterSuccess(_ notification:Notification) {
@@ -375,3 +449,47 @@ extension LoginViewController: GIDSignInDelegate {
     
 }
 
+extension LoginViewController : ASAuthorizationControllerDelegate {
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            // Initialize a Firebase credential.
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            // Sign in with Firebase.
+            Auth.auth().signIn(with: credential) { [unowned self](authResult, error) in
+                if let err = error {
+                    // Error. If error.code == .MissingOrInvalidNonce, make sure
+                    // you're sending the SHA256-hashed nonce as a hex string with
+                    // your request to Apple.
+                    print("\(self.TAG) - \(#function) - \(#line) - err : \(err.localizedDescription)")
+                    self.hideProgressHUD()
+                    self.showAlertView("Have a problem when login. Please try again later.", completion: {})
+                    return
+                }
+                else {
+                    self.loginWithCredential(authResult)
+                }
+            }
+        }
+    }
+}
+
+extension LoginViewController : ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    
+}

@@ -21,27 +21,27 @@ class ManagerOrderViewController: MainViewController {
         self.navigationItem.title = ""
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Quản lý đơn hàng", style: .done, target: nil, action: nil)
         
-        let btnAdd = UIButton(type: .custom)
-        btnAdd.addTarget(self, action: #selector(eventChooseAddOrder(_:)), for: .touchUpInside)
-        btnAdd.setTitleColor(.white, for: .normal)
-        btnAdd.setTitle("Thêm", for: .normal)
-        btnAdd.setImage(UIImage(named: "icon_cart"), for: .normal)
-        btnAdd.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: 120, height: 40)
-        gradientLayer.colors = [Tools.hexStringToUIColor(hex: "#DC7942").cgColor, Tools.hexStringToUIColor(hex: "#F8AB25").cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
-        btnAdd.layer.insertSublayer(gradientLayer, below: btnAdd.imageView?.layer)
-
-        
-        let btnRight = UIBarButtonItem(customView: btnAdd)
-        btnRight.customView?.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        btnRight.customView?.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        btnRight.customView?.clipsToBounds = true
-        btnRight.customView?.layer.cornerRadius = 20
-        self.navigationItem.rightBarButtonItem = btnRight
+//        let btnAdd = UIButton(type: .custom)
+//        btnAdd.addTarget(self, action: #selector(eventChooseAddOrder(_:)), for: .touchUpInside)
+//        btnAdd.setTitleColor(.white, for: .normal)
+//        btnAdd.setTitle("Thêm", for: .normal)
+//        btnAdd.setImage(UIImage(named: "icon_cart"), for: .normal)
+//        btnAdd.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
+//
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: 120, height: 40)
+//        gradientLayer.colors = [Tools.hexStringToUIColor(hex: "#DC7942").cgColor, Tools.hexStringToUIColor(hex: "#F8AB25").cgColor]
+//        gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
+//        gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
+//        btnAdd.layer.insertSublayer(gradientLayer, below: btnAdd.imageView?.layer)
+//
+//
+//        let btnRight = UIBarButtonItem(customView: btnAdd)
+//        btnRight.customView?.widthAnchor.constraint(equalToConstant: 120).isActive = true
+//        btnRight.customView?.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        btnRight.customView?.clipsToBounds = true
+//        btnRight.customView?.layer.cornerRadius = 20
+//        self.navigationItem.rightBarButtonItem = btnRight
         
         tbOrder.tableFooterView = UIView(frame: .zero)
         tbOrder.register(UINib(nibName: "ManagerOrderTableCell", bundle: nil), forCellReuseIdentifier: "ManagerOrderTableCell")
@@ -193,7 +193,7 @@ class ManagerOrderViewController: MainViewController {
     @objc func eventChooseEditOrder(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ManagerOrderTableCell, let indexPath = tbOrder.indexPath(for: cell) {
             let order = arrOrders[indexPath.row]
-            if order.depositMoney > 0 {
+            if order.depositMoney > 0 || Tools.NDT_LABEL.isEmpty {
                 DispatchQueue.main.async {
                     let alertVC = UIAlertController(title: "Thông báo", message: "Bạn muốn hủy đơn hàng: \(order.code)?", preferredStyle: .alert)
                     let cancel = UIAlertAction(title: "Không", style: .cancel, handler: nil)

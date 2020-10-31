@@ -79,16 +79,16 @@ class ChooseCityViewController: MainViewController {
         }
     }
     
-    func connectGetBank() {
-        self.dbFireStore.collection("Settings").document("Bank").collection("List").getDocuments { [weak self](snapshot, error) in
-            if let document = snapshot {
-                for item in document.documents {
-                    let dict = item.data()
-                    print("\(dict)")
-                }
-            }
-        }        
-    }
+//    func connectGetBank() {
+//        self.dbFireStore.collection("Settings").document("Bank").collection("List").getDocuments { [weak self](snapshot, error) in
+//            if let document = snapshot {
+//                for item in document.documents {
+//                    let dict = item.data()
+////                    print("\(dict)")
+//                }
+//            }
+//        }        
+//    }
 
     func connectGetCities() {
         self.dbFireStore.collection("Settings").document("Country").getDocument { [weak self](snapshot, error) in
@@ -105,7 +105,7 @@ class ChooseCityViewController: MainViewController {
                     self?.tbCity.reloadData()
                 }
             } else {
-                print("\(self?.TAG) - \(#function) - \(#line) - error : \(error.debugDescription)")
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.debugDescription)")
             }
         }
     }

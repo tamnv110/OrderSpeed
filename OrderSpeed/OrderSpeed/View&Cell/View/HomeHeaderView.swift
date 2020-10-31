@@ -25,7 +25,8 @@ class HomeHeaderView: UIView {
     
     var isDropShadow = false
     
-    var arrSite = [(ProductSiteModel("Tạo đơn hàng", image: "icon_tao_gd", link: "", sort: -110))] {
+//    (ProductSiteModel("Tạo đơn hàng", image: "icon_tao_gd", link: "", sort: -110))
+    var arrSite = [ProductSiteModel]() {
         didSet {
             collectionView.reloadData()
         }

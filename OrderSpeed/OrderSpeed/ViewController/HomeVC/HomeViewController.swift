@@ -40,6 +40,7 @@ class HomeViewController: MainViewController {
             }
         }
     }
+    var arrProductReal = [ProductModel]()
     var isShowToast = false
     var toast: ToastView?
     
@@ -53,9 +54,11 @@ class HomeViewController: MainViewController {
         tbHome.register(UINib(nibName: "BankInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "BankInfoTableViewCell")
         tbHome.register(UINib(nibName: "NEWSTableViewCell", bundle: nil), forCellReuseIdentifier: "NEWSTableViewCell")
         tbHome.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
-                
+        tbHome.register(UINib(nibName: "ProductTMDTTableCell", bundle: nil), forCellReuseIdentifier: "ProductTMDTTableCell")
+        
         self.showProgressHUD("Lấy dữ liệu...")
         connectGetProductSite()
+//        connectGetProductOS()
         connectGetBank {
             self.completionRequest.0 = true
         }
@@ -80,10 +83,16 @@ class HomeViewController: MainViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_STORE"), object: nil, queue: .main) { (notification) in
             if let item = notification.object as? ProductSiteModel {
                 if item.sort == -110 {
-                    DispatchQueue.main.async {
-                        let vc = CreateOrderViewController(nibName: "CreateOrderViewController", bundle: nil)
-                        vc.hidesBottomBarWhenPushed = true
-                        self.navigationController?.pushViewController(vc, animated: true)
+                    if Tools.NDT_LABEL.isEmpty {
+                        self.showErrorAlertView("Chức năng chưa sẵn sàng hoặc đã bị vô hiệu.") {
+                            
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let vc = CreateOrderViewController(nibName: "CreateOrderViewController", bundle: nil)
+                            vc.hidesBottomBarWhenPushed = true
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
                     }
                 } else {
                     self.showSFSafariController(item.link)
@@ -135,18 +144,43 @@ class HomeViewController: MainViewController {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("CLICK_PRODUCT_REAL"), object: nil, queue: .main) { [weak self](notification) in
+            if let item = notification.object as? ProductModel {
+                DispatchQueue.main.async {
+                    let vc = DetailProductViewController(nibName: "DetailProductViewController", bundle: nil)
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.itemProduct = item
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, queue: nil) { (notification) in
+            if Tools.NDT_LABEL.isEmpty {
+                self.connectGetProductOS()
+            }
+        }
+        
     }
-    
+
     @objc func eventTimerSchedule(_ timer: Timer) {
         self.toast?.removeFromSuperview()
         timer.invalidate()
     }
     
     func showSFSafariController(_ link: String) {
-        let vc = CustomBrowserViewController(nibName: "CustomBrowserViewController", bundle: nil)
-        vc.arrURL.append(link)
-        vc.hidesBottomBarWhenPushed = true
-        self.present(vc, animated: true, completion: nil)
+        if link.hasPrefix("http") {
+            let vc = CustomBrowserViewController(nibName: "CustomBrowserViewController", bundle: nil)
+            vc.arrURL.append(link)
+            vc.hidesBottomBarWhenPushed = true
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            let vc = ListProductViewController(nibName: "ListProductViewController", bundle: nil)
+            vc.idsDoc = link
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
   
     override func viewWillAppear(_ animated: Bool) {
@@ -182,6 +216,35 @@ class HomeViewController: MainViewController {
                 headerFrame.size.height = newHeight
                 headerView.frame = headerFrame
                 tbHome.tableHeaderView = headerView
+            }
+        }
+    }
+    
+    func connectGetProductOS() {
+        self.dbFireStore.collection(OrderFolderName.rootProductReal.rawValue).limit(to: 8).getDocuments { [weak self](snapshot, error) in
+            if let documents = snapshot?.documents {
+                var arrProductOS = [ProductModel]()
+                for document in documents {
+                    let dict = document.data()
+                    var item = ProductModel(code: "1", link: dict["link"] as! String, name: dict["name"] as! String, option: "", amount: 0, price: (dict["price"] as? Double) ?? 0, fee: 0, status: "", note: "")
+                    item.images = [String]()
+                    item.images?.append((dict["thumbnail"] as? String) ?? "")
+                    item.code = document.documentID
+                    item.option = (dict["detail"] as? String) ?? ""
+                    arrProductOS.append(item)
+                }
+                if arrProductOS.count > 0 {
+                    self?.arrProductReal.append(contentsOf: arrProductOS)
+                    self?.reloadWhenDone()
+                }
+            }
+        }
+    }
+    
+    func reloadWhenDone() {
+        if completionRequest.0 && completionRequest.1 && completionRequest.2 {
+            DispatchQueue.main.async {
+                self.tbHome.reloadData()
             }
         }
     }
@@ -357,11 +420,11 @@ extension HomeViewController: UITextFieldDelegate {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (completionRequest.0 && completionRequest.1 && completionRequest.2) ? 3 : 0
+        return (completionRequest.0 && completionRequest.1 && completionRequest.2) ? 4 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 || section == 2 {
+        if section == 2 || section == 3 {
             return 1
         }
         return 1
@@ -369,11 +432,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return itemInfo != nil ? UITableView.automaticDimension : 0
+            let wCol = UIScreen.main.bounds.width / 2 - 8
+            let hCol = wCol * 1.54
+            let hCell = hCol * CGFloat(arrProductReal.count / 2)
+            return hCell
         }
         else if indexPath.section == 1 {
+            return itemInfo != nil ? UITableView.automaticDimension : 0
+        }
+        else if indexPath.section == 2 {
             return 390.0
-        } else if indexPath.section == 2 {
+        } else if indexPath.section == 3 {
             return 270.0
         }
         return UITableView.automaticDimension
@@ -384,24 +453,62 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section != 0 {
+        if section != 0 && section != 1 {
             return 60
+        } else if section == 0 && arrProductReal.count > 0 {
+            return 50
         }
         return 0
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section != 0 {
+        if section != 0 && section != 1 {
             let header = HomeHeaderSectionView.instanceFromNib()
-            header.lblTitle.text = (section == 1) ? "ngân hàng".uppercased() : "hỗ trợ".uppercased()
+            header.lblTitle.text = (section == 2) ? "ngân hàng".uppercased() : "hỗ trợ".uppercased()
+            return header
+        } else if section == 0 && arrProductReal.count > 0 {
+            let header = UIView()
+            header.backgroundColor = .clear
+            let lblTitle = UILabel()
+            lblTitle.translatesAutoresizingMaskIntoConstraints = false
+            header.addSubview(lblTitle)
+            lblTitle.text = "TOP sản phẩm".uppercased()
+            lblTitle.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            lblTitle.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16).isActive = true
+            lblTitle.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
+            
+            let btnShowMore = UIButton()
+            btnShowMore.backgroundColor = .clear
+            btnShowMore.translatesAutoresizingMaskIntoConstraints = false
+            header.addSubview(btnShowMore)
+            btnShowMore.setTitle("Xem thêm", for: .normal)
+            btnShowMore.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            btnShowMore.setTitleColor(.black, for: .normal)
+            btnShowMore.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            btnShowMore.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -8).isActive = true
+            btnShowMore.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
+            
+            btnShowMore.addTarget(self, action: #selector(eventChooseShowMore(_:)), for: .touchUpInside)
             return header
         }
         return nil
     }
     
+    @objc func eventChooseShowMore(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            let vc = ListProductViewController(nibName: "ListProductViewController", bundle: nil)
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? SupportMainCell {
-            if indexPath.section == 1 {
+            if indexPath.section == 2 {
                 arrBank == nil ? cell.loadingView.startAnimating() : cell.loadingView.stopAnimating()
             } else {
                 arrSupport == nil ? cell.loadingView.startAnimating() : cell.loadingView.stopAnimating()
@@ -411,7 +518,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? SupportMainCell {
-            if (indexPath.section == 1 && arrBank == nil) || (indexPath.section == 2 && arrSupport == nil) {
+            if (indexPath.section == 2 && arrBank == nil) || (indexPath.section == 3 && arrSupport == nil) {
                 cell.loadingView.stopAnimating()
             }
         }
@@ -419,6 +526,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTMDTTableCell", for: indexPath) as! ProductTMDTTableCell
+            cell.arrProduct = arrProductReal
+            return cell
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NEWSTableViewCell", for: indexPath) as! NEWSTableViewCell
             if let _itemInfo = itemInfo {
                 cell.showInfo(_itemInfo)
@@ -426,7 +537,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SupportMainCell", for: indexPath) as! SupportMainCell
-            if indexPath.section == 1 {
+            if indexPath.section == 2 {
                 cell.typeShow = 1
                 if arrBank != nil {
                     cell.viewLoading.isHidden = true
@@ -448,7 +559,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             if let _itemInfo = itemInfo {
                 DispatchQueue.main.async {
                     let vc = DetailInfomationViewController(nibName: "DetailInfomationViewController", bundle: nil)
