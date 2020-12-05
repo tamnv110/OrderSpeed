@@ -117,6 +117,9 @@ struct OrderProductDataModel: Codable {
     var updateAt: String
     var imageDefault: String?
     
+    var deleted: Bool
+    var weight: Double
+    
     enum CodingKeys: String, CodingKey {
         case idOrder
         case code
@@ -144,6 +147,8 @@ struct OrderProductDataModel: Codable {
         case updateAt = "update_at"
         case currencyLabel = "currency_label"
         case imageDefault = "image_default"
+        case deleted = "deleted"
+        case weight = "weight"
     }
     
     init(from decoder:Decoder) throws {
@@ -175,6 +180,10 @@ struct OrderProductDataModel: Codable {
         updateAt = try (values.decodeIfPresent(String.self, forKey: .updateAt) ?? "")
         currencyLabel = try (values.decodeIfPresent(String.self, forKey: .currencyLabel) ?? "")
         imageDefault = try values.decodeIfPresent(String.self, forKey: .imageDefault)
+        
+        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
+        
+        weight = try values.decodeIfPresent(Double.self, forKey: .weight) ?? 0.0
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -204,6 +213,8 @@ struct OrderProductDataModel: Codable {
         try container.encode(updateAt, forKey: .updateAt)
         try container.encode(currencyLabel, forKey: .currencyLabel)
         try container.encode(imageDefault, forKey: .imageDefault)
+        try container.encode(deleted, forKey: .deleted)
+        try container.encode(weight, forKey: .weight)
     }
     
     init(code: String, status: String, productCount: Int, shippingMethod: String, userID: String, cityName: String, districtName: String, receiverAddress: String, note: String, receiverName: String, receiverPhone: String, paymentName: String, paymentPhone: String, warehouseName: String, warehouseAddress: String, warehouseID: String, subTotalMoney: Double, depositMoney: Double, currentcyRate: Double, serviceCost: Double, shippingCost: Double, createAt: String, updateAt: String, currencyLabel: String) {
@@ -231,6 +242,8 @@ struct OrderProductDataModel: Codable {
         self.createAt = createAt
         self.updateAt = updateAt
         self.currencyLabel = currencyLabel
+        self.deleted = false
+        self.weight = 0.0
     }
     
     var dictionary: [String: Any] {

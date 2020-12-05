@@ -221,7 +221,7 @@
     <resources>
         <image name="icon_facebook" width="12" height="24"/>
         <image name="icon_google_plus" width="29" height="18"/>
-        <image name="logo" width="109.5" height="98"/>
+        <image name="logo" width="237" height="132"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

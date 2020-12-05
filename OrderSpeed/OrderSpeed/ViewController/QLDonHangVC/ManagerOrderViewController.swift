@@ -45,6 +45,10 @@ class ManagerOrderViewController: MainViewController {
         
         tbOrder.tableFooterView = UIView(frame: .zero)
         tbOrder.register(UINib(nibName: "ManagerOrderTableCell", bundle: nil), forCellReuseIdentifier: "ManagerOrderTableCell")
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("HUY_DON_HANG"), object: nil, queue: .main) { (notification) in
+            self.arrOrders.removeAll()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +65,7 @@ class ManagerOrderViewController: MainViewController {
     }
     
     func addListenerManagerOrder() {
+        print("\(TAG) - \(#function) - \(#line) ===============> START")
         if let user = self.appDelegate.user {
             if self.arrOrders.count == 0 {
                 showProgressHUD("Lấy dữ liệu...")
@@ -78,11 +83,9 @@ class ManagerOrderViewController: MainViewController {
                     docments.documentChanges.forEach({ (diff) in
                         if (diff.type == .added) {
                             self?.addOrderProduct(diff.document.documentID, dict: diff.document.data())
-                        }
-                        if (diff.type == .modified) {
+                        } else if (diff.type == .modified) {
                             self?.updateOrderProduct(diff.document.documentID, dict: diff.document.data())
-                        }
-                        if (diff.type == .removed) {
+                        }else if (diff.type == .removed) {
                             self?.removeOrderProduct(diff.document.documentID)
                         }
 
@@ -103,6 +106,7 @@ class ManagerOrderViewController: MainViewController {
     }
     
     func addOrderProduct(_ orderID: String, dict: [String: Any]) {
+        print("\(TAG) - \(#function) - \(#line) - orderID : \(orderID)")
         if arrOrders.firstIndex(where: { (order) -> Bool in
             return order.idOrder == orderID
         }) == nil {
@@ -119,9 +123,11 @@ class ManagerOrderViewController: MainViewController {
     }
     
     func updateOrderProduct(_ orderID: String, dict: [String: Any]) {
+        print("\(TAG) - \(#function) - \(#line) - orderID : \(orderID)")
         if let index = arrOrders.firstIndex(where: { (order) -> Bool in
             return order.idOrder == orderID
         }) {
+            print("\(TAG) - \(#function) - \(#line) - index : \(index)")
             let decoder = JSONDecoder()
             do {
                 let data = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
@@ -193,7 +199,7 @@ class ManagerOrderViewController: MainViewController {
     @objc func eventChooseEditOrder(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ManagerOrderTableCell, let indexPath = tbOrder.indexPath(for: cell) {
             let order = arrOrders[indexPath.row]
-            if order.depositMoney > 0 || Tools.NDT_LABEL.isEmpty {
+            if order.depositMoney > 0 {
                 DispatchQueue.main.async {
                     let alertVC = UIAlertController(title: "Thông báo", message: "Bạn muốn hủy đơn hàng: \(order.code)?", preferredStyle: .alert)
                     let cancel = UIAlertAction(title: "Không", style: .cancel, handler: nil)
@@ -205,12 +211,14 @@ class ManagerOrderViewController: MainViewController {
                     self.present(alertVC, animated: true, completion: nil)
                 }
             } else {
-                DispatchQueue.main.async {
-                    let vc = OrderInfoViewController(nibName: "OrderInfoViewController", bundle: nil)
-                    vc.typeEdit = 1
-                    vc.orderEdit = order
-                    vc.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(vc, animated: true)
+                if order.status.lowercased() == "Đã hủy" {
+                    DispatchQueue.main.async {
+                        let vc = OrderInfoViewController(nibName: "OrderInfoViewController", bundle: nil)
+                        vc.typeEdit = 1
+                        vc.orderEdit = order
+                        vc.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
         }

@@ -57,7 +57,7 @@ class HomeViewController: MainViewController {
         tbHome.register(UINib(nibName: "ProductTMDTTableCell", bundle: nil), forCellReuseIdentifier: "ProductTMDTTableCell")
         
         self.showProgressHUD("Lấy dữ liệu...")
-        connectGetProductSite()
+//        connectGetProductSite()
 //        connectGetProductOS()
         connectGetBank {
             self.completionRequest.0 = true
@@ -160,6 +160,7 @@ class HomeViewController: MainViewController {
             if Tools.NDT_LABEL.isEmpty {
                 self.connectGetProductOS()
             }
+            self.connectGetProductSite()
         }
         
     }
@@ -250,7 +251,11 @@ class HomeViewController: MainViewController {
     }
     
     func connectGetProductSite() {
-        self.dbFireStore.collection(OrderFolderName.rootProductSite.rawValue).order(by: "sort", descending: false).whereField("type_show", isEqualTo: 1).getDocuments { [weak self](snapshot, error) in
+        var typeShow = 0
+        if Tools.NDT_LABEL.isEmpty {
+            typeShow = 1
+        }
+        self.dbFireStore.collection(OrderFolderName.rootProductSite.rawValue).order(by: "sort", descending: false).whereField("type_show", isEqualTo: typeShow).getDocuments { [weak self](snapshot, error) in
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()
                 var arrProductSite = [ProductSiteModel]()
@@ -265,6 +270,7 @@ class HomeViewController: MainViewController {
                 }
                 if arrProductSite.count > 0 {
                     if let header = self?.tbHome.tableHeaderView as? HomeHeaderView {
+                        header.arrSite.removeAll()
                         header.arrSite.append(contentsOf: arrProductSite)
                     }
                 }

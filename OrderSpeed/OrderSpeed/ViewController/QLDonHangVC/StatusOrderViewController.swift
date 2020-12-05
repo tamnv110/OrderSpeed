@@ -22,6 +22,7 @@ class StatusOrderViewController: MainViewController {
     var arrSupport = [RequestSupportModel]()
     
     var typeOption = 0
+    var sNguoiNhan = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class StatusOrderViewController: MainViewController {
         tbStatus.register(UINib(nibName: "OrderStatusTableCell", bundle: nil), forCellReuseIdentifier: "OrderStatusTableCell")
         tbStatus.isHidden = true
         if orderProduct != nil {
+            self.updateRightButton()
             connectGetDetail()
         } else if let _orderID = orderID {
             connectGetOrderInfo(_orderID)
@@ -72,6 +74,98 @@ class StatusOrderViewController: MainViewController {
         }
     }
     
+    func updateRightButton() {
+        guard let order = self.orderProduct else { return }
+        print("\(TAG) - \(#function) - \(#line) - order.depositMoney : \(order.depositMoney)")
+        if order.status.lowercased() != "đã hủy"{
+            let btnCancel = UIButton()
+            btnCancel.addTarget(self, action: #selector(eventChooseCancelOrder(_:)), for: .touchUpInside)
+            btnCancel.setTitle("Hủy đơn", for: .normal)
+            btnCancel.setTitleColor(.red, for: .normal)
+            btnCancel.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            let btnRight = UIBarButtonItem(customView: btnCancel)
+            self.navigationItem.rightBarButtonItem = btnRight
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    @objc func eventChooseCancelOrder(_ sender: Any) {
+        print("\(TAG) - \(#function) - \(#line) - click click")
+        guard let order = orderProduct else { return }
+        let alert = UIAlertController(title: "Thông báo", message: "Bạn muốn hủy đơn hàng \(order.code)?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Không", style: .cancel, handler: nil)
+        let yes = UIAlertAction(title: "Hủy đơn", style: .destructive) { (action) in
+            self.connectCancelOrder(order)
+        }
+        alert.addAction(cancel)
+        alert.addAction(yes)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func connectCancelOrder(_ order: OrderProductDataModel) {
+        self.showProgressHUD("Huỷ đơn hàng...")
+        self.dbFireStore.collection(OrderFolderName.rootStatus.rawValue).order(by: "sort", descending: true).getDocuments { [weak self](snapshot, error) in
+            if let documents = snapshot?.documents {
+                do {
+                    if let document = try documents.first(where: { (doc) -> Bool in
+                        let jsonData = try JSONSerialization.data(withJSONObject: doc.data(), options: [])
+                        let result = try JSONDecoder().decode(OrderStatusModel.self, from: jsonData)
+                        return result.name.lowercased() == "đã hủy"
+                    }) {
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: document.data(), options: [])
+                            let result = try JSONDecoder().decode(OrderStatusModel.self, from: jsonData)
+                            self?.updateCancelOrder(order, status: result)
+                        } catch {
+                            self?.showErrorCancel()
+                        }
+                    } else {
+                        self?.showErrorCancel()
+                    }
+                } catch  {
+                    self?.showErrorCancel()
+                }
+            } else {
+                self?.showErrorCancel()
+            }
+        }
+    }
+    
+    func updateCancelOrder(_ order: OrderProductDataModel, status: OrderStatusModel) {
+        let batch = self.dbFireStore.batch()
+        let orderRef = self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue).document(order.idOrder!)
+        let statusRef = orderRef.collection(OrderFolderName.status.rawValue).document()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timeUpdate = formatter.string(from: Date())
+        
+        var statusCancel = status
+        statusCancel.createAt = timeUpdate
+        batch.updateData(["status": statusCancel.name, "update_at": timeUpdate], forDocument: orderRef)
+        batch.setData(statusCancel.dictionary, forDocument: statusRef)
+        batch.commit { [weak self](error) in
+            if let _ = error {
+                self?.showErrorCancel()
+            } else {
+                self?.navigationItem.rightBarButtonItem = nil
+                self?.hideProgressHUD()
+                self?.showAlertView("Hủy đơn hàng thành công.", completion: {
+                    NotificationCenter.default.post(name: NSNotification.Name("HUY_DON_HANG"), object: nil)
+                    self?.navigationController?.popViewController(animated: true)
+                })
+            }
+        }
+    }
+    
+    func showErrorCancel() {
+        self.hideProgressHUD()
+        self.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {
+            
+        }
+    }
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tbStatus.updateHeightHeader()
@@ -91,6 +185,7 @@ class StatusOrderViewController: MainViewController {
                     self?.orderProduct = result
                     print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - orderProduct : \(String(describing: self?.orderProduct?.idOrder)) - \(String(describing: self?.orderProduct?.status))")
                     self?.createHeaderStatus()
+                    self?.updateRightButton()
                     self?.connectGetDetail()
                 } catch  {
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
@@ -195,7 +290,7 @@ class StatusOrderViewController: MainViewController {
 
 extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return typeOption == 0 ? 3 : 1
+        return typeOption == 0 ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -215,9 +310,9 @@ extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource 
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0001
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 0.0001
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
@@ -239,6 +334,56 @@ extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource 
         return nil
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if typeOption == 0 && section != 0 {
+            return 150
+        }
+        return 0.0001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if typeOption == 0 && section != 0 {
+            let footer = UIView()
+            let lblNguoiNhan = UILabel()
+            lblNguoiNhan.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            lblNguoiNhan.text = "người nhận".uppercased()
+            lblNguoiNhan.translatesAutoresizingMaskIntoConstraints = false
+            footer.addSubview(lblNguoiNhan)
+            lblNguoiNhan.leadingAnchor.constraint(equalTo: footer.leadingAnchor, constant: 16).isActive = true
+            lblNguoiNhan.topAnchor.constraint(equalTo: footer.topAnchor, constant: 8).isActive = true
+            
+            let lblTen = UILabel()
+            lblTen.font = UIFont.systemFont(ofSize: 15)
+            lblTen.text = "Người nhận: \(orderProduct?.receiverName ?? "")"
+            lblTen.translatesAutoresizingMaskIntoConstraints = false
+            footer.addSubview(lblTen)
+            lblTen.leadingAnchor.constraint(equalTo: footer.leadingAnchor, constant: 16).isActive = true
+            lblTen.topAnchor.constraint(equalTo: lblNguoiNhan.bottomAnchor, constant: 8).isActive = true
+            lblTen.trailingAnchor.constraint(equalTo: footer.trailingAnchor, constant: -8).isActive = true
+            
+            let lblDC = UILabel()
+            lblDC.font = UIFont.systemFont(ofSize: 15)
+            lblDC.numberOfLines = 3
+            var address = orderProduct?.receiverAddress ?? ""
+            let dictrictName = orderProduct?.districtName ?? ""
+            if !dictrictName.isEmpty {
+                address.append(", \(dictrictName)")
+            }
+            let cityName = orderProduct?.cityName ?? ""
+            if !cityName.isEmpty {
+                address.append(", \(cityName)")
+            }
+            lblDC.text = "Người nhận: \(address)"
+            lblDC.translatesAutoresizingMaskIntoConstraints = false
+            footer.addSubview(lblDC)
+            lblDC.leadingAnchor.constraint(equalTo: footer.leadingAnchor, constant: 16).isActive = true
+            lblDC.topAnchor.constraint(equalTo: lblTen.bottomAnchor, constant: 8).isActive = true
+            lblDC.trailingAnchor.constraint(equalTo: footer.trailingAnchor, constant: -8).isActive = true
+            return footer
+        }
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if typeOption == 0 {
             if indexPath.section == 0 {
@@ -248,6 +393,7 @@ extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource 
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "CheckOrderTableCell", for: indexPath) as! CheckOrderTableCell
+//            cell.isShadow = false
             cell.lblTitle.text = "SẢN PHẨM \(indexPath.row + 1)"
             let item = arrProducts[indexPath.row]
             cell.product = item

@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,19 +18,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Kinh doanh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fp5-VV-Xb2">
-                        <rect key="frame" x="16" y="8" width="226" height="20.5"/>
+                        <rect key="frame" x="16" y="8" width="180" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0912 345 678" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfp-X6-Me1">
-                        <rect key="frame" x="16" y="36.5" width="226" height="20.5"/>
+                        <rect key="frame" x="16" y="36.5" width="180" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="tzp-0A-Gzq">
-                        <rect key="frame" x="250" y="18.5" width="78" height="32"/>
+                        <rect key="frame" x="204" y="18.5" width="124" height="32"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-un-wzn">
                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -43,8 +43,18 @@
                                     <action selector="eventChooseMakePhoneCall:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fvw-da-v1f"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DL-88-zU0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSn-Th-HWp">
                                 <rect key="frame" x="46" y="0.0" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="dKP-Kb-wxb"/>
+                                </constraints>
+                                <state key="normal" image="zalo-call"/>
+                                <connections>
+                                    <action selector="eventChooseMakeZalo:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IQT-iX-tMB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DL-88-zU0">
+                                <rect key="frame" x="92" y="0.0" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="3FK-nL-q5S"/>
                                     <constraint firstAttribute="width" secondItem="2DL-88-zU0" secondAttribute="height" id="Hkw-Um-7Th"/>
@@ -56,6 +66,7 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="RSn-Th-HWp" firstAttribute="width" secondItem="RSn-Th-HWp" secondAttribute="height" id="AeQ-st-yoA"/>
                             <constraint firstItem="2DL-88-zU0" firstAttribute="width" secondItem="2DL-88-zU0" secondAttribute="height" id="z2T-Ki-Nus"/>
                         </constraints>
                     </stackView>
@@ -85,5 +96,6 @@
     <resources>
         <image name="icon_call" width="30" height="30"/>
         <image name="icon_messenger" width="30" height="30"/>
+        <image name="zalo-call" width="30" height="30"/>
     </resources>
 </document>

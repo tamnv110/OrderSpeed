@@ -55,6 +55,7 @@ class ReceiverInfoTableCell: UITableViewCell {
         tfQuanHuyen.text = districtName.isEmpty ? "Chọn quận/huyện" : districtName
         tfAddress.text = address
         tfNote.text = note
+        tfNote.placeholder = note.isEmpty ? "Ghi chú" : ""
     }
 }
 

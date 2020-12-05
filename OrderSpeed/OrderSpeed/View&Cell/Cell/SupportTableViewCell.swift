@@ -17,7 +17,7 @@ class SupportTableViewCell: UITableViewCell {
     
     var phonenumber = ""
     var messenger = ""
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,4 +37,14 @@ class SupportTableViewCell: UITableViewCell {
     @IBAction func eventChooseMakeMessenger(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_MAKE_MESSENGER"), object: messenger, userInfo: nil)
     }
+    
+    @IBAction func eventChooseMakeZalo(_ sender: Any) {
+        guard let zaloURL = URL(string: "http://zalo.me/\(phonenumber)") else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(zaloURL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(zaloURL)
+        }
+    }
+    
 }

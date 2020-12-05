@@ -46,22 +46,23 @@ class ChooseCityViewController: MainViewController {
         super.viewDidLoad()
         tbCity.tableFooterView = UIView(frame: .zero)
         tbCity.register(UINib(nibName: "ShowTitleTableCell", bundle: nil), forCellReuseIdentifier: "ShowTitleTableCell")
-        if let jsonData = Tools.getObjectFromDefault("LIST_CITIES") as? Data {
-            do {
-                let json = try JSON(data: jsonData)
-                if let arrCitiesTemp = json["Cities"].array {
-                    self.arrCities = arrCitiesTemp.map { (item) -> CityInfo in
-                        return CityInfo(name: item["name"].stringValue, dictricts: item["dictricts"].arrayValue.map({ (dictrict) -> String in
-                            return dictrict.stringValue
-                        }))
-                    }
-                }
-            } catch {
-                connectGetCities()
-            }
-        } else {
-            connectGetCities()
-        }
+        connectGetCities()
+//        if let jsonData = Tools.getObjectFromDefault("LIST_CITIES") as? Data {
+//            do {
+//                let json = try JSON(data: jsonData)
+//                if let arrCitiesTemp = json["Cities"].array {
+//                    self.arrCities = arrCitiesTemp.map { (item) -> CityInfo in
+//                        return CityInfo(name: item["name"].stringValue, dictricts: item["dictricts"].arrayValue.map({ (dictrict) -> String in
+//                            return dictrict.stringValue
+//                        }))
+//                    }
+//                }
+//            } catch {
+//                connectGetCities()
+//            }
+//        } else {
+//            connectGetCities()
+//        }
     }
     
     func showRightButton() {

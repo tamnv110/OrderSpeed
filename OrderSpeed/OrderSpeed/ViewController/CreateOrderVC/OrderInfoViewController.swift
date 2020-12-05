@@ -234,7 +234,44 @@ class OrderInfoViewController: MainViewController {
         }
     }
     
+    func checkInputData() -> Bool {
+        var flag = true
+        if receiverName.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng nhập tên người nhận", completion: {})
+        }
+        else if receiverPhone.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng nhập số điện thoại người nhận", completion: {})
+        }
+        else if cityName.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng chọn thành phố", completion: {})
+        }
+        else if districtName.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng chọn quận huyện", completion: {})
+        }
+        else if address.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng nhập địa chỉ người nhận", completion: {})
+        }
+        else if paymentName.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng nhập tên người thanh toán", completion: {})
+        }
+        else if paymentPhone.isEmpty {
+            flag = false
+            self.showAlertView("Vui lòng nhập số điện thoại người thanh toán", completion: {})
+        }
+        return flag
+    }
+
+    
     @IBAction func evenntChooseOrder(_ sender: Any) {
+        if !checkInputData() {
+            return
+        }
         if orderEdit != nil {
             editOrderExists()
         } else {

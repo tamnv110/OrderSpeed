@@ -101,8 +101,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func connectGetLabel() {
         Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
-                if let tiGia = document["value"] as? String {
-                    Tools.NDT_LABEL = tiGia
+                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String {
+                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                        if apVer == sOnVer {
+                            Tools.NDT_LABEL = tiGia
+                        } else {
+                            Tools.NDT_LABEL = ""
+                        }
+                    } else {
+                        Tools.NDT_LABEL = tiGia
+                    }
                     NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, userInfo: nil)
                 }
             }
@@ -139,6 +147,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             connectGetFeeSercive()
             connectGetLabel()
         }
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        isConnect = false
     }
     
     // MARK: UISceneSession Lifecycle

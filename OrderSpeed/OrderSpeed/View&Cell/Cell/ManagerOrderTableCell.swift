@@ -32,7 +32,14 @@ class ManagerOrderTableCell: UITableViewCell {
         
         if !item.receiverName.isEmpty {
             lblReceiveName.text = item.receiverName + " - " + item.receiverPhone
-            lblReceiveAddress.text = "\(item.receiverAddress), \(item.districtName), \(item.cityName)"
+            var address = item.receiverAddress
+            if !item.districtName.isEmpty {
+                address.append(", \(item.districtName)")
+            }
+            if !item.cityName.isEmpty {
+                address.append(", \(item.cityName)")
+            }
+            lblReceiveAddress.text = address
         } else {
             lblReceiveName.text = item.warehouseName
             lblReceiveAddress.text = item.warehouseAddress

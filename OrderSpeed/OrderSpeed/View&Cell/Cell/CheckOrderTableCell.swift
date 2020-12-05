@@ -66,6 +66,7 @@ class CheckOrderTableCell: UITableViewCell {
     
     var refStorage: StorageReference?
     var arrImages = [(Int, String?, ItemImageSelect?)]()
+    var isShadow = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -84,14 +85,16 @@ class CheckOrderTableCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        DispatchQueue.main.async {
-            self.viewShadow.layer.shadowColor = UIColor.lightGray.cgColor
-            self.viewShadow.layer.shadowOffset = CGSize(width: 0, height: 1)
-            self.viewShadow.layer.shadowOpacity = 0.5
-            self.viewShadow.layer.shadowRadius = 3
-            self.viewShadow.layer.masksToBounds = false
-            self.viewShadow.layer.shadowPath = UIBezierPath(roundedRect: self.viewShadow.bounds, cornerRadius: 16).cgPath
-            self.viewShadow.layer.shouldRasterize = true
+        if isShadow {
+            DispatchQueue.main.async {
+                self.viewShadow.layer.shadowColor = UIColor.lightGray.cgColor
+                self.viewShadow.layer.shadowOffset = CGSize(width: 0, height: 1)
+                self.viewShadow.layer.shadowOpacity = 0.5
+                self.viewShadow.layer.shadowRadius = 3
+                self.viewShadow.layer.masksToBounds = false
+                self.viewShadow.layer.shadowPath = UIBezierPath(roundedRect: self.viewShadow.bounds, cornerRadius: 16).cgPath
+                self.viewShadow.layer.shouldRasterize = true
+            }
         }
     }
 }

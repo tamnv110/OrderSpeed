@@ -35,9 +35,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func connectGetFeeSercive() {
+        print("============> START")
         Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("FeeService").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
                 if let tiGia = document["value"] as? Double {
+                    print("============> tiGia : \(tiGia)")
                     Tools.FEE_SERVICE = tiGia
                 }
             }
@@ -61,8 +63,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func connectGetLabel() {
         Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
-                if let tiGia = document["value"] as? String {
-                    Tools.NDT_LABEL = tiGia
+                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String {
+                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                        if apVer == sOnVer {
+                            Tools.NDT_LABEL = tiGia
+                        } else {
+                            Tools.NDT_LABEL = ""
+                        }
+                    } else {
+                        Tools.NDT_LABEL = tiGia
+                    }
                     NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, userInfo: nil)
                 }
             }
@@ -89,11 +99,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-
-        // Save changes in the application's managed object context when the application transitions to the background.
+        isConnect = false
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
