@@ -18,6 +18,7 @@ class DetailOrderStatusSectionView: UIView {
     @IBOutlet weak var lblRestMoney: UILabel!
     @IBOutlet weak var lblCocDuKien: UILabel!
     @IBOutlet weak var lblWeight: UILabel!
+    @IBOutlet weak var lblPhiVanChuyen: UILabel!
     
     class func instanceFromNib() -> DetailOrderStatusSectionView {
         return UINib(nibName: "DetailOrderStatusSectionView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! DetailOrderStatusSectionView
@@ -41,5 +42,6 @@ class DetailOrderStatusSectionView: UIView {
         lblCocDuKien.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", tienCocDuKien)) + " đ"
         
         lblWeight.text = item.weight == 0.0 ? "Đang cập nhật" : "\(item.weight) kg"
+        lblPhiVanChuyen.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", item.shippingCost)) + " đ"
     }
 }

@@ -45,16 +45,16 @@
                     <rect key="frame" x="16" y="56" width="382" height="224"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flT-59-Ofo">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sN-ov-LTx">
-                                    <rect key="frame" x="137.5" y="2.5" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền sản phẩm:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciq-Yy-TCo">
-                                    <rect key="frame" x="0.0" y="2.5" width="116" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="116" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -69,16 +69,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uth-gX-xRD">
-                            <rect key="frame" x="0.0" y="33" width="382" height="25.5"/>
+                            <rect key="frame" x="0.0" y="29" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Y4-is-lt8">
-                                    <rect key="frame" x="137.5" y="2.5" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền phí:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-q3-zBY">
-                                    <rect key="frame" x="0.0" y="2.5" width="65" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="65" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -93,16 +93,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ms6-UY-iDE">
-                            <rect key="frame" x="0.0" y="66.5" width="382" height="25"/>
+                            <rect key="frame" x="0.0" y="58" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evP-eZ-M3X">
-                                    <rect key="frame" x="137.5" y="2" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tổng tiền:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVQ-bV-hdT">
-                                    <rect key="frame" x="0.0" y="2" width="75.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="75.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -117,16 +117,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsn-AF-Ygt">
-                            <rect key="frame" x="0.0" y="99.5" width="382" height="25"/>
+                            <rect key="frame" x="0.0" y="87" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13y-sp-I5r">
-                                    <rect key="frame" x="137.5" y="2.5" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền cọc dự kiến:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yb-FQ-H1V">
-                                    <rect key="frame" x="0.0" y="2.5" width="129.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="129.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -142,16 +142,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ova-aF-ubp">
-                            <rect key="frame" x="0.0" y="132.5" width="382" height="25"/>
+                            <rect key="frame" x="0.0" y="116" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeR-dZ-lej">
-                                    <rect key="frame" x="137.5" y="2.5" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Số tiền đã cọc:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cq-u3-gi4">
-                                    <rect key="frame" x="0.0" y="2.5" width="113.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="113.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -166,16 +166,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Eb-HH-qx7">
-                            <rect key="frame" x="0.0" y="165.5" width="382" height="25.5"/>
+                            <rect key="frame" x="0.0" y="145" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T97-26-fUt">
-                                    <rect key="frame" x="137.5" y="2.5" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tổng cân nặng:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBu-e6-rGR">
-                                    <rect key="frame" x="0.0" y="2.5" width="117" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="117" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -189,17 +189,42 @@
                                 <constraint firstItem="aBu-e6-rGR" firstAttribute="centerY" secondItem="4Eb-HH-qx7" secondAttribute="centerY" id="zny-Gf-69O"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3U-Xs-I7J">
+                            <rect key="frame" x="0.0" y="174" width="382" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-I2-OPa">
+                                    <rect key="frame" x="182.5" y="0.5" width="191.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phí vận chuyển nội địa:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aq2-14-oHf">
+                                    <rect key="frame" x="0.0" y="0.5" width="174.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="Aq2-14-oHf" firstAttribute="leading" secondItem="c3U-Xs-I7J" secondAttribute="leading" id="VjU-pX-pXo"/>
+                                <constraint firstItem="Bhh-I2-OPa" firstAttribute="leading" secondItem="Aq2-14-oHf" secondAttribute="trailing" constant="8" id="dP3-dQ-kWt"/>
+                                <constraint firstItem="Aq2-14-oHf" firstAttribute="centerY" secondItem="c3U-Xs-I7J" secondAttribute="centerY" id="jBs-2g-j8c"/>
+                                <constraint firstItem="Bhh-I2-OPa" firstAttribute="centerY" secondItem="c3U-Xs-I7J" secondAttribute="centerY" id="ud5-fn-ow2"/>
+                                <constraint firstAttribute="trailing" secondItem="Bhh-I2-OPa" secondAttribute="trailing" constant="8" id="vn6-ju-PBf"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNj-Xc-Cg2">
-                            <rect key="frame" x="0.0" y="199" width="382" height="25"/>
+                            <rect key="frame" x="0.0" y="203" width="382" height="21"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSa-Va-7rU">
-                                    <rect key="frame" x="137.5" y="2" width="236.5" height="20.5"/>
+                                    <rect key="frame" x="137.5" y="0.5" width="236.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiền còn lại:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehA-2s-DPs">
-                                    <rect key="frame" x="0.0" y="2" width="91" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="91" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -243,6 +268,7 @@
                 <outlet property="lblDepositMoney" destination="TeR-dZ-lej" id="gBt-jR-bnR"/>
                 <outlet property="lblFee" destination="7Y4-is-lt8" id="07H-nV-zaw"/>
                 <outlet property="lblOrderCode" destination="SMe-9V-HhU" id="GeM-pR-0kG"/>
+                <outlet property="lblPhiVanChuyen" destination="Bhh-I2-OPa" id="ejs-Xc-44O"/>
                 <outlet property="lblRestMoney" destination="BSa-Va-7rU" id="D5k-n9-2gB"/>
                 <outlet property="lblSubTotal" destination="5sN-ov-LTx" id="thD-mj-FKz"/>
                 <outlet property="lblTotalMoney" destination="evP-eZ-M3X" id="DL3-tx-Z9v"/>

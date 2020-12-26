@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -79,6 +79,137 @@
             </objects>
             <point key="canvasLocation" x="1659.4202898550725" y="359.59821428571428"/>
         </scene>
+        <!--Wallet View Controller-->
+        <scene sceneID="iiM-vP-6nO">
+            <objects>
+                <viewController id="Nx6-X4-dQ4" customClass="WalletViewController" customModule="OrderSpeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WMp-QY-JVh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-bC-amX">
+                                <rect key="frame" x="0.0" y="130" width="414" height="683"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Nx6-X4-dQ4" id="kch-5f-OyT"/>
+                                    <outlet property="delegate" destination="Nx6-X4-dQ4" id="ds5-hr-JW1"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tm4-MF-dtJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50.000.000 đ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f26-To-Vpd">
+                                        <rect key="frame" x="16" y="87.5" width="143.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Nguyễn Văn Tâm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xl3-3U-S8i">
+                                        <rect key="frame" x="16" y="57.5" width="122" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MeP-WV-CNG">
+                                        <rect key="frame" x="254" y="48" width="144" height="64"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOz-5b-1iL" customClass="UIControl">
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_naptien" translatesAutoresizingMaskIntoConstraints="NO" id="nEb-IB-nSf">
+                                                        <rect key="frame" x="20" y="14" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="nEb-IB-nSf" secondAttribute="height" id="jDw-L9-8UV"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nạp tiền" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikN-2U-QU8">
+                                                        <rect key="frame" x="1.5" y="46" width="61" height="18"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ikN-2U-QU8" secondAttribute="bottom" id="0Gq-Eo-K51"/>
+                                                    <constraint firstItem="nEb-IB-nSf" firstAttribute="centerX" secondItem="cOz-5b-1iL" secondAttribute="centerX" id="0XB-sj-mow"/>
+                                                    <constraint firstItem="ikN-2U-QU8" firstAttribute="centerX" secondItem="cOz-5b-1iL" secondAttribute="centerX" id="Rdq-mk-LY9"/>
+                                                    <constraint firstItem="ikN-2U-QU8" firstAttribute="top" secondItem="nEb-IB-nSf" secondAttribute="bottom" constant="8" id="SIG-hZ-T9K"/>
+                                                    <constraint firstAttribute="width" constant="64" id="yZ8-2k-sCD"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="eventChooseNapTien:" destination="Nx6-X4-dQ4" eventType="touchUpInside" id="Hes-jm-LJY"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACd-Ic-O0q" customClass="UIControl">
+                                                <rect key="frame" x="80" y="0.0" width="64" height="64"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_ruttien" translatesAutoresizingMaskIntoConstraints="NO" id="ALc-4N-gff">
+                                                        <rect key="frame" x="20" y="14" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="ALc-4N-gff" secondAttribute="height" id="NpD-HC-O5x"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rút tiền" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ke8-R9-hVV">
+                                                        <rect key="frame" x="3.5" y="46" width="57" height="18"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ke8-R9-hVV" secondAttribute="bottom" id="5Rp-WV-oWl"/>
+                                                    <constraint firstItem="ALc-4N-gff" firstAttribute="centerX" secondItem="ACd-Ic-O0q" secondAttribute="centerX" id="BIK-lD-Els"/>
+                                                    <constraint firstItem="ke8-R9-hVV" firstAttribute="top" secondItem="ALc-4N-gff" secondAttribute="bottom" constant="8" id="FXu-bx-dbF"/>
+                                                    <constraint firstAttribute="width" constant="64" id="XfP-3E-Hp6"/>
+                                                    <constraint firstAttribute="width" secondItem="ACd-Ic-O0q" secondAttribute="height" multiplier="1:1" id="c3t-7j-fJU"/>
+                                                    <constraint firstItem="ke8-R9-hVV" firstAttribute="centerX" secondItem="ACd-Ic-O0q" secondAttribute="centerX" id="jTv-mT-vTv"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="eventChooseRutTien:" destination="Nx6-X4-dQ4" eventType="touchUpInside" id="tt7-bY-ZDB"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="cOz-5b-1iL" firstAttribute="width" secondItem="cOz-5b-1iL" secondAttribute="height" multiplier="1:1" id="sRg-uY-VUv"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.5450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="f26-To-Vpd" firstAttribute="top" secondItem="xl3-3U-S8i" secondAttribute="bottom" constant="12" id="0LP-NT-3TO"/>
+                                    <constraint firstAttribute="bottom" secondItem="f26-To-Vpd" secondAttribute="bottom" constant="16" id="5xA-3M-Kvk"/>
+                                    <constraint firstItem="f26-To-Vpd" firstAttribute="leading" secondItem="Tm4-MF-dtJ" secondAttribute="leading" constant="16" id="71C-md-350"/>
+                                    <constraint firstAttribute="trailing" secondItem="MeP-WV-CNG" secondAttribute="trailing" constant="16" id="7pG-ls-rRg"/>
+                                    <constraint firstAttribute="bottom" secondItem="MeP-WV-CNG" secondAttribute="bottom" constant="18" id="YeO-hb-54F"/>
+                                    <constraint firstAttribute="height" constant="130" id="d5n-uP-qRo"/>
+                                    <constraint firstItem="xl3-3U-S8i" firstAttribute="leading" secondItem="Tm4-MF-dtJ" secondAttribute="leading" constant="16" id="sdA-j6-T10"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mOd-GD-XTs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Tm4-MF-dtJ" secondAttribute="trailing" id="0F5-9F-tAB"/>
+                            <constraint firstItem="tHu-bC-amX" firstAttribute="trailing" secondItem="mOd-GD-XTs" secondAttribute="trailing" id="7DR-lT-Kzd"/>
+                            <constraint firstItem="tHu-bC-amX" firstAttribute="bottom" secondItem="mOd-GD-XTs" secondAttribute="bottom" id="F54-Ap-YHa"/>
+                            <constraint firstItem="Tm4-MF-dtJ" firstAttribute="leading" secondItem="WMp-QY-JVh" secondAttribute="leading" id="IkB-nT-dXN"/>
+                            <constraint firstItem="Tm4-MF-dtJ" firstAttribute="top" secondItem="WMp-QY-JVh" secondAttribute="top" id="J9F-rO-0py"/>
+                            <constraint firstItem="tHu-bC-amX" firstAttribute="top" secondItem="Tm4-MF-dtJ" secondAttribute="bottom" id="K9e-6o-wK4"/>
+                            <constraint firstItem="tHu-bC-amX" firstAttribute="leading" secondItem="mOd-GD-XTs" secondAttribute="leading" id="NfE-x7-W26"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="VNf-3c-Sca"/>
+                    <connections>
+                        <outlet property="tblWallet" destination="tHu-bC-amX" id="1Ru-rX-dQ8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ofq-AI-H51" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1659.4202898550725" y="1036.6071428571429"/>
+        </scene>
         <!--Infomation View Controller-->
         <scene sceneID="ZdU-ef-HR4">
             <objects>
@@ -112,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Bc-t3-3Pf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.9710144927537" y="1048.6607142857142"/>
+            <point key="canvasLocation" x="1641" y="1724"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="RHr-gg-GcV">
@@ -148,7 +279,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Pz-Xm-1Yj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.9710144927537" y="1754.4642857142856"/>
+            <point key="canvasLocation" x="1641" y="2429"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -164,13 +295,14 @@
                     <connections>
                         <segue destination="Hmr-8I-lCa" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="bcK-Jo-dYt" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="3WD-44-QWE" kind="relationship" relationship="viewControllers" id="nEH-TT-3KO"/>
                         <segue destination="2I8-r0-bvu" kind="relationship" relationship="viewControllers" id="g4P-ao-wFD"/>
                         <segue destination="TIC-De-JW4" kind="relationship" relationship="viewControllers" id="Bb8-Jg-DFk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-123" y="686"/>
+            <point key="canvasLocation" x="-439" y="1024"/>
         </scene>
         <!--Trang chủ-->
         <scene sceneID="aPi-dU-3ft">
@@ -231,7 +363,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMd-eH-il5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749" y="1049"/>
+            <point key="canvasLocation" x="730" y="1724"/>
         </scene>
         <!--Tài khoản-->
         <scene sceneID="ifh-IV-pVu">
@@ -250,14 +382,36 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZY-ax-sJS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749" y="1755"/>
+            <point key="canvasLocation" x="730" y="2429"/>
+        </scene>
+        <!--Ví-->
+        <scene sceneID="tfP-pg-74W">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3WD-44-QWE" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Ví" image="icon_wallet" id="XC4-3J-2Ot"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YTx-NB-Xhe">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nx6-X4-dQ4" kind="relationship" relationship="rootViewController" id="rab-te-8T5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y80-AP-S8D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749" y="1024"/>
         </scene>
     </scenes>
     <resources>
         <image name="icon_home" width="22" height="22"/>
         <image name="icon_infomation" width="22" height="22"/>
+        <image name="icon_naptien" width="24" height="24"/>
         <image name="icon_qldon" width="22" height="22"/>
+        <image name="icon_ruttien" width="24" height="24"/>
         <image name="icon_user" width="22" height="22"/>
+        <image name="icon_wallet" width="22" height="22"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

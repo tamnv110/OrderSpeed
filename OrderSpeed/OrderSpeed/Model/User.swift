@@ -25,6 +25,7 @@ class UserBeer: NSObject, NSSecureCoding {
     var tokenAPN:String
     var receiverName: String
     var typeAcc: Int
+    var totalMoney: Double
     
     private struct NSCoderKeys {
         static let fullNameKey = "fullname"
@@ -40,9 +41,10 @@ class UserBeer: NSObject, NSSecureCoding {
         static let tokenAPNKey = "tokenAPN"
         static let receiverNameKey = "receiverName"
         static let typeAccKey = "typeAcc"
+        static let totalMoneyKey = "totalMoney"
     }
     
-    init(id: String, email: String, fullname: String, avatar: String, phoneNumber: String, receiverPhone: String, receiverName: String, address: String, cityName: String, districtName: String, tokenAPN: String, typeAcc: Int) {
+    init(id: String, email: String, fullname: String, avatar: String, phoneNumber: String, receiverPhone: String, receiverName: String, address: String, cityName: String, districtName: String, tokenAPN: String, typeAcc: Int, totalMoney: Double) {
         self.userID = id
         self.email = email
         self.fullname = fullname
@@ -55,6 +57,7 @@ class UserBeer: NSObject, NSSecureCoding {
         self.districtName = districtName
         self.tokenAPN = tokenAPN
         self.typeAcc = typeAcc
+        self.totalMoney = totalMoney
     }
     
     public convenience required init?(coder aDecoder:NSCoder) {
@@ -92,8 +95,9 @@ class UserBeer: NSObject, NSSecureCoding {
             return nil
         }
         let typeAccTemp = aDecoder.decodeInteger(forKey: NSCoderKeys.typeAccKey)
-//        let typeAccTemp = aDecoder.decodeInt64(forKey: NSCoderKeys.typeAccKey)
-        self.init(id: id, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, receiverPhone: phoneReceiverTemp, receiverName: receiverNameTemp, address: addressTemp, cityName: cityNameTemp, districtName: districtNameTemp, tokenAPN: tokenAPNTemp, typeAcc: typeAccTemp)
+        let dMoney = aDecoder.decodeDouble(forKey: NSCoderKeys.totalMoneyKey)
+        
+        self.init(id: id, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, receiverPhone: phoneReceiverTemp, receiverName: receiverNameTemp, address: addressTemp, cityName: cityNameTemp, districtName: districtNameTemp, tokenAPN: tokenAPNTemp, typeAcc: typeAccTemp, totalMoney: dMoney)
     }
     
     func encode(with aCoder:NSCoder) -> Void {
@@ -109,6 +113,7 @@ class UserBeer: NSObject, NSSecureCoding {
         aCoder.encode(districtName as NSString, forKey: NSCoderKeys.districtNameKey)
         aCoder.encode(tokenAPN as NSString, forKey: NSCoderKeys.tokenAPNKey)
         aCoder.encode(typeAcc, forKey: NSCoderKeys.typeAccKey)
+        aCoder.encode(totalMoney, forKey: NSCoderKeys.totalMoneyKey)
     }
     
     func showInfo() -> Void {

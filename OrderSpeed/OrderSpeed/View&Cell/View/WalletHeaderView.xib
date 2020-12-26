@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WalletHeaderView" customModule="OrderSpeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="243"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quý khách chuyển khoản vào một trong những ngân hàng bên dưới với nội dung:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0U-DL-A3r">
+                    <rect key="frame" x="16" y="16" width="390" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KHxxx nap tien" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTQ-EY-laL">
+                    <rect key="frame" x="16" y="64" width="390" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(KHxxx là mã khách hàng, xem trong mục Tài khoản)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Oi-ax-diR">
+                    <rect key="frame" x="16" y="96" width="390" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orderspeed sẽ kiểm tra và nạp ví cho quý khách trong khoảng 24h" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxX-fG-y7v">
+                    <rect key="frame" x="16" y="138" width="390" height="41"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bank" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Kj-KPr">
+                    <rect key="frame" x="16" y="195" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="9e8-Kj-KPr" secondAttribute="height" id="1lk-yk-ZUP"/>
+                        <constraint firstAttribute="width" constant="32" id="Y9Q-a5-69P"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NGÂN HÀNG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2g6-aq-JsD">
+                    <rect key="frame" x="56" y="199" width="116" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="dxX-fG-y7v" firstAttribute="leading" secondItem="5Oi-ax-diR" secondAttribute="leading" id="1md-tg-HzR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XTQ-EY-laL" secondAttribute="trailing" constant="8" id="2cs-PL-etL"/>
+                <constraint firstItem="Z0U-DL-A3r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="AeT-7d-gPT"/>
+                <constraint firstItem="XTQ-EY-laL" firstAttribute="leading" secondItem="Z0U-DL-A3r" secondAttribute="leading" id="Ao6-vN-aMF"/>
+                <constraint firstItem="2g6-aq-JsD" firstAttribute="centerY" secondItem="9e8-Kj-KPr" secondAttribute="centerY" id="GL9-Zb-S6X"/>
+                <constraint firstItem="2g6-aq-JsD" firstAttribute="leading" secondItem="9e8-Kj-KPr" secondAttribute="trailing" constant="8" id="Hhh-7Z-oKb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Z0U-DL-A3r" secondAttribute="trailing" constant="8" id="Ikg-gp-aKq"/>
+                <constraint firstItem="9e8-Kj-KPr" firstAttribute="leading" secondItem="dxX-fG-y7v" secondAttribute="leading" id="Pgi-GV-QWI"/>
+                <constraint firstItem="9e8-Kj-KPr" firstAttribute="top" secondItem="dxX-fG-y7v" secondAttribute="bottom" constant="16" id="SJx-AL-hNK"/>
+                <constraint firstItem="XTQ-EY-laL" firstAttribute="top" secondItem="Z0U-DL-A3r" secondAttribute="bottom" constant="12" id="Ucl-Jt-3dV"/>
+                <constraint firstItem="5Oi-ax-diR" firstAttribute="leading" secondItem="XTQ-EY-laL" secondAttribute="leading" id="hmy-gI-BRN"/>
+                <constraint firstItem="Z0U-DL-A3r" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="lyc-g5-7za"/>
+                <constraint firstItem="dxX-fG-y7v" firstAttribute="top" secondItem="5Oi-ax-diR" secondAttribute="bottom" constant="24" id="mku-LM-231"/>
+                <constraint firstItem="5Oi-ax-diR" firstAttribute="top" secondItem="XTQ-EY-laL" secondAttribute="bottom" constant="8" id="ocH-xx-N2W"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5Oi-ax-diR" secondAttribute="trailing" constant="8" id="w4E-tM-lrZ"/>
+                <constraint firstAttribute="trailing" secondItem="dxX-fG-y7v" secondAttribute="trailing" constant="8" id="xhf-B8-Xkp"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-346.37681159420293" y="-101.45089285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_bank" width="32" height="32"/>
+    </resources>
+</document>

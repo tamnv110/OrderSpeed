@@ -383,7 +383,7 @@ class LoginViewController: MainViewController {
         }
         
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2)
+        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0)
         user.showInfo()
         if !self.apnsKey.isEmpty {
             print("\(TAG) - \(#function) - \(#line) =====> update tokenAPN")

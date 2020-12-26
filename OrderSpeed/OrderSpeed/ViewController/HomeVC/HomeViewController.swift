@@ -55,19 +55,7 @@ class HomeViewController: MainViewController {
         tbHome.register(UINib(nibName: "NEWSTableViewCell", bundle: nil), forCellReuseIdentifier: "NEWSTableViewCell")
         tbHome.register(UINib(nibName: "SupportMainCell", bundle: nil), forCellReuseIdentifier: "SupportMainCell")
         tbHome.register(UINib(nibName: "ProductTMDTTableCell", bundle: nil), forCellReuseIdentifier: "ProductTMDTTableCell")
-        
-        self.showProgressHUD("Lấy dữ liệu...")
-//        connectGetProductSite()
-//        connectGetProductOS()
-        connectGetBank {
-            self.completionRequest.0 = true
-        }
-        connectGetSupport {
-            self.completionRequest.1 = true
-        }
-        connectGetInfomation(.news) {
-            self.completionRequest.2 = true
-        }
+
         let isLegal = (Tools.getObjectFromDefault("KEY_LEGAL") as? Bool) ?? false
         if isLegal {
             connectGetNotificationPopup()
@@ -163,6 +151,40 @@ class HomeViewController: MainViewController {
             self.connectGetProductSite()
         }
         
+        self.showProgressHUD("Lấy dữ liệu...")
+        connectGetLabel()
+        connectGetBank {
+            self.completionRequest.0 = true
+        }
+        connectGetSupport {
+            self.completionRequest.1 = true
+        }
+        connectGetInfomation(.news) {
+            self.completionRequest.2 = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showAlertController(.showSuccess, message: "123456", title: "")
+        }
+    }
+    
+    func connectGetLabel() {
+        self.dbFireStore.collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
+            if let document = snapshot?.data() {
+                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String, let dOnVer = Double(sOnVer) {
+                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let dApVer = Double(apVer) {
+                        if dApVer <= dOnVer {
+                            Tools.NDT_LABEL = tiGia
+                        } else {
+                            Tools.NDT_LABEL = ""
+                        }
+                    } else {
+                        Tools.NDT_LABEL = tiGia
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_NDT_LABEL"), object: nil, userInfo: nil)
+                }
+            }
+        }
     }
 
     @objc func eventTimerSchedule(_ timer: Timer) {

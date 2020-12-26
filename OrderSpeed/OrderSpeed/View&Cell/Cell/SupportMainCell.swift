@@ -81,7 +81,7 @@ class SupportMainCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         pageSupport.subviews.forEach { (subView) in
-            subView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            subView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }
     }
     

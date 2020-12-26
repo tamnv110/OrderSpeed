@@ -40,6 +40,7 @@ class AccountViewController: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
+        
         let header = AccountHeaderView.instanceFromNib()
         header.btnCamera.addTarget(self, action: #selector(eventChooseChangeAvatar), for: .touchUpInside)
         header.frame = CGRect(x: 0, y: 0, width: tbAccount.frame.width, height: 230)
@@ -116,7 +117,7 @@ class AccountViewController: MainViewController {
         if typeAcc == 0 {
             arrInfoUser = [("Cập nhật họ tên", user.fullname, 0), ("Cập nhật điện thoại", user.phoneNumber, 1), ("Cập nhật email", user.email, 2), ("Đổi mật khẩu", "Đổi mật khẩu", 110), ("Đăng xuất", "Đăng xuất", 3)]
         } else {
-            arrInfoUser = [("Họ tên", user.fullname, 0), ("Số điện thoại", user.phoneNumber, 1), ("Email", user.email, 2), ("Đăng xuất", "Đăng xuất", 3)]
+            arrInfoUser = [("Họ tên", user.fullname, 0), ("Số điện thoại", user.phoneNumber, 1), (user.email.isEmpty ? "Cập nhật email" : "Email", user.email, 2), ("Đăng xuất", "Đăng xuất", 3)]
         }
             
     }
@@ -146,20 +147,15 @@ class AccountViewController: MainViewController {
     }
 
     func showAlertChangeInfo(_ sContent: String, nType: Int) {
-        guard let userID = self.appDelegate.user?.userID else { return }
+        guard let user = self.appDelegate.user else { return }
         var sContentShow = ""
-        var fieldUpdate = ""
         if nType == 0 {
             sContentShow = "Nhập họ tên"
-            fieldUpdate = "user_name"
         } else if nType == 1 {
             sContentShow = "Nhập số điện thoại"
-            fieldUpdate = "phone"
         } else if nType == 2 {
             sContentShow = "Nhập email"
-            fieldUpdate = "email"
         }
-
         let alert = UIAlertController(title: "Thay đổi thông tin", message: sContentShow, preferredStyle: .alert)
         alert.addTextField { (tf) in
             tf.text = sContent
@@ -171,34 +167,73 @@ class AccountViewController: MainViewController {
         alert.addAction(UIAlertAction(title: "Thay đổi", style: .default, handler: { [weak self](action) in
             if let tf = alert.textFields?.first {
                 guard let inputData = tf.text, !inputData.isEmpty else {return}
-                self?.showProgressHUD("Cập nhật...")
-                self?.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).updateData([fieldUpdate: inputData]) { [weak self](error) in
-                    self?.hideProgressHUD()
-                    if let error = error {
-                        print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error: \(error.localizedDescription)")
-                        self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
-                            
-                        })
-                    } else {
-                        if nType == 0 {
-                            self?.appDelegate.user?.fullname = inputData
-                        } else if nType == 2 {
-                            self?.appDelegate.user?.email = inputData
-                        } else {
-                            self?.appDelegate.user?.phoneNumber = inputData
-                        }
-                        if let user = self?.appDelegate.user {
-                            self?.setupInfoShow(user)
-                            Tools.saveUserInfo(user)
-                        }
-                        
-                        DispatchQueue.main.async {
-                            self?.tbAccount.reloadData()
-                        }
-                    }
+                if nType == 2 && !user.email.isEmpty {
+                    self?.showAlertUpdateEmailExist(user.email, emailNew: inputData)
+                } else {
+                    self?.updateData(user.userID, inputData: inputData, nType: nType)
                 }
             }
         }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func updateData(_ userID: String, inputData: String, nType: Int) {
+        guard let user = self.appDelegate.user else { return }
+        let userID = user.userID
+        self.showProgressHUD("Cập nhật...")
+        var fieldUpdate = ""
+        if nType == 0 {
+            fieldUpdate = "user_name"
+        } else if nType == 1 {
+            fieldUpdate = "phone"
+        } else if nType == 2 {
+            fieldUpdate = "email"
+        }
+        self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).updateData([fieldUpdate: inputData]) { [weak self](error) in
+            self?.hideProgressHUD()
+            if let error = error {
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error: \(error.localizedDescription)")
+                self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
+                    
+                })
+            } else {
+                if nType == 0 {
+                    user.fullname = inputData
+                } else if nType == 2 {
+                    user.email = inputData
+                } else {
+                    user.phoneNumber = inputData
+                }
+                self?.setupInfoShow(user)
+                Tools.saveUserInfo(user)
+                
+                DispatchQueue.main.async {
+                    self?.tbAccount.reloadData()
+                }
+            }
+        }
+    }
+    
+    func showAlertUpdateEmailExist(_ emailOld: String, emailNew: String) {
+        let alert = UIAlertController(title: "Thông báo", message: "Để thay đổi email bạn cần xác thực để thực hiện việc thay đổi. Mã xác thực sẽ được gửi email hiện tại: \(emailOld). ", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Hủy", style: .cancel, handler: nil)
+        let continute = UIAlertAction(title: "Lấy mã", style: .default) { (action) in
+            self.showAlertActiveCode(emailNew)
+        }
+        alert.addAction(cancel)
+        alert.addAction(continute)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertActiveCode(_ email: String) {
+        let alert = UIAlertController(title: "Thông báo", message: "Nhập mã xác thực trong email của bạn", preferredStyle: .alert)
+        alert.addTextField { (tf) in
+            tf.placeholder = "Mã xác thực"
+        }
+        let continute = UIAlertAction(title: "Tiếp tục", style: .default) { (action) in
+            print("\(self.TAG) - \(#function) - \(#line) - email : \(email) - code : \(alert.textFields?.first?.text)")
+        }
+        alert.addAction(continute)
         self.present(alert, animated: true, completion: nil)
     }
     

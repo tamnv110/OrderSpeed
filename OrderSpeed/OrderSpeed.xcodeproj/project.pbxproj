@@ -81,6 +81,11 @@
 		E78A546C2514C1A8009351FC /* OrderStatusTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78A546A2514C1A8009351FC /* OrderStatusTableCell.xib */; };
 		E78A546E2514D275009351FC /* DetailOrderStatusSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78A546D2514D275009351FC /* DetailOrderStatusSectionView.swift */; };
 		E78A54702514D27F009351FC /* DetailOrderStatusSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78A546F2514D27F009351FC /* DetailOrderStatusSectionView.xib */; };
+		E799AF1725908C9A0084A00E /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799AF1525908C9A0084A00E /* WalletViewController.swift */; };
+		E799AF1C259092230084A00E /* WalletHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799AF1B259092230084A00E /* WalletHeaderView.swift */; };
+		E799AF1F2590922E0084A00E /* WalletHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E799AF1E2590922E0084A00E /* WalletHeaderView.xib */; };
+		E799AF2425909AEA0084A00E /* WalletTransactionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799AF2225909AEA0084A00E /* WalletTransactionTableCell.swift */; };
+		E799AF2525909AEA0084A00E /* WalletTransactionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E799AF2325909AEA0084A00E /* WalletTransactionTableCell.xib */; };
 		E7A0E63C25073501003B2040 /* ImageProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0E63A25073501003B2040 /* ImageProductCollectionViewCell.swift */; };
 		E7A0E63D25073501003B2040 /* ImageProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A0E63B25073501003B2040 /* ImageProductCollectionViewCell.xib */; };
 		E7A0E65325073FB8003B2040 /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A0E64D25073FB8003B2040 /* PhotoCollectionViewCell.xib */; };
@@ -121,6 +126,14 @@
 		E7D91338252B14B40096D0B7 /* ListInfomationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D91336252B14B40096D0B7 /* ListInfomationTableCell.xib */; };
 		E7D9133D252B2FD40096D0B7 /* OrderStatusOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D9133B252B2FD40096D0B7 /* OrderStatusOptionViewController.swift */; };
 		E7D9133E252B2FD40096D0B7 /* OrderStatusOptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D9133C252B2FD40096D0B7 /* OrderStatusOptionViewController.xib */; };
+		E7D963C52592ECC800974FE6 /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D963C42592ECC800974FE6 /* TransactionModel.swift */; };
+		E7D963C9259341EC00974FE6 /* NapTienViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D963C7259341EC00974FE6 /* NapTienViewController.swift */; };
+		E7D963CA259341EC00974FE6 /* NapTienViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D963C8259341EC00974FE6 /* NapTienViewController.xib */; };
+		E7D963CE25935A9E00974FE6 /* RutTienViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D963CC25935A9E00974FE6 /* RutTienViewController.swift */; };
+		E7D963CF25935A9E00974FE6 /* RutTienViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D963CD25935A9E00974FE6 /* RutTienViewController.xib */; };
+		E7D963D62595E16B00974FE6 /* banks_goc.json in Resources */ = {isa = PBXBuildFile; fileRef = E7D963D52595E16A00974FE6 /* banks_goc.json */; };
+		E7D963DA2595E19400974FE6 /* ListBanksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D963D82595E19400974FE6 /* ListBanksViewController.swift */; };
+		E7D963DB2595E19400974FE6 /* ListBanksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D963D92595E19400974FE6 /* ListBanksViewController.xib */; };
 		E7F05EDE2518A75500A5352B /* ReceiverInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F05EDC2518A75500A5352B /* ReceiverInfoTableCell.swift */; };
 		E7F05EDF2518A75600A5352B /* ReceiverInfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */; };
 		E7F05EE32518A86800A5352B /* AccountReceiverTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */; };
@@ -218,6 +231,11 @@
 		E78A546A2514C1A8009351FC /* OrderStatusTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStatusTableCell.xib; sourceTree = "<group>"; };
 		E78A546D2514D275009351FC /* DetailOrderStatusSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOrderStatusSectionView.swift; sourceTree = "<group>"; };
 		E78A546F2514D27F009351FC /* DetailOrderStatusSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailOrderStatusSectionView.xib; sourceTree = "<group>"; };
+		E799AF1525908C9A0084A00E /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		E799AF1B259092230084A00E /* WalletHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHeaderView.swift; sourceTree = "<group>"; };
+		E799AF1E2590922E0084A00E /* WalletHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHeaderView.xib; sourceTree = "<group>"; };
+		E799AF2225909AEA0084A00E /* WalletTransactionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransactionTableCell.swift; sourceTree = "<group>"; };
+		E799AF2325909AEA0084A00E /* WalletTransactionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletTransactionTableCell.xib; sourceTree = "<group>"; };
 		E7A0E63A25073501003B2040 /* ImageProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		E7A0E63B25073501003B2040 /* ImageProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		E7A0E64D25073FB8003B2040 /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -258,6 +276,14 @@
 		E7D91336252B14B40096D0B7 /* ListInfomationTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListInfomationTableCell.xib; sourceTree = "<group>"; };
 		E7D9133B252B2FD40096D0B7 /* OrderStatusOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatusOptionViewController.swift; sourceTree = "<group>"; };
 		E7D9133C252B2FD40096D0B7 /* OrderStatusOptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStatusOptionViewController.xib; sourceTree = "<group>"; };
+		E7D963C42592ECC800974FE6 /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		E7D963C7259341EC00974FE6 /* NapTienViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapTienViewController.swift; sourceTree = "<group>"; };
+		E7D963C8259341EC00974FE6 /* NapTienViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NapTienViewController.xib; sourceTree = "<group>"; };
+		E7D963CC25935A9E00974FE6 /* RutTienViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutTienViewController.swift; sourceTree = "<group>"; };
+		E7D963CD25935A9E00974FE6 /* RutTienViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RutTienViewController.xib; sourceTree = "<group>"; };
+		E7D963D52595E16A00974FE6 /* banks_goc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = banks_goc.json; sourceTree = "<group>"; };
+		E7D963D82595E19400974FE6 /* ListBanksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBanksViewController.swift; sourceTree = "<group>"; };
+		E7D963D92595E19400974FE6 /* ListBanksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListBanksViewController.xib; sourceTree = "<group>"; };
 		E7F05EDC2518A75500A5352B /* ReceiverInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverInfoTableCell.swift; sourceTree = "<group>"; };
 		E7F05EDD2518A75500A5352B /* ReceiverInfoTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiverInfoTableCell.xib; sourceTree = "<group>"; };
 		E7F05EE12518A86800A5352B /* AccountReceiverTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReceiverTableCell.swift; sourceTree = "<group>"; };
@@ -329,6 +355,8 @@
 				E7D5E45C25185E32004CF16A /* AccountHeaderView.swift */,
 				E7D5E45F25185E3B004CF16A /* AccountHeaderView.xib */,
 				E774E0B425243ACE00CE49B3 /* ToastView.swift */,
+				E799AF1B259092230084A00E /* WalletHeaderView.swift */,
+				E799AF1E2590922E0084A00E /* WalletHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,6 +364,7 @@
 		E748BA7C2503CA7C00612050 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				E799AF2125909ACA0084A00E /* Wallet */,
 				E748BA7D2503CAC500612050 /* SupportMainCell.swift */,
 				E748BA7E2503CAC500612050 /* SupportMainCell.xib */,
 				E748BA812503CCBA00612050 /* SupportCollectionCell.swift */,
@@ -414,6 +443,7 @@
 				E770145D251DDBF6004AB7E3 /* ProductSiteModel.swift */,
 				E737F3272525CE6F002B0357 /* NotificationModel.swift */,
 				E7D270F1254BCA1E00F47460 /* ProductOSModel.swift */,
+				E7D963C42592ECC800974FE6 /* TransactionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -507,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				E7899C4E252423B300B723BA /* OrderSpeed.entitlements */,
+				E7D963D52595E16A00974FE6 /* banks_goc.json */,
 				E77830742501E0C10005D59C /* View&Cell */,
 				E7A0E63E25073F8B003B2040 /* ViewController */,
 				E75693E42501293F0017BA48 /* Model */,
@@ -533,9 +564,33 @@
 			path = YeuCauHoTroVC;
 			sourceTree = "<group>";
 		};
+		E799AF1425908C7B0084A00E /* WalletVC */ = {
+			isa = PBXGroup;
+			children = (
+				E799AF1525908C9A0084A00E /* WalletViewController.swift */,
+				E7D963C7259341EC00974FE6 /* NapTienViewController.swift */,
+				E7D963C8259341EC00974FE6 /* NapTienViewController.xib */,
+				E7D963CC25935A9E00974FE6 /* RutTienViewController.swift */,
+				E7D963CD25935A9E00974FE6 /* RutTienViewController.xib */,
+				E7D963D82595E19400974FE6 /* ListBanksViewController.swift */,
+				E7D963D92595E19400974FE6 /* ListBanksViewController.xib */,
+			);
+			path = WalletVC;
+			sourceTree = "<group>";
+		};
+		E799AF2125909ACA0084A00E /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				E799AF2225909AEA0084A00E /* WalletTransactionTableCell.swift */,
+				E799AF2325909AEA0084A00E /* WalletTransactionTableCell.xib */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
 		E7A0E63E25073F8B003B2040 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E799AF1425908C7B0084A00E /* WalletVC */,
 				E7B2F28D2500943E00F1F26A /* MainViewController.swift */,
 				E737F31B2525C952002B0357 /* NotificationVC */,
 				E7C012FA2519FED800E8FD8B /* InfomationVC */,
@@ -690,11 +745,13 @@
 				E7D9133E252B2FD40096D0B7 /* OrderStatusOptionViewController.xib in Resources */,
 				E7F1B7592547090600C958E6 /* ProductTMDTTableCell.xib in Resources */,
 				E7C01304251A1C5800E8FD8B /* InfomationCollectionCell.xib in Resources */,
+				E799AF2525909AEA0084A00E /* WalletTransactionTableCell.xib in Resources */,
 				E778307C250225200005D59C /* HomeOptionCollectionViewCell.xib in Resources */,
 				E7F1B7652547B95100C958E6 /* ListProductViewController.xib in Resources */,
 				E7D91338252B14B40096D0B7 /* ListInfomationTableCell.xib in Resources */,
 				E748BA802503CAC500612050 /* SupportMainCell.xib in Resources */,
 				E76B20A82511CA060041EB20 /* ChooseDeliveryViewController.xib in Resources */,
+				E7D963CA259341EC00974FE6 /* NapTienViewController.xib in Resources */,
 				E7B2F29D2500950A00F1F26A /* LoginViewController.xib in Resources */,
 				E748BA842503CCBA00612050 /* SupportCollectionCell.xib in Resources */,
 				E77830782501E0E10005D59C /* SupportTableViewCell.xib in Resources */,
@@ -722,16 +779,20 @@
 				E7A0E63D25073501003B2040 /* ImageProductCollectionViewCell.xib in Resources */,
 				E77F7C3B25008CB1001A7B7A /* Assets.xcassets in Resources */,
 				E7783085250241F60005D59C /* NEWSTableViewCell.xib in Resources */,
+				E7D963CF25935A9E00974FE6 /* RutTienViewController.xib in Resources */,
 				E78A545A25136B64009351FC /* RequestSupportViewController.xib in Resources */,
 				E7C316D4250878F3007F712B /* PaymenterTableCell.xib in Resources */,
 				E7F05EE42518A86800A5352B /* AccountReceiverTableCell.xib in Resources */,
 				E7C316D825087B1B007F712B /* CheckOrderTableCell.xib in Resources */,
+				E799AF1F2590922E0084A00E /* WalletHeaderView.xib in Resources */,
 				E76EF6662515CD300052474F /* RequestSupportHeaderView.xib in Resources */,
 				E77F7C3625008CAC001A7B7A /* Main.storyboard in Resources */,
+				E7D963D62595E16B00974FE6 /* banks_goc.json in Resources */,
 				E76B20B5251201950041EB20 /* ManagerOrderTableCell.xib in Resources */,
 				E770145B251C4FCF004AB7E3 /* DetailInfomationViewController.xib in Resources */,
 				E748BA882503D38300612050 /* HomeHeaderSectionView.xib in Resources */,
 				E737F38025270FB2002B0357 /* CustomBrowserViewController.xib in Resources */,
+				E7D963DB2595E19400974FE6 /* ListBanksViewController.xib in Resources */,
 				E75693E12500E7670017BA48 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,7 +867,9 @@
 				E7B2F29C2500950A00F1F26A /* LoginViewController.swift in Sources */,
 				E7A0E65D2507C6BE003B2040 /* OrderInfoViewController.swift in Sources */,
 				E76B20BC25120AC00041EB20 /* AccountViewController.swift in Sources */,
+				E7D963C9259341EC00974FE6 /* NapTienViewController.swift in Sources */,
 				E773FACB2510C7C0003E0EFC /* OrderProductDataModel.swift in Sources */,
+				E799AF1725908C9A0084A00E /* WalletViewController.swift in Sources */,
 				E737F3242525CCD1002B0357 /* NotificationTableCell.swift in Sources */,
 				E7B2F297250094A000F1F26A /* CustomTextViewPlaceHolder.swift in Sources */,
 				E77F7C3925008CAC001A7B7A /* OrderSpeed.xcdatamodeld in Sources */,
@@ -840,12 +903,14 @@
 				E7B2F2902500948200F1F26A /* Tools.swift in Sources */,
 				E7F1B7582547090600C958E6 /* ProductTMDTTableCell.swift in Sources */,
 				E75693E02500E7670017BA48 /* RegisterViewController.swift in Sources */,
+				E7D963CE25935A9E00974FE6 /* RutTienViewController.swift in Sources */,
 				E78A545925136B64009351FC /* RequestSupportViewController.swift in Sources */,
 				E77F7C2D25008CAC001A7B7A /* AppDelegate.swift in Sources */,
 				E78A546025146020009351FC /* OrderStatusModel.swift in Sources */,
 				E7D270F2254BCA1E00F47460 /* ProductOSModel.swift in Sources */,
 				E7783084250241F60005D59C /* NEWSTableViewCell.swift in Sources */,
 				E7F1B79825490B4D00C958E6 /* OrderProductViewController.swift in Sources */,
+				E7D963C52592ECC800974FE6 /* TransactionModel.swift in Sources */,
 				E76B20B4251201950041EB20 /* ManagerOrderTableCell.swift in Sources */,
 				E7A0E63C25073501003B2040 /* ImageProductCollectionViewCell.swift in Sources */,
 				E7F05EDE2518A75500A5352B /* ReceiverInfoTableCell.swift in Sources */,
@@ -858,6 +923,7 @@
 				E7C316E02508D891007F712B /* ShowTitleTableCell.swift in Sources */,
 				E7A0E65525073FB8003B2040 /* AlbumOptionsCell.swift in Sources */,
 				E7F1B7692547BDE200C958E6 /* DetailProductViewController.swift in Sources */,
+				E799AF1C259092230084A00E /* WalletHeaderView.swift in Sources */,
 				E737F3282525CE6F002B0357 /* NotificationModel.swift in Sources */,
 				E7F1B7642547B95100C958E6 /* ListProductViewController.swift in Sources */,
 				E76B20A22511C0C50041EB20 /* EditOrderViewController.swift in Sources */,
@@ -873,9 +939,11 @@
 				E7A0E65825073FB8003B2040 /* PhotoCollectionViewCell.swift in Sources */,
 				E77F7C2F25008CAC001A7B7A /* SceneDelegate.swift in Sources */,
 				E737F31E2525C978002B0357 /* NotificationViewController.swift in Sources */,
+				E7D963DA2595E19400974FE6 /* ListBanksViewController.swift in Sources */,
 				E78A546E2514D275009351FC /* DetailOrderStatusSectionView.swift in Sources */,
 				E748BA922503E0BE00612050 /* CreateOrderViewController.swift in Sources */,
 				E710BD1625387DC600948097 /* LegalViewController.swift in Sources */,
+				E799AF2425909AEA0084A00E /* WalletTransactionTableCell.swift in Sources */,
 				E7D5E45D25185E32004CF16A /* AccountHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1031,7 +1099,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1054,7 +1122,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

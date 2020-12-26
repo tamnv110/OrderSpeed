@@ -63,9 +63,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func connectGetLabel() {
         Firestore.firestore().collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
-                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String {
-                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                        if apVer == sOnVer {
+                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String, let dOnVer = Double(sOnVer) {
+                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let dApVer = Double(apVer) {
+                        if dApVer <= dOnVer {
                             Tools.NDT_LABEL = tiGia
                         } else {
                             Tools.NDT_LABEL = ""
@@ -84,7 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             isConnect = true
             connectGetCurrencyRate()
             connectGetFeeSercive()
-            connectGetLabel()
+//            connectGetLabel()
         }
     }
 

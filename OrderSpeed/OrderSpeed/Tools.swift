@@ -22,6 +22,7 @@ enum OrderFolderName: String {
     case status = "Status"
     case settings = "Settings"
     case notification = "Notification"
+    case transaction = "Transactions"
 }
 
 extension UIButton {
