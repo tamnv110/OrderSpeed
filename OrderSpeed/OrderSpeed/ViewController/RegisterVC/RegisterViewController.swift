@@ -204,6 +204,22 @@ class RegisterViewController: MainViewController {
     }
     
     func createDictionaryAndRegister(_ uid:String) {
+        let codeOrder = Tools.randomUserCode()
+        checkUserCodeExists(codeOrder, uid: uid)
+    }
+    
+    func checkUserCodeExists(_ code: String, uid: String) {
+        self.dbFireStore.collection("OrderProduct").whereField("code", isEqualTo: code).getDocuments { [weak self](querySnapshot, error) in
+            if let documents = querySnapshot?.documents.count, documents > 0 {
+                let codeOrder = Tools.randomUserCode()
+                self?.checkUserCodeExists(codeOrder, uid: uid)
+            } else {
+                self?.createUserInfo(code, uid: uid)
+            }
+        }
+    }
+    
+    func createUserInfo(_ code: String, uid: String) {
         var queryable = [String]()
         let userName = tfName.text ?? ""
         if userName.contains(" ") {
@@ -215,7 +231,7 @@ class RegisterViewController: MainViewController {
             queryable.append(userName.lowercased())
         }
         
-        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "phone_number":tfPhone.text ?? "", "avatar": "", "address": "", "city_name": "", "district_name": "", "isEnable":true, "apn_key": "", "receiver_name": "", "typeAcc": 2, "type": "customer", "total_money": 0.0]
+        let registerDic:[String : Any] = ["uid":uid, "email":tfEmail.text ?? "","user_name":userName, "queryable":queryable, "phone_number":tfPhone.text ?? "", "avatar": "", "address": "", "city_name": "", "district_name": "", "isEnable":true, "apn_key": "", "receiver_name": "", "typeAcc": 2, "type": "customer", "total_money": 0.0, "code": code]
         let dbBatch = self.dbFireStore.batch()
         let refUser = self.dbFireStore.collection("User").document(uid)
         dbBatch.setData(registerDic, forDocument: refUser)
@@ -238,7 +254,7 @@ class RegisterViewController: MainViewController {
         }
         
         debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
-        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0)
+        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0, code: dict["code"] as? String ?? "")
         user.showInfo()
         Tools.saveUserInfo(user)
         self.appDelegate.user = user

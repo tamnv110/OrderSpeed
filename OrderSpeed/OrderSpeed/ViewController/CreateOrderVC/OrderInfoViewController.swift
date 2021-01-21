@@ -61,6 +61,8 @@ class OrderInfoViewController: MainViewController {
     var orderEdit: OrderProductDataModel?
     var typeEdit = 0
     var arrImageDelete: [String]?
+    var orderCreateNew: OrderProductDataModel?
+    var pushPayment = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,6 +159,15 @@ class OrderInfoViewController: MainViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NOTIFICATION_CHOOSE_DEPOSIT_MONEY"), object: nil, queue: .main) { [weak self](notification) in
+            self?.pushPayment = true
+            if let order = self?.orderCreateNew {
+                let vc = StatusOrderViewController(nibName: "StatusOrderViewController", bundle: nil)
+                vc.orderProduct = order
+                vc.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     @objc func eventChooseDoneEditOrder(_ sender: Any) {
@@ -174,7 +185,9 @@ class OrderInfoViewController: MainViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationItem.title = "Sửa thông tin"
+        if !pushPayment {
+            self.navigationItem.title = "Sửa thông tin"
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -331,6 +344,7 @@ class OrderInfoViewController: MainViewController {
         
         let refCol = self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue)
         let refOrder = refCol.document()
+        order.idOrder = refOrder.documentID
         print("\(TAG) - \(#function) - \(#line) - documentID : \(refOrder.documentID)")
         let refDoc = refCol.document(refOrder.documentID)
         let batch = self.dbFireStore.batch()
@@ -437,6 +451,7 @@ class OrderInfoViewController: MainViewController {
                     print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
                     self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {})
                 } else {
+                    self?.orderCreateNew = order
                     self?.showAlertController(.showSuccess, message: codeOrder, title: "")
                 }
             }
@@ -524,14 +539,10 @@ class OrderInfoViewController: MainViewController {
             batch.commit { [weak self](error) in
                 self?.hideProgressHUD()
                 if let _ = error {
-                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau", completion: {
-                        
-                    })
+                    self?.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau", completion: {})
                 } else {
                     self?.navigationItem.rightBarButtonItem?.isEnabled = false
-                    self?.showAlertView("Sửa đơn hàng thành công.\r\nChúng tôi sẽ cập nhật và liên hệ với bạn.", completion: {
-                        
-                    })
+                    self?.showAlertView("Sửa đơn hàng thành công.\r\nChúng tôi sẽ cập nhật và liên hệ với bạn.", completion: {})
                 }
             }
         }

@@ -23,6 +23,7 @@ enum OrderFolderName: String {
     case settings = "Settings"
     case notification = "Notification"
     case transaction = "Transactions"
+    case userOTP = "UserOTP"
 }
 
 extension UIButton {
@@ -202,15 +203,27 @@ class Tools {
         return dateFormatter.string(from: date)
     }
     
+    static func convertDateFromString(_ date: String, dateFormat: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.date(from: date)
+    }
+    
     static func convertCurrencyFromString(input: String) -> String {
+        var inputTemp = input
+        var status = ""
+        if input.hasPrefix("-") {
+            status = "-"
+            inputTemp = input.replacingOccurrences(of: "-", with: "")
+        }
         var head = ""
         var tail = ""
-        if input.contains(".") {
-            let split = input.components(separatedBy: ".")
+        if inputTemp.contains(".") {
+            let split = inputTemp.components(separatedBy: ".")
             head = split.first ?? ""
             tail = split.last ?? ""
         } else {
-            head = input
+            head = inputTemp
         }
         let sResult = head.replacingOccurrences(of: ",", with: "")
         var arrResult = Array(sResult)
@@ -223,12 +236,22 @@ class Tools {
             }
         }
         let result = String(arrResult) + (tail.isEmpty ? "" : ".\(tail)")
-        return result
+        return status + result
     }
     
     static func randomOrderCode() -> String {
         let random = Int.random(in: 100000..<1000000)
         return "DH\(random)"
+    }
+    
+    static func randomUserCode() -> String {
+        let random = Int.random(in: 100000..<1000000)
+        return "KH\(random)"
+    }
+    
+    static func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
     static func openMessengerApp(_ userID: String) {

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import Firebase
+import SwiftyJSON
 
 class StatusOrderViewController: MainViewController {
 
@@ -14,6 +17,8 @@ class StatusOrderViewController: MainViewController {
     
     @IBOutlet weak var btnOptionJourney: UIButton!
     @IBOutlet weak var btnOptionSupport: UIButton!
+    @IBOutlet weak var btnThanhToan: UIButton!
+    
     var orderProduct: OrderProductDataModel?
     var orderID: String?
     var arrProducts = [ProductModel]()
@@ -23,6 +28,7 @@ class StatusOrderViewController: MainViewController {
     
     var typeOption = 0
     var sNguoiNhan = ""
+    var isConnectGetBalance = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +47,7 @@ class StatusOrderViewController: MainViewController {
     }
 
     @IBAction func eventChangeOption(_ sender: UIButton) {
-        let arrBtn = [btnOptionJourney!, btnOptionSupport!]
+        let arrBtn = [btnOptionJourney!, btnOptionSupport!, btnThanhToan!]
         for (index, btn) in arrBtn.enumerated() {
             btn.backgroundColor = Tools.hexStringToUIColor(hex: "#EDEBEB")
             btn.setTitleColor(.black, for: .normal)
@@ -55,8 +61,12 @@ class StatusOrderViewController: MainViewController {
         DispatchQueue.main.async {
             self.tbStatus.reloadData()
         }
+        print("\(TAG) - \(#function) - \(#line) - typeOption : \(typeOption)")
         if typeOption == 1 && arrSupport.count == 0 {
             connectGetSupport()
+        }
+        if typeOption == 2 && !isConnectGetBalance {
+            connectGetBalance()
         }
     }
     
@@ -66,11 +76,147 @@ class StatusOrderViewController: MainViewController {
             header.frame = CGRect(x: 0, y: 0, width: tbStatus.frame.width, height: 160)
             tbStatus.tableHeaderView = header
             header.lblStatus.text = orderProduct?.status
-        } else {
+        } else if typeOption == 1 {
             let header = RequestSupportHeaderView.instanceFromNib()
             header.btnSend.addTarget(self, action: #selector(eventChooseSendRequestSupport(_:)), for: .touchUpInside)
             header.frame = CGRect(x: 0, y: 0, width: tbStatus.frame.width, height: 250)
             tbStatus.tableHeaderView = header
+        } else {
+            let header = PaymentOrderHeaderView.instanceFromNib()
+            header.frame = CGRect(x: 0, y: 0, width: tbStatus.frame.width, height: 285)
+            tbStatus.tableHeaderView = header
+            header.btnGetCode.addTarget(self, action: #selector(eventChooseGetCode(_:)), for: .touchUpInside)
+            header.btnPayment.addTarget(self, action: #selector(eventChoosePaymentOrder(_:)), for: .touchUpInside)
+            let dBalance = appDelegate.user?.totalMoney ?? 0
+            header.lblBalance.text = Tools.convertCurrencyFromString(input: String(format: "%.0f", dBalance)) + " đ"
+            header.lblTitle.text = "Thanh toán \(orderProduct?.code ?? "")"
+        }
+    }
+    
+    @objc func eventChooseGetCode(_ sender: UIButton) {
+        self.view.endEditing(true)
+        guard let user = self.appDelegate.user else { return }
+        if let header = tbStatus.tableHeaderView as? PaymentOrderHeaderView {
+            header.startTimer()
+        }
+        self.showProgressHUD("Lấy OTP...")
+        let paramter = ["email": user.email, "uid": user.userID]
+        Alamofire.request("http://orderspeed.vn/api/user/otp", method: .post, parameters: paramter, encoding: JSONEncoding.default).responseData { [weak self](response) in
+            self?.hideProgressHUD()
+            switch response.result {
+            case .success(let data):
+                do {
+                    let json = try JSON(data: data)
+                    if let msg = json["message"].string {
+                        self?.showAlertView(msg, completion: {
+
+                        })
+                    }
+                } catch {
+                    print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                }
+            case .failure(let error):
+                print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    @objc func eventChoosePaymentOrder(_ sender: UIButton) {
+        self.view.endEditing(true)
+        guard let user = self.appDelegate.user, let order = orderProduct else { return }
+        if user.totalMoney <= 0 {
+            self.showAlertView("Số dư trong tài khoản không đủ để sử dụng chức năng này.") {
+
+            }
+            return
+        }
+        guard let header = tbStatus.tableHeaderView as? PaymentOrderHeaderView, header.checkInputData() else {
+            return
+        }
+        let sOTP = header.tfCode.text ?? ""
+        let sMoney = (header.tfMoney.text ?? "").replacingOccurrences(of: ",", with: "")
+        let dMoney = Double(sMoney) ?? 0
+        if dMoney == 0 || dMoney > user.totalMoney {
+            self.showAlertView("Số tiền giao dịch phải lớn hơn 0 đ và nhỏ hơn hoặc bằng số dư trong Ví.") {
+                
+            }
+            return
+        }
+        print("\(TAG) - \(#function) - \(#line) - idOrder : \(order.idOrder!) - dMoney : \(dMoney)")
+        self.showProgressHUD("Thanh toán...")
+        self.connectCheckOTP(sOTP) { (result) in
+            if result {
+                self.dbFireStore.collection(OrderFolderName.rootStatus.rawValue).order(by: "sort", descending: true).getDocuments { [weak self](snapshot, error) in
+                    if let documents = snapshot?.documents {
+                        do {
+                            if let document = try documents.first(where: { (doc) -> Bool in
+                                let jsonData = try JSONSerialization.data(withJSONObject: doc.data(), options: [])
+                                let result = try JSONDecoder().decode(OrderStatusModel.self, from: jsonData)
+                                return result.name.lowercased() == "đã đặt cọc"
+                            }) {
+                                do {
+                                    let jsonData = try JSONSerialization.data(withJSONObject: document.data(), options: [])
+                                    let result = try JSONDecoder().decode(OrderStatusModel.self, from: jsonData)
+                                    self?.updateStatusOrder(order, status: result, completion: { (error) in
+                                        if let _ = error {
+                                        } else {
+                                            self?.connectPaymentOrder(order, dMoney: dMoney)
+                                        }
+                                    })
+                                } catch {
+                                    self?.showErrorCancel()
+                                }
+                            } else {
+                                self?.showErrorCancel()
+                            }
+                        } catch  {
+                            self?.showErrorCancel()
+                        }
+                    } else {
+                        self?.showErrorCancel()
+                    }
+                }
+            } else {
+                self.hideProgressHUD()
+            }
+        }
+        
+    }
+    
+    func connectPaymentOrder(_ order: OrderProductDataModel, dMoney: Double) {
+        let batch = self.dbFireStore.batch()
+        let orderRef = self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue).document(order.idOrder!)
+        batch.updateData(["deposit_money": dMoney], forDocument: orderRef)
+        let transactionRef = self.dbFireStore.collection(OrderFolderName.transaction.rawValue).document()
+        
+        let userCode = appDelegate.user?.code ?? ""
+        let code = Tools.randomString(length: 10)
+        let createAt = Tools.convertDateToString(Date(), dateFormat: "yyyy-MM-dd HH:mm:ss")
+        let balance = appDelegate.user?.totalMoney ?? 0
+        let status = 1
+        let type = 2
+        let content = "Thanh toán đơn hàng \(order.code)"
+        
+        let dict: [String: Any] = ["balance": balance, "change": false, "code": code, "content": content, "money": dMoney, "status": status, "type": type, "created_at": createAt, "updated_at": createAt, "user_code": userCode, "user_id": appDelegate.user?.userID ?? ""]
+        batch.setData(dict, forDocument: transactionRef)
+        
+        let refColUser = self.dbFireStore.collection(OrderFolderName.rootUser.rawValue)
+        let refDocUser = refColUser.document(appDelegate.user?.userID ?? "")
+        let remainBalance = balance - dMoney
+        batch.updateData(["total_money": remainBalance], forDocument: refDocUser)
+        batch.commit { [weak self](error) in
+            self?.hideProgressHUD()
+            if let error = error {
+                print("\(self?.TAG) - \(#function) - \(#line) - error : \(error.localizedDescription)")
+            } else {
+                self?.showAlertView("Thanh toán đơn hàng thành công. Chúng tôi sẽ kiểm tra và liên hệ với bạn.", completion: {
+                    if let user = self?.appDelegate.user {
+                        user.totalMoney = remainBalance
+                        Tools.saveUserInfo(user)
+                        self?.appDelegate.user = user
+                    }
+                })
+            }
         }
     }
     
@@ -133,6 +279,21 @@ class StatusOrderViewController: MainViewController {
     }
     
     func updateCancelOrder(_ order: OrderProductDataModel, status: OrderStatusModel) {
+        updateStatusOrder(order, status: status) { error in
+            if let _ = error {
+                
+            } else {
+                self.navigationItem.rightBarButtonItem = nil
+                self.hideProgressHUD()
+                self.showAlertView("Hủy đơn hàng thành công.", completion: {
+                    NotificationCenter.default.post(name: NSNotification.Name("HUY_DON_HANG"), object: nil)
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
+        }
+    }
+    
+    func updateStatusOrder(_ order: OrderProductDataModel, status: OrderStatusModel, completion: @escaping (_ error: Error?)->()) {
         let batch = self.dbFireStore.batch()
         let orderRef = self.dbFireStore.collection(OrderFolderName.rootOrderProduct.rawValue).document(order.idOrder!)
         let statusRef = orderRef.collection(OrderFolderName.status.rawValue).document()
@@ -145,24 +306,18 @@ class StatusOrderViewController: MainViewController {
         batch.updateData(["status": statusCancel.name, "update_at": timeUpdate], forDocument: orderRef)
         batch.setData(statusCancel.dictionary, forDocument: statusRef)
         batch.commit { [weak self](error) in
-            if let _ = error {
+            if let err = error {
+                completion(err)
                 self?.showErrorCancel()
             } else {
-                self?.navigationItem.rightBarButtonItem = nil
-                self?.hideProgressHUD()
-                self?.showAlertView("Hủy đơn hàng thành công.", completion: {
-                    NotificationCenter.default.post(name: NSNotification.Name("HUY_DON_HANG"), object: nil)
-                    self?.navigationController?.popViewController(animated: true)
-                })
+                completion(nil)
             }
         }
     }
     
     func showErrorCancel() {
         self.hideProgressHUD()
-        self.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {
-            
-        }
+        self.showErrorAlertView("Có lỗi xảy ra, vui lòng thử lại sau.") {}
     }
     
     
@@ -234,12 +389,33 @@ class StatusOrderViewController: MainViewController {
         
     }
     
+    func connectGetBalance() {
+        guard let user = appDelegate.user else { return }
+        showProgressHUD("Lấy số dư ví")
+        self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(user.userID).getDocument { [weak self](snapshot, error) in
+            self?.hideProgressHUD()
+            if let dict = snapshot?.data() {
+                var sAvartar = dict["avatar"] as? String ?? ""
+                if sAvartar.hasPrefix("https://graph.facebook.com") {
+                    sAvartar = "\(sAvartar)?type=large"
+                }
+                
+                debugPrint("\(String(describing: self?.TAG ?? "")) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
+                let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0, code: dict["code"] as? String ?? "")
+                Tools.saveUserInfo(user)
+                self?.appDelegate.user = user
+            }
+            self?.isConnectGetBalance = true
+            self?.createHeaderStatus()
+        }
+    }
+    
     func connectGetSupport() {
         guard let order = orderProduct, let orderID = order.idOrder else {
             return
         }
         self.showProgressHUD("Lấy thông tin...")
-        let docRef: Void = self.dbFireStore.collection(OrderFolderName.rootRequestSupport.rawValue).whereField("order_id", isEqualTo: orderID).getDocuments { [weak self](snapshot, error) in
+        self.dbFireStore.collection(OrderFolderName.rootRequestSupport.rawValue).whereField("order_id", isEqualTo: orderID).getDocuments { [weak self](snapshot, error) in
             self?.hideProgressHUD()
             if let documents = snapshot?.documents {
                 let decoder = JSONDecoder()
@@ -290,7 +466,10 @@ class StatusOrderViewController: MainViewController {
 
 extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return typeOption == 0 ? 2 : 1
+        if typeOption == 0 || typeOption == 2 {
+            return 2
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -309,10 +488,6 @@ extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 0.0001
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
@@ -393,7 +568,6 @@ extension StatusOrderViewController: UITableViewDelegate, UITableViewDataSource 
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "CheckOrderTableCell", for: indexPath) as! CheckOrderTableCell
-//            cell.isShadow = false
             cell.lblTitle.text = "SẢN PHẨM \(indexPath.row + 1)"
             let item = arrProducts[indexPath.row]
             cell.product = item

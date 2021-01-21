@@ -84,7 +84,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             isConnect = true
             connectGetCurrencyRate()
             connectGetFeeSercive()
-//            connectGetLabel()
         }
     }
 

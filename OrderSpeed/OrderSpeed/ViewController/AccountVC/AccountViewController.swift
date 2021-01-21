@@ -115,9 +115,9 @@ class AccountViewController: MainViewController {
     func setupInfoShow(_ user: UserBeer) {
         let typeAcc = (Tools.getObjectFromDefault(Tools.KEY_LOGIN_TYPE) as? Int) ?? 0
         if typeAcc == 0 {
-            arrInfoUser = [("Cập nhật họ tên", user.fullname, 0), ("Cập nhật điện thoại", user.phoneNumber, 1), ("Cập nhật email", user.email, 2), ("Đổi mật khẩu", "Đổi mật khẩu", 110), ("Đăng xuất", "Đăng xuất", 3)]
+            arrInfoUser = [("Mã KH", user.code, -1), ("Cập nhật họ tên", user.fullname, 0), ("Cập nhật điện thoại", user.phoneNumber, 1), ("Cập nhật email", user.email, 2), ("Đổi mật khẩu", "Đổi mật khẩu", 110), ("Đăng xuất", "Đăng xuất", 3)]
         } else {
-            arrInfoUser = [("Họ tên", user.fullname, 0), ("Số điện thoại", user.phoneNumber, 1), (user.email.isEmpty ? "Cập nhật email" : "Email", user.email, 2), ("Đăng xuất", "Đăng xuất", 3)]
+            arrInfoUser = [("Mã KH", user.code, -1), ("Họ tên", user.fullname, 0), ("Số điện thoại", user.phoneNumber, 1), (user.email.isEmpty ? "Cập nhật email" : "Email", user.email, 2), ("Đăng xuất", "Đăng xuất", 3)]
         }
             
     }
@@ -168,7 +168,9 @@ class AccountViewController: MainViewController {
             if let tf = alert.textFields?.first {
                 guard let inputData = tf.text, !inputData.isEmpty else {return}
                 if nType == 2 && !user.email.isEmpty {
-                    self?.showAlertUpdateEmailExist(user.email, emailNew: inputData)
+                    self?.showAlertView("Email của bạn đã tồn tại và không thể thay đổi.", completion: {
+                        
+                    })
                 } else {
                     self?.updateData(user.userID, inputData: inputData, nType: nType)
                 }
@@ -340,6 +342,10 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             if sText.isEmpty {
                 sText = item.0
             }
+            if item.2 == -1 {
+                sText = "\(item.0): \(item.1)"
+                cell.accessoryType = .none
+            }
             if item.2 == 2 {
                 cell.accessoryType = item.1.isEmpty ? .disclosureIndicator : .none
             }
@@ -380,7 +386,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             } else if item.2 == 1 {
                 self.showAlertChangeInfo(self.appDelegate.user?.phoneNumber ?? "", nType: indexPath.row)
             } else if item.2 == 2 {
-                self.showAlertChangeInfo(self.appDelegate.user?.email ?? "", nType: indexPath.row)
+                if appDelegate.user?.email.isEmpty ?? false{
+                    self.showAlertChangeInfo(self.appDelegate.user?.email ?? "", nType: indexPath.row)
+                } else {
+                    self.showAlertView("Email của bạn đã tồn tại và không thể thay đổi.", completion: {
+                        
+                    })
+                }
             }
             else if item.2 == 3 {
                 self.showAlertLogout()

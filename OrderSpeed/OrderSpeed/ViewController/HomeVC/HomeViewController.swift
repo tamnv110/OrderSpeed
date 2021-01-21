@@ -163,17 +163,41 @@ class HomeViewController: MainViewController {
             self.completionRequest.2 = true
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.showAlertController(.showSuccess, message: "123456", title: "")
+        if let user = self.appDelegate.user {
+            connectUserInfo(user.userID) {
+                
+            }
+        }
+    }
+    
+    func connectUserInfo(_ userID: String, completion: @escaping ()->()) {
+        self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).getDocument { (snapshot, error) in
+            if let dict = snapshot?.data() {
+                var sAvartar = dict["avatar"] as? String ?? ""
+                if sAvartar.hasPrefix("https://graph.facebook.com") {
+                    sAvartar = "\(sAvartar)?type=large"
+                }
+                
+                debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
+                let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0, code: dict["code"] as? String ?? "")
+                Tools.saveUserInfo(user)
+                self.appDelegate.user = user
+            }
+            completion()
         }
     }
     
     func connectGetLabel() {
         self.dbFireStore.collection(OrderFolderName.settings.rawValue).document("LabelCurrency").getDocument { (snapshot, error) in
             if let document = snapshot?.data() {
-                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String, let dOnVer = Double(sOnVer) {
-                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let dApVer = Double(apVer) {
-                        if dApVer <= dOnVer {
+                if let tiGia = document["value"] as? String, let sOnVer = document["version"] as? String {
+                    let sTemp1 = sOnVer.replacingOccurrences(of: ".", with: "")
+                    let dOnver = Int(sTemp1) ?? 0
+                    if let apVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                        let sTemp2 = apVer.replacingOccurrences(of: ".", with: "")
+                        let dApVer = Int(sTemp2) ?? 0
+                        print("\(self.TAG) - \(#function) - \(#line) - dOnver : \(dOnver) - dApVer : \(dApVer)")
+                        if dApVer <= dOnver {
                             Tools.NDT_LABEL = tiGia
                         } else {
                             Tools.NDT_LABEL = ""

@@ -90,6 +90,8 @@ class MainViewController: UIViewController {
             vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
             if typeShow == .showSuccess {
                 vc.sOrderCode = message
+                vc.btnClose.setTitle("Tôi sẽ đặt cọc sau", for: .normal)
+                vc.btnClose.setTitleColor(Tools.hexStringToUIColor(hex: "#787878"), for: .normal)
             } else {
                 vc.titleContent = title
                 vc.msgContent = message
@@ -116,6 +118,51 @@ class MainViewController: UIViewController {
                     }
                 }
                 completion(arrProducts, error)
+            }
+        }
+    }
+    
+    //MARK: - Connect Check OTP
+    func connectCheckOTP(_ sOTP: String, completion: @escaping (_ result: Bool) -> ()) {
+        guard let user = self.appDelegate.user else {
+            self.hideProgressHUD()
+            return
+        }
+        let otpRef = self.dbFireStore.collection(OrderFolderName.userOTP.rawValue).document(user.userID)
+        otpRef.getDocument { [weak self](snapshot, error) in
+            if let _ = error {
+                completion(false)
+                self?.showAlertView("Có lỗi xảy ra, vui lòng thử lại sau.", completion: {
+                    
+                })
+            } else if let dict = snapshot?.data() {
+                if let token = dict["token"] as? String, let sCreateDate = dict["created_at"] as? String, let dateCreate = Tools.convertDateFromString(sCreateDate, dateFormat: "yyyy-MM-dd HH:mm:ss") {
+                    print("\(self?.TAG ?? "") - \(#function) - \(#line) - dateCreate : \(dateCreate) - date : \(Date())")
+                    let miliCreate = dateCreate.timeIntervalSince1970
+                    let currentTime = Date().timeIntervalSince1970
+                    let result = CGFloat(currentTime - miliCreate)
+                    print("\(self?.TAG ?? "") - \(#function) - \(#line) - resultTime : \(result)")
+                    if result <= 120 && sOTP == token {
+                        otpRef.delete { (error) in
+                            if let error = error {
+                                print("\(self?.TAG ?? "") - \(#function) - \(#line) - error : \(error.localizedDescription)")
+                            }
+                        }
+                        completion(true)
+                    } else {
+                        self?.showAlertView("Mã OTP không đúng hoặc đã hết hạn. Mỗi mã OTP có hạn trong 2 phút.", completion: {
+                            
+                        })
+                        completion(false)
+                    }
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+                self?.showAlertView("Có lỗi xảy ra hoặc mã OTP không đúng, vui lòng thử lại sau.", completion: {
+                    
+                })
             }
         }
     }

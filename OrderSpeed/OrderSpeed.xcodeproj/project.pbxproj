@@ -68,6 +68,8 @@
 		E77F7C3925008CAC001A7B7A /* OrderSpeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E77F7C3725008CAC001A7B7A /* OrderSpeed.xcdatamodeld */; };
 		E77F7C3B25008CB1001A7B7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E77F7C3A25008CB1001A7B7A /* Assets.xcassets */; };
 		E77F7C3E25008CB1001A7B7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E77F7C3C25008CB1001A7B7A /* LaunchScreen.storyboard */; };
+		E7862C88259C77D50095F779 /* PaymentOrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7862C87259C77D50095F779 /* PaymentOrderHeaderView.swift */; };
+		E7862C8B259C77DF0095F779 /* PaymentOrderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7862C8A259C77DF0095F779 /* PaymentOrderHeaderView.xib */; };
 		E78A545925136B64009351FC /* RequestSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78A545725136B64009351FC /* RequestSupportViewController.swift */; };
 		E78A545A25136B64009351FC /* RequestSupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78A545825136B64009351FC /* RequestSupportViewController.xib */; };
 		E78A545C2513734C009351FC /* SupportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78A545B2513734C009351FC /* SupportModel.swift */; };
@@ -217,6 +219,8 @@
 		E77F7C3A25008CB1001A7B7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E77F7C3D25008CB1001A7B7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E77F7C3F25008CB1001A7B7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7862C87259C77D50095F779 /* PaymentOrderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOrderHeaderView.swift; sourceTree = "<group>"; };
+		E7862C8A259C77DF0095F779 /* PaymentOrderHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentOrderHeaderView.xib; sourceTree = "<group>"; };
 		E7899C4E252423B300B723BA /* OrderSpeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OrderSpeed.entitlements; sourceTree = "<group>"; };
 		E78A545725136B64009351FC /* RequestSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSupportViewController.swift; sourceTree = "<group>"; };
 		E78A545825136B64009351FC /* RequestSupportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestSupportViewController.xib; sourceTree = "<group>"; };
@@ -357,6 +361,8 @@
 				E774E0B425243ACE00CE49B3 /* ToastView.swift */,
 				E799AF1B259092230084A00E /* WalletHeaderView.swift */,
 				E799AF1E2590922E0084A00E /* WalletHeaderView.xib */,
+				E7862C87259C77D50095F779 /* PaymentOrderHeaderView.swift */,
+				E7862C8A259C77DF0095F779 /* PaymentOrderHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -736,6 +742,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E748BA8C2503DF4600612050 /* CreateOrderTableViewCell.xib in Resources */,
+				E7862C8B259C77DF0095F779 /* PaymentOrderHeaderView.xib in Resources */,
 				E737F3252525CCD1002B0357 /* NotificationTableCell.xib in Resources */,
 				E7D5E46025185E3C004CF16A /* AccountHeaderView.xib in Resources */,
 				E7A0E65E2507C6BE003B2040 /* OrderInfoViewController.xib in Resources */,
@@ -932,6 +939,7 @@
 				E778307B250225200005D59C /* HomeOptionCollectionViewCell.swift in Sources */,
 				E76B20B1251201100041EB20 /* ManagerOrderViewController.swift in Sources */,
 				E78A54662514B5B1009351FC /* StatusOrderHeaderView.swift in Sources */,
+				E7862C88259C77D50095F779 /* PaymentOrderHeaderView.swift in Sources */,
 				E76B20A72511CA060041EB20 /* ChooseDeliveryViewController.swift in Sources */,
 				E7F05EE32518A86800A5352B /* AccountReceiverTableCell.swift in Sources */,
 				E774E0B525243ACE00CE49B3 /* ToastView.swift in Sources */,
@@ -1099,7 +1107,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1122,7 +1130,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.beerteam.OrderSpeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -64,4 +64,12 @@ class CustomAlertViewController: MainViewController {
         }
     }
     
+    @IBAction func eventChooseDepositMoney(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: NSNotification.Name("NOTIFICATION_CHOOSE_DEPOSIT_MONEY"), object: nil)
+            }
+        }
+        
+    }
 }

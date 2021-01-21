@@ -203,6 +203,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="VNf-3c-Sca"/>
                     <connections>
+                        <outlet property="lblBalance" destination="f26-To-Vpd" id="3e8-EL-zgA"/>
+                        <outlet property="lblName" destination="xl3-3U-S8i" id="n4V-fR-Sh2"/>
                         <outlet property="tblWallet" destination="tHu-bC-amX" id="1Ru-rX-dQ8"/>
                     </connections>
                 </viewController>

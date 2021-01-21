@@ -105,6 +105,9 @@
                                             <integer key="value" value="24"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="eventChooseDepositMoney:" destination="-1" eventType="touchUpInside" id="FIR-O7-2UN"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

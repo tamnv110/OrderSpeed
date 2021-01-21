@@ -17,11 +17,16 @@
      * 2 - Hủy
      */
 import UIKit
+import Firebase
 
 class WalletViewController: MainViewController {
 
     @IBOutlet weak var tblWallet: UITableView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblBalance: UILabel!
+    
     var arrTransaction = [TransactionModel]()
+    var listener: ListenerRegistration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +36,8 @@ class WalletViewController: MainViewController {
         if #available(iOS 11.0, *) {
             tblWallet.contentInsetAdjustmentBehavior = .never
         }
-        connectGetTransaction()
+
+        updateInfoUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,11 +51,27 @@ class WalletViewController: MainViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        connectGetInfo()
+        addListernerInfoUser()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        listener?.remove()
+    }
+    
+    func updateInfoUser() {
+        lblName.text = ""
+        lblBalance.text = ""
+        if let user = self.appDelegate.user {
+            lblName.text = user.fullname
+            lblBalance.text = Tools.convertCurrencyFromString(input: "\(Tools.convertCurrencyFromString(input: String(format: "%.0f", user.totalMoney)))") + " đ"
+        }
     }
 
     func createHeaderWallet() {
@@ -71,13 +93,68 @@ class WalletViewController: MainViewController {
         }
     }
     
-    func connectGetTransaction() {
+    func connectGetInfo() {
         guard let user = self.appDelegate.user else { return }
-        self.showProgressHUD("Lấy dữ liệu...")
-        var userID = user.userID
-        #if DEBUG
-            userID = "03t0Cl73pVRlhJzdXVH0DVWnKkP2"
-        #endif
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.showProgressHUD("Lấy dữ liệu...")
+            let userID = user.userID
+            let dGroup = DispatchGroup()
+//            dGroup.enter()
+//            self.connectGetBalance(userID) {
+//                dGroup.leave()
+//            }
+            dGroup.enter()
+            self.connectGetTransaction(userID) {
+                dGroup.leave()
+            }
+            dGroup.notify(queue: .main) {
+                self.updateInfoUser()
+                self.tblWallet.reloadData()
+                self.hideProgressHUD()
+            }
+        }
+        
+    }
+    
+    func addListernerInfoUser() {
+        guard let user = self.appDelegate.user else { return }
+        listener = self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(user.userID).addSnapshotListener { [weak self](snapshot, error) in
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+            if source == "Server", let data = document.data() {
+                print("\(self?.TAG ?? "") - \(#function) - \(#line) - data : \(data)")
+                self?.updateUserInfo(data)
+                self?.updateInfoUser()
+            }
+        }
+    }
+    
+    func connectGetBalance(_ userID: String, completion: @escaping ()->()) {
+        self.dbFireStore.collection(OrderFolderName.rootUser.rawValue).document(userID).getDocument { (snapshot, error) in
+            if let dict = snapshot?.data() {
+                self.updateUserInfo(dict)
+            }
+            completion()
+        }
+    }
+    
+    func updateUserInfo(_ dict: [String: Any]) {
+        var sAvartar = dict["avatar"] as? String ?? ""
+        if sAvartar.hasPrefix("https://graph.facebook.com") {
+            sAvartar = "\(sAvartar)?type=large"
+        }
+        
+        debugPrint("\(String(describing: self.TAG)) - \(#function) - line : \(#line) - sAvartar : \(sAvartar)")
+        let user = UserBeer(id: dict["uid"] as? String ?? "", email: dict["email"] as? String ?? "", fullname: dict["user_name"] as? String ?? "", avatar: sAvartar, phoneNumber: dict["phone"] as? String ?? "", receiverPhone: dict["receiver_phone"] as? String ?? "", receiverName: dict["receiver_name"] as? String ?? "", address: dict["address"] as? String ?? "", cityName: dict["city_name"] as? String ?? "", districtName: dict["district_name"] as? String ?? "", tokenAPN: dict["apn_key"] as? String ?? "", typeAcc: dict["typeAcc"] as? Int ?? 2, totalMoney: dict["total_money"] as? Double ?? 0.0, code: dict["code"] as? String ?? "")
+        Tools.saveUserInfo(user)
+        self.appDelegate.user = user
+    }
+    
+    func connectGetTransaction(_ userID: String, completion: @escaping ()->()) {
+        self.arrTransaction.removeAll()
         self.dbFireStore.collection(OrderFolderName.transaction.rawValue).whereField("user_id", isEqualTo: userID).getDocuments { [weak self](snapshot, error) in
             if let documents = snapshot?.documents {
                 guard let _self = self else { return }
@@ -98,11 +175,7 @@ class WalletViewController: MainViewController {
             } else {
                 print("\(String(describing: self?.TAG)) - \(#function) - \(#line) - error : \(error?.localizedDescription ?? "")")
             }
-            
-            DispatchQueue.main.async {
-                self?.tblWallet.reloadData()
-                self?.hideProgressHUD()
-            }
+            completion()
         }
     }
 
@@ -120,7 +193,11 @@ class WalletViewController: MainViewController {
         }
         if user.email.isEmpty {
             self.showAlertView("Vui lòng cập nhật email để sử dụng chức năng này.") {
-                
+
+            }
+        } else if user.totalMoney <= 0 {
+            self.showAlertView("Số dư trong ví không đủ để sử dụng chức năng này.") {
+
             }
         } else {
             let vc = RutTienViewController(nibName: "RutTienViewController", bundle: nil)

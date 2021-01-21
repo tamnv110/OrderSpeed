@@ -16,6 +16,7 @@ class UserBeer: NSObject, NSSecureCoding {
     var fullname:String
     var email:String
     var userID:String
+    var code: String
     var avatar:String
     var phoneNumber: String
     var receiverPhone: String
@@ -32,6 +33,7 @@ class UserBeer: NSObject, NSSecureCoding {
         static let roleIDKey = "roleID"
         static let emailKey = "email"
         static let userIDKey = "userID"
+        static let codeKey = "code"
         static let avatarKey = "avatar"
         static let phoneNumberKey = "phoneNumber"
         static let receiverPhoneKey = "receiverPhone"
@@ -44,7 +46,7 @@ class UserBeer: NSObject, NSSecureCoding {
         static let totalMoneyKey = "totalMoney"
     }
     
-    init(id: String, email: String, fullname: String, avatar: String, phoneNumber: String, receiverPhone: String, receiverName: String, address: String, cityName: String, districtName: String, tokenAPN: String, typeAcc: Int, totalMoney: Double) {
+    init(id: String, email: String, fullname: String, avatar: String, phoneNumber: String, receiverPhone: String, receiverName: String, address: String, cityName: String, districtName: String, tokenAPN: String, typeAcc: Int, totalMoney: Double, code: String) {
         self.userID = id
         self.email = email
         self.fullname = fullname
@@ -58,6 +60,7 @@ class UserBeer: NSObject, NSSecureCoding {
         self.tokenAPN = tokenAPN
         self.typeAcc = typeAcc
         self.totalMoney = totalMoney
+        self.code = code
     }
     
     public convenience required init?(coder aDecoder:NSCoder) {
@@ -94,10 +97,13 @@ class UserBeer: NSObject, NSSecureCoding {
         guard let tokenAPNTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.tokenAPNKey) as String? else {
             return nil
         }
+        guard let codeTemp = aDecoder.decodeObject(of: NSString.self, forKey: NSCoderKeys.codeKey) as String? else {
+            return nil
+        }
         let typeAccTemp = aDecoder.decodeInteger(forKey: NSCoderKeys.typeAccKey)
         let dMoney = aDecoder.decodeDouble(forKey: NSCoderKeys.totalMoneyKey)
         
-        self.init(id: id, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, receiverPhone: phoneReceiverTemp, receiverName: receiverNameTemp, address: addressTemp, cityName: cityNameTemp, districtName: districtNameTemp, tokenAPN: tokenAPNTemp, typeAcc: typeAccTemp, totalMoney: dMoney)
+        self.init(id: id, email: emailTemp, fullname: fullnameTemp, avatar: avatarTemp, phoneNumber: phoneNumberTemp, receiverPhone: phoneReceiverTemp, receiverName: receiverNameTemp, address: addressTemp, cityName: cityNameTemp, districtName: districtNameTemp, tokenAPN: tokenAPNTemp, typeAcc: typeAccTemp, totalMoney: dMoney, code: codeTemp)
     }
     
     func encode(with aCoder:NSCoder) -> Void {
@@ -114,6 +120,7 @@ class UserBeer: NSObject, NSSecureCoding {
         aCoder.encode(tokenAPN as NSString, forKey: NSCoderKeys.tokenAPNKey)
         aCoder.encode(typeAcc, forKey: NSCoderKeys.typeAccKey)
         aCoder.encode(totalMoney, forKey: NSCoderKeys.totalMoneyKey)
+        aCoder.encode(code, forKey: NSCoderKeys.codeKey)
     }
     
     func showInfo() -> Void {
